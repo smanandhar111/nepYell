@@ -1,0 +1,11 @@
+<div class="row display-view" *ngIf="products$ | async as prodItems">
+  <div class="repeater" *ngFor="let item of prodItems | prodFilter: filterType | prodPriceFilter: filterPrice | prodColorFilter: filterColor | notSelf: selfId">
+<!--    <a *ngIf="fromWishList" class="remove-item" (click)="removeItem(item.id)"><i class="material-icons">close</i></a>-->
+    <div class="circle" (click)="getProdDetails(item.id)">
+      <img class="prod-img" src="../../../assets/img/{{item.imageUrl}}.jpg" alt="{{item.title}}">
+      <div class="title">{{item.title}}</div>
+      <div class="price">Rs. {{item.price}} </div>
+    </div>
+    <i *ngIf="adminMode" class="material-icons" (click)="copyId(item.id)">camera</i>
+  </div>
+</div>

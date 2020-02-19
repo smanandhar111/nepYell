@@ -1,0 +1,93 @@
+<div class="ProdDisplayComp container" *ngIf="product$ | async as items">
+  <div class="row" *ngFor="let item of items">
+
+    <div class="col-sm-4 img-container row">
+      <div class="primary-img">
+        <img *ngIf="imgCaro === 1" class="prod-img" src="../../../assets/img/{{item.imageUrl}}.jpg"
+             alt="{{item.title}}">
+        <img *ngIf="imgCaro === 2" class="prod-img" src="../../../assets/img/{{item.imageUrlTwo}}.jpg"
+             alt="{{item.title}}">
+        <img *ngIf="imgCaro === 3" class="prod-img" src="../../../assets/img/{{item.imageUrlThree}}.jpg"
+             alt="{{item.title}}">
+        <img *ngIf="imgCaro === 4" class="prod-img" src="../../../assets/img/{{item.imageUrlFour}}.jpg"
+             alt="{{item.title}}">
+      </div>
+
+      <div class="extra-img-thumbnails">
+        <a class="extra-img-link" [ngClass]="{'active': imgCaro === 1}" *ngIf="item.imageUrl" (click)="imgCaros(1)">
+          <img class="prod-img"
+               src="../../../assets/img/{{item.imageUrl}}.jpg"
+               alt="{{item.title}}">
+        </a>
+        <a class="extra-img-link" [ngClass]="{'active': imgCaro === 2}" *ngIf="item.imageUrlTwo" (click)="imgCaros(2)">
+          <img class="prod-img"
+               src="../../../assets/img/{{item.imageUrlTwo}}.jpg"
+               alt="{{item.title}}">
+        </a>
+        <a class="extra-img-link" [ngClass]="{'active': imgCaro === 3}" *ngIf="item.imageUrlThree" (click)="imgCaros(3)">
+          <img class="prod-img"
+               src="../../../assets/img/{{item.imageUrlThree}}.jpg"
+               alt="{{item.title}}">
+        </a>
+
+        <a class="extra-img-link" [ngClass]="{'active': imgCaro === 4}" *ngIf="item.imageUrlFour" (click)="imgCaros(4)">
+          <img class="prod-img"
+               src="../../../assets/img/{{item.imageUrlFour}}.jpg"
+               alt="{{item.title}}">
+        </a>
+      </div>
+    </div>
+    <!--Text-->
+    <div class="col-sm-2"></div>
+    <div class="col-sm-4 details-container" *ngIf="item">
+      <h3 class="title">{{item.title}}</h3>
+
+      <button mat-button class="atwl"
+              *ngIf="!wished"
+              (click)="addToFavClick(item.id, 'wish')">
+        <i class="add material-icons">favorite_border</i>
+      </button>
+      <button class="atwl wished" *ngIf="wished">
+        <i class="add material-icons">favorite</i>
+      </button>
+
+      <div class="description">
+        {{item.description}}
+      </div>
+      <h4>
+        <span *ngIf="item.price">Rs.</span> {{item.price}}
+      </h4>
+
+
+      <button [disabled]="addCartDisabled('cart')" *ngIf="!inCart" class="buy" mat-button (click)="addToFavClick(item.id, 'cart')">
+        <i class="material-icons">add_shopping_cart</i><span>Add to Cart</span>
+      </button>
+
+      <button *ngIf="inCart" class="buy added" mat-button [disabled]="inCart">
+        <i class="material-icons">shopping_cart</i><span>Added to Cart</span>
+      </button>
+
+
+<!--      <button class="atc" mat-button-->
+<!--              [ngClass]="getCartClass()"-->
+<!--              [disabled]="addedToCart"-->
+<!--              (click)="addToCart(item.id)">-->
+<!--        <i class="fa fa-shopping-cart"></i>-->
+<!--        <span *ngIf="!addedToCart">Add to Cart</span>-->
+<!--        <span *ngIf="addedToCart">Added to Cart</span>-->
+<!--      </button>-->
+    </div>
+  </div>
+  <div class="row related-prod">
+    <!--complementaryProd-->
+<!--    <app-gallerize [proditemData]="resArr"></app-gallerize>-->
+
+    <!--SubstituteProd-->
+<!--    <app-gallerize [proditemData]="proditemData"-->
+<!--                   [filterColor]="prodSpColor"-->
+<!--                   [filterType]="prodSpType"-->
+<!--                   [selfId]="selfId">-->
+<!--    </app-gallerize>-->
+  </div>
+
+</div>

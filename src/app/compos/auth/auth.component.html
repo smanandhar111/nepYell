@@ -1,0 +1,20 @@
+<button mat-button class="login-btn" *ngIf="!userLoggedIn" (click)="login()">
+  <i class="material-icons">face</i>
+</button>
+
+<div *ngIf="userLoggedIn" class="logout-menu">
+  <button mat-button [matMenuTriggerFor]="menu" >
+    <span class="user-img-con">
+      <img src="{{authenticatedUserInfo.photoURL}}" alt="">
+    </span>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item
+            (click)="logout()">Logout
+    </button>
+    <button mat-menu-item>Settings</button>
+
+  </mat-menu>
+  <button mat-button><i class="material-icons cart">shopping_cart</i></button>
+  <span class="no-of-cart-items">{{cartLength}}</span>
+</div>

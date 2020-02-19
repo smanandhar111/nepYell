@@ -1,0 +1,177 @@
+
+<div class="PassComp container">
+  <div class="row">
+    <div class="add-prod col-sm-5">
+      <h3>Add a Restaurant</h3>
+
+      <form name="addProd" #addProdForm="ngForm"
+            (ngSubmit)="onSubmit(addProdForm)" class="add-pass-form">
+
+        <!--NAME-->
+        <mat-form-field class="example-full-width">
+          <input matInput required placeholder="Restaurant's Name"
+                 name="name" [(ngModel)]="restItem.name">
+          <a *ngIf="restItem.name" (click)="clearInput($event)"
+             class="clear-input fa fa-times"></a>
+        </mat-form-field>
+        <a class="ref-img" mat-button *ngIf="restItem.name" (click)="referenceImg(restItem.name)">Image Ref</a>
+
+        <!--area-->
+        <mat-form-field>
+          <mat-select required placeholder="Area"
+                      name="area" [(ngModel)]="restItem.location.area">
+            <mat-option *ngFor="let type of locationArea" [value]="type.value">
+              {{type.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!--toal-->
+        <mat-form-field>
+          <mat-select required placeholder="Toal"
+                      name="toal" [(ngModel)]="restItem.location.toal">
+            <mat-option *ngFor="let type of locationToal" [value]="type.value">
+              {{type.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!--Food Type-->
+        <mat-form-field>
+          <mat-select required placeholder="Food Type"
+                      name="foodType" [(ngModel)]="restItem.foodType">
+            <mat-option *ngFor="let type of foodType" [value]="type.value">
+              {{type.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!--RATING-->
+        <mat-form-field class="example-full-width">
+          <input matInput required placeholder="Rating"
+                 name="rating" [(ngModel)]="restItem.rating">
+          <a *ngIf="restItem.rating" (click)="clearInput($event)"
+             class="clear-input fa fa-times"></a>
+        </mat-form-field>
+
+        <!--TakeCreditCard-->
+        <mat-form-field>
+          <mat-select required placeholder="Credit card payment"
+                      name="creditCards" [(ngModel)]="restItem.services.creditCards">
+            <mat-option *ngFor="let type of yesNoType" [value]="type.value">
+              {{type.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!--Store Hours-->
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Store Hours
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <mat-form-field class="example-full-width">
+              <mat-label>Monday</mat-label>
+              <input matInput required
+                     name="imgUrlOne" [(ngModel)]="restItem.storeHours.monday">
+              <a *ngIf="restItem.images.menu.menuOne" (click)="clearInput($event)"
+                 class="clear-input fa fa-times"></a>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <mat-label>Tuesday</mat-label>
+              <input matInput required
+                     name="imgUrlOne" [(ngModel)]="restItem.storeHours.tuesday">
+              <a *ngIf="restItem.images.menu.menuTwo" (click)="clearInput($event)"
+                 class="clear-input fa fa-times"></a>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <mat-label>Wednesday</mat-label>
+              <input matInput required
+                     name="imgUrlOne" [(ngModel)]="restItem.storeHours.wednesday">
+              <a *ngIf="restItem.images.outlet.outletThree" (click)="clearInput($event)"
+                 class="clear-input fa fa-times"></a>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <mat-label>Thursday</mat-label>
+              <input matInput required
+                     name="imgUrlOne" [(ngModel)]="restItem.storeHours.thursday">
+              <a *ngIf="restItem.images.outlet.outletFour" (click)="clearInput($event)"
+                 class="clear-input fa fa-times"></a>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <mat-label>Friday</mat-label>
+              <input matInput required
+                     name="imgUrlOne" [(ngModel)]="restItem.storeHours.friday">
+              <a *ngIf="restItem.images.outlet.outletFive" (click)="clearInput($event)"
+                 class="clear-input fa fa-times"></a>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <mat-label>Saturday</mat-label>
+              <input matInput required
+                     name="imgUrlOne" [(ngModel)]="restItem.storeHours.saturday">
+              <a *ngIf="restItem.images.outlet.outletSix" (click)="clearInput($event)"
+                 class="clear-input fa fa-times"></a>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <mat-label>Sunday</mat-label>
+              <input matInput required
+                     name="imgUrlOne" [(ngModel)]="restItem.storeHours.sunday">
+              <a *ngIf="restItem.images.outlet.outletSix" (click)="clearInput($event)"
+                 class="clear-input fa fa-times"></a>
+            </mat-form-field>
+
+
+          </mat-expansion-panel>
+        </mat-accordion>
+
+
+<!--        <a mat-raised-button class="auto-fill"-->
+<!--           *ngIf="addProdForm.pristine && !addProdForm.valid"-->
+<!--           (click)="autoFill()"><i class="fa fa-id-card-o"></i></a>-->
+
+<!--        <a mat-raised-button class="clear-form" *ngIf="!addProdForm.pristine || addProdForm.valid" (click)="clearAll(addProdForm)"><i class="fa fa-times-circle-o"></i></a>-->
+
+        <!--SUBMIT-->
+        <button [disabled]="!addProdForm.valid" class="add-prod-btn" [ngClass]="{'valid': addProdForm.valid}" type="submit"
+                mat-raised-button color="accent">Add Product
+        </button>
+      </form>
+    </div>
+
+    <!--OFFSET DIV-->
+    <div class="col-sm-1"></div>
+    <div class="preview-prod col-sm-5">
+      <h3>Product Preview</h3>
+
+      <div class="prod-preview-container">
+        <!--image-->
+        <div *ngIf="restItem.images.outlet.outletOne" class="circle">
+          <img class="prod-img" src="{{restItem.images.outlet.outletOne}}" alt="">
+        </div>
+        <div *ngIf="restItem.images.outlet.outletTwo" class="circle">
+          <img class="prod-img" src="{{restItem.images.outlet.outletTwo}}" alt="">
+        </div>
+        <div class="prod-details">
+          <h4 class="prod-name">{{restItem.name}}</h4>
+          <span *ngIf="restItem.priceRange">Rs. </span><h5 class="prod-price">{{restItem.priceRange}}</h5>
+          <p class="prod-description">{{restItem.location.toal}} {{restItem.location.area}}</p>
+          <p class="prod-description">{{restItem.foodType}}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="container">
+  <app-gallery [adminMode]="true"></app-gallery>
+</div>
+

@@ -1,0 +1,52 @@
+<div class="ProdDisplayComp none">
+  <div class="row adjust">
+    <div class="col-sm-2 filter-fixed">
+      <div class="row filter-view">
+        <span class="filter-by" (dblclick)="showInfo()">Filter by:</span>
+        <div class="col-sm filter-container">
+          <!--TYPE FILTER-->
+          <mat-form-field>
+            <mat-select placeholder="Type"
+                        name="type" [(ngModel)]="filterType">
+              <mat-option *ngFor="let type of prodTypes" [value]="type.value">
+                {{type.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <a *ngIf="filterType" (click)="clearFilterType($event)" class="material-icons clear-input">close</a>
+
+          <!--PRICE FILTER-->
+          <mat-form-field>
+            <mat-select placeholder="Price"
+                        name="price" [(ngModel)]="filterPrice">
+              <mat-option *ngFor="let type of prodPrices" [value]="type.value">
+                {{type.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <a *ngIf="filterPrice" (click)="clearFilterType($event)" class="material-icons clear-input">close</a>
+
+          <!--COLOR FILTER-->
+          <mat-form-field>
+            <mat-select placeholder="Color"
+                        name="color" [(ngModel)]="filterColor">
+              <mat-option *ngFor="let type of prodColors" [value]="type.value">
+                {{type.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <a *ngIf="filterColor" (click)="clearFilterType($event)" class="material-icons clear-input">close</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-9">
+      <!--Display-->
+      <app-gallery [filterPrice]="filterPrice"
+                   [filterColor]="filterColor"
+                   [filterType]="filterType">
+      </app-gallery>
+    </div>
+  </div>
+</div>
+
