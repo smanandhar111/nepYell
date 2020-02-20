@@ -77,8 +77,14 @@ export class AddProductComponent implements OnInit {
     {value: 'yes', viewValue: 'Yes'},
     {value: 'no', viewValue: 'No'}
   ];
-  outletImgCount = 3;
-  menuImgCount = 2;
+  priceRangeType: SelectType[] = [
+    {value: 'cheap', viewValue: 'Cheap'},
+    {value: 'reasonable', viewValue: 'Reasonable'},
+    {value: 'expensive', viewValue: 'Expensive'},
+    {value: 'veryExpensive', viewValue: 'Very Expensive'}
+  ];
+  outletImgCount: number;
+  menuImgCount: number;
   menuImages = [
     {name: 'menuOne', srcModel: 'restItem.images.menu.menuOne'},
     {name: 'menuTwo', srcModel: 'restItem.images.menu.menuTwo'},
@@ -158,16 +164,22 @@ export class AddProductComponent implements OnInit {
     // }
   }
 
+  changeCount(val, src) {
+    (src === 'menu') ? this.menuImgCount = val : this.outletImgCount = val;
+  }
+
   referenceImg(restName): void {
     // looping over the outlet Object to get the specific imgRef variable
     //  so it can be assigned to the right imgUrl
     const outletObj = Object.keys(this.restItem.images.outlet);
     const menuObj = Object.keys(this.restItem.images.menu);
-    for (const key of outletObj) {
-      this.restItem.images.outlet[key] = `../../../assets/img/restaurants/${restName}/${restName}${outletObj.indexOf(key) + 1}.jpg`;
+    const restImgPath = '../../../assets/img/restaurants';
+
+    for (let i = 0; i < this.menuImgCount; i++) {
+      this.restItem.images.menu[menuObj[i]] = `${restImgPath}/${restName}/${restName}Menu${i + 1}.jpg`;
     }
-    for (const key of menuObj) {
-      this.restItem.images.menu[key] = `../../../assets/img/restaurants/${restName}/${restName}${menuObj.indexOf(key) + 1}.jpg`;
+    for (let i = 0; i < this.outletImgCount; i++) {
+      this.restItem.images.outlet[outletObj[i]] = `${restImgPath}/${restName}/${restName}${i + 1}.jpg`;
     }
   }
 }

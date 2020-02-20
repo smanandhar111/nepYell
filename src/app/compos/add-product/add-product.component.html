@@ -6,7 +6,6 @@
 
       <form name="addProd" #addProdForm="ngForm"
             (ngSubmit)="onSubmit(addProdForm)" class="add-pass-form">
-
         <!--NAME-->
         <mat-form-field class="example-full-width">
           <input matInput required placeholder="Restaurant's Name"
@@ -14,7 +13,30 @@
           <a *ngIf="restItem.name" (click)="clearInput($event)"
              class="clear-input fa fa-times"></a>
         </mat-form-field>
-        <a class="ref-img" mat-button *ngIf="restItem.name" (click)="referenceImg(restItem.name)">Image Ref</a>
+        <div class="img-process">
+          <div class="image-count">
+            <label>No.of Outlet images :</label>
+            <a class="img-count-link" (click)="changeCount(1, 'outlet')" [ngClass]="{'active': outletImgCount === 1}">1</a>
+            <a class="img-count-link" (click)="changeCount(2, 'outlet')" [ngClass]="{'active': outletImgCount === 2}">2</a>
+            <a class="img-count-link" (click)="changeCount(3, 'outlet')" [ngClass]="{'active': outletImgCount === 3}">3</a>
+            <a class="img-count-link" (click)="changeCount(4, 'outlet')" [ngClass]="{'active': outletImgCount === 4}">4</a>
+            <a class="img-count-link" (click)="changeCount(5, 'outlet')" [ngClass]="{'active': outletImgCount === 5}">5</a>
+            <a class="img-count-link" (click)="changeCount(6, 'outlet')" [ngClass]="{'active': outletImgCount === 6}">6</a>
+          </div>
+          <div class="image-count">
+            <label>No.of Menu images :</label>
+            <a class="img-count-link" (click)="changeCount(1, 'menu')" [ngClass]="{'active': menuImgCount === 1}">1</a>
+            <a class="img-count-link" (click)="changeCount(2, 'menu')" [ngClass]="{'active': menuImgCount === 2}">2</a>
+            <a class="img-count-link" (click)="changeCount(3, 'menu')" [ngClass]="{'active': menuImgCount === 3}">3</a>
+            <a class="img-count-link" (click)="changeCount(4, 'menu')" [ngClass]="{'active': menuImgCount === 4}">4</a>
+            <a class="img-count-link" (click)="changeCount(5, 'menu')" [ngClass]="{'active': menuImgCount === 5}">5</a>
+            <a class="img-count-link" (click)="changeCount(6, 'menu')" [ngClass]="{'active': menuImgCount === 6}">6</a>
+          </div>
+          <!---For the Build button to appear restaurant name, no of both outlet and menu images need to be greater than zero-->
+          <a mat-button *ngIf="restItem.name && outletImgCount > 0 && menuImgCount > 0" (click)="referenceImg(restItem.name)">
+            <i class="material-icons">build</i>
+          </a>
+        </div>
 
         <!--area-->
         <mat-form-field>
@@ -41,6 +63,16 @@
           <mat-select required placeholder="Food Type"
                       name="foodType" [(ngModel)]="restItem.foodType">
             <mat-option *ngFor="let type of foodType" [value]="type.value">
+              {{type.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!--priceRange-->
+        <mat-form-field>
+          <mat-select required placeholder="Price Range"
+                      name="priceRange" [(ngModel)]="restItem.priceRange">
+            <mat-option *ngFor="let type of priceRangeType" [value]="type.value">
               {{type.viewValue}}
             </mat-option>
           </mat-select>
@@ -153,19 +185,68 @@
       <h3>Product Preview</h3>
 
       <div class="prod-preview-container">
-        <!--image-->
-        <div *ngIf="restItem.images.outlet.outletOne" class="circle">
-          <img class="prod-img" src="{{restItem.images.outlet.outletOne}}" alt="">
-        </div>
-        <div *ngIf="restItem.images.outlet.outletTwo" class="circle">
-          <img class="prod-img" src="{{restItem.images.outlet.outletTwo}}" alt="">
-        </div>
-        <div class="prod-details">
-          <h4 class="prod-name">{{restItem.name}}</h4>
-          <span *ngIf="restItem.priceRange">Rs. </span><h5 class="prod-price">{{restItem.priceRange}}</h5>
-          <p class="prod-description">{{restItem.location.toal}} {{restItem.location.area}}</p>
-          <p class="prod-description">{{restItem.foodType}}</p>
-        </div>
+        <!--Image Display-->
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Outlet Images
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div *ngIf="restItem.images.outlet.outletOne" class="circle">
+              <img class="prod-img" src="{{restItem.images.outlet.outletOne}}" alt="">
+            </div>
+            <div *ngIf="restItem.images.outlet.outletTwo" class="circle">
+              <img class="prod-img" src="{{restItem.images.outlet.outletTwo}}" alt="">
+            </div>
+            <div *ngIf="restItem.images.outlet.outletThree" class="circle">
+              <img class="prod-img" src="{{restItem.images.outlet.outletThree}}" alt="">
+            </div>
+            <div *ngIf="restItem.images.outlet.outletFour" class="circle">
+              <img class="prod-img" src="{{restItem.images.outlet.outletFour}}" alt="">
+            </div>
+            <div *ngIf="restItem.images.outlet.outletFive" class="circle">
+              <img class="prod-img" src="{{restItem.images.outlet.outletFive}}" alt="">
+            </div>
+            <div *ngIf="restItem.images.outlet.outletSix" class="circle">
+              <img class="prod-img" src="{{restItem.images.outlet.outletSix}}" alt="">
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Menu Images
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div *ngIf="restItem.images.menu.menuOne" class="circle">
+              <img class="prod-img" src="{{restItem.images.menu.menuOne}}" alt="">
+            </div>
+            <div *ngIf="restItem.images.menu.menuTwo" class="circle">
+              <img class="prod-img" src="{{restItem.images.menu.menuTwo}}" alt="">
+            </div>
+            <div *ngIf="restItem.images.menu.menuThree" class="circle">
+              <img class="prod-img" src="{{restItem.images.menu.menuThree}}" alt="">
+            </div>
+            <div *ngIf="restItem.images.menu.menuFour" class="circle">
+              <img class="prod-img" src="{{restItem.images.menu.menuFour}}" alt="">
+            </div>
+            <div *ngIf="restItem.images.menu.menuFive" class="circle">
+              <img class="prod-img" src="{{restItem.images.menu.menuFive}}" alt="">
+            </div>
+            <div *ngIf="restItem.images.menu.menuSix" class="circle">
+              <img class="prod-img" src="{{restItem.images.menu.menuSix}}" alt="">
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+
+<!--        <div class="prod-details">-->
+<!--          <h4 class="prod-name">{{restItem.name}}</h4>-->
+<!--          <span *ngIf="restItem.priceRange">Rs. </span><h5 class="prod-price">{{restItem.priceRange}}</h5>-->
+<!--          <p class="prod-description">{{restItem.location.toal}} {{restItem.location.area}}</p>-->
+<!--          <p class="prod-description">{{restItem.foodType}}</p>-->
+<!--        </div>-->
       </div>
 
     </div>
