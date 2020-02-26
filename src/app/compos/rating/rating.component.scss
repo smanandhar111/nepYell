@@ -1,0 +1,48 @@
+.rating-comp {
+  position: relative;
+  width: auto;
+  &:not(.price-range) {
+    position: relative;
+    top: 3px;
+    padding-left: 5px;
+  }
+  .no-star {
+    color: #cccccc;
+    font-size: 18px;
+  }
+  .star {
+    color: red;
+    font-size: 18px;
+  }
+
+  &.price-range {
+    padding-top: 5px;
+    display: block;
+    width: 60px;
+    .star {
+      color: green;
+      font-size: 15px;
+      position: relative;
+      &:nth-child(2) {
+        right: 6px;
+      }
+      &:nth-child(3) {
+        right: 12px;
+      }
+      &:nth-child(4) {
+        right: 18px;
+      }
+    }
+    .no-star {
+      display: none;
+    }
+  }
+  .hover-text {
+    border: 1px solid #ccc;
+    font-size: 12px;
+    position: absolute;
+  }
+}
+:host {
+  width: auto;
+}

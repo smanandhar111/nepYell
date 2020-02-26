@@ -1,8 +1,16 @@
 <div class="row display-view" *ngIf="products$ | async as prodItems">
   <div class="repeater" *ngFor="let item of prodItems | prodFilter: filterType | prodPriceFilter: filterPrice | prodColorFilter: filterColor | notSelf: selfId">
-    <div class="circle" (click)="getProdDetails(item.id)">
+    <div class="circle"  (click)="getProdDetails(item.id)">
       <img class="prod-img" src="../../../assets/img/{{item.images.outlet.outletOne}}" alt="{{item.name}}">
-    </div>
 
+    </div>
+    <div class="info">
+      <span class="name">{{item.name}}</span>
+      <app-rating [restRating]="item.rating" [src]="'rating'"></app-rating>
+
+      <span class="type">{{item.foodType | titlecase}} Restaurant</span>
+      <app-rating [restRating]="item.priceRange" [src]="'priceRange'"></app-rating>
+    </div>
   </div>
 </div>
+

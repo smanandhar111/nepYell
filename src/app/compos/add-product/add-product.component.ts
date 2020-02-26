@@ -78,10 +78,9 @@ export class AddProductComponent implements OnInit {
     {value: 'no', viewValue: 'No'}
   ];
   priceRangeType: SelectType[] = [
-    {value: 'cheap', viewValue: 'Cheap'},
-    {value: 'reasonable', viewValue: 'Reasonable'},
-    {value: 'expensive', viewValue: 'Expensive'},
-    {value: 'veryExpensive', viewValue: 'Very Expensive'}
+    {value: 'affordable', viewValue: 'Affordable', valNumber: 1},
+    {value: 'reasonable', viewValue: 'Reasonable', valNumber: 2},
+    {value: 'expensive', viewValue: 'Expensive', valNumber: 3},
   ];
   outletImgCount: number;
   menuImgCount: number;
@@ -109,26 +108,6 @@ export class AddProductComponent implements OnInit {
     this.productService.addItem(this.restItem);
     addProdForm.resetForm();
   }
-  // autoFill(): any {
-  //   this.restItem.foodType = 'Nepali local';
-  //   this.restItem.images.menu.imgUrlOne = '';
-  //   this.restItem.name = 'BombDigity';
-  //   this.restItem.location.area = '';
-  //   this.restItem.location.toal = '';
-  //   this.restItem.priceRange = Math.floor(Math.random() * 1000) + 1;
-  //   this.restItem.rating = 4.3;
-  //   this.restItem.hovered = false;
-  //   this.restItem.review.reviewer = 'Mr.x';
-  //   this.restItem.review.reviewRating = 2.0;
-  //   this.restItem.images.outlet.imgUrlOne = '';
-  //   this.restItem.images.outlet.imgUrlTwo = '';
-  //   this.restItem.images.outlet.imgUrlThree = '';
-  //   this.restItem.services.selfService = false;
-  //   this.restItem.services.creditCards = false;
-  // }
-  // clearAll(addProdForm): any {
-  //   addProdForm.resetForm();
-  // }
   clearInput(e): void {
     const inputName = e.target.previousElementSibling.name;
     // if (inputName === 'name') {
@@ -181,5 +160,8 @@ export class AddProductComponent implements OnInit {
     for (let i = 0; i < this.outletImgCount; i++) {
       this.restItem.images.outlet[outletObj[i]] = `${restImgPath}/${restName}/${restName}${i + 1}.jpg`;
     }
+    // Because the image name is tied to the name of the restaurant we can't capitalize and give space btw in the input
+    // this below line converts the name input to proper Spacing and Capitalizes and sets it as the restaurants name
+    this.restItem.name = restName.charAt(0).toUpperCase() + restName.substring(1).replace(/([A-Z])/g, ' $1').trim();
   }
 }

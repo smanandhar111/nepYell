@@ -1,29 +1,9 @@
 .display-view .repeater {
-
+  display: flex;
+  padding: 20px 10px;
+  border-bottom: 2px solid #cccccc;
   .circle {
-    position: relative;
-    margin-right: 5px;
-
-    &:hover {
-      .banner {
-        display: block;
-        font-size: 14px;
-        color: #ffffff;
-        opacity: 1;
-        top: -18px;
-        position: relative;
-
-      }
-      .title {
-        bottom: -25px;
-      }
-      .price {
-        color: #ffffff;
-        left: -3px;
-        background-color: #ff8400;
-        box-shadow: 2px 4px 15px crimson;
-      }
-    }
+    margin-right: 15px;
     .banner {
       text-align: center;
       background: transparent;
@@ -34,19 +14,25 @@
       opacity: 0.5;
 
     }
-
   }
-  .material-icons {
-    margin-left: 80%;
-    cursor: pointer;
-    color: #cccccc;
-    font-size: 16px;
-    position: relative;
-    bottom: 6px;
-    transition: color 0.6s ease-in-out;
-
-    &:hover {
-      color: #ff8400;
+  .info {
+    span {
+      display: block;
+      font-size: 14px;
+    }
+    .name {
+      font-family: 'Muli', sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      display: inline;
+    }
+    .type {
+      font-size: 12px;
+      color: #ccc;
+    }
+    .location {
+      padding-top: 10px;
     }
   }
+
 }
