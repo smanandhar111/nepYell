@@ -30,6 +30,8 @@ import {ProddisplayNotSelfPipe} from './compos/gallery/pipe/proddisplay-notSelf.
 import {ProddisplayPricefilterPipe} from './compos/gallery/pipe/proddisplay-pricefilter.pipe';
 import { ProductInfoComponent } from './compos/product-info/product-info.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { RatingComponent } from './compos/rating/rating.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -43,7 +45,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     ProddisplayFilterPipe,
     ProddisplayNotSelfPipe,
     ProddisplayPricefilterPipe,
-    ProductInfoComponent
+    ProductInfoComponent,
+    RatingComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +60,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatSelectModule,
     MatOptionModule,
     MatExpansionModule,
+    MatTooltipModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireModule,
     AngularFireAuthModule,

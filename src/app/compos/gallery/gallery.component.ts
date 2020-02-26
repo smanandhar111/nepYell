@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 
 import {ProductService} from '../product/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -9,7 +9,7 @@ import {catchError} from 'rxjs/operators';
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss']
 })
-export class GalleryComponent {
+export class GalleryComponent implements OnInit {
   @Input() filterType: string;
   @Input() filterPrice: string;
   @Input() filterColor: string;
@@ -27,6 +27,9 @@ export class GalleryComponent {
               private router: Router,
               private route: ActivatedRoute) { }
 
+  ngOnInit(): void {
+
+  }
 
   getProdDetails(id: string) {
     this.router.navigate(['/product-info', id]);
@@ -49,4 +52,5 @@ export class GalleryComponent {
   removeItem(id: string) {
     this.notify.emit(id);
   }
+
 }

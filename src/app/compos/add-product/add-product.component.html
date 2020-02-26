@@ -72,7 +72,7 @@
         <mat-form-field>
           <mat-select required placeholder="Price Range"
                       name="priceRange" [(ngModel)]="restItem.priceRange">
-            <mat-option *ngFor="let type of priceRangeType" [value]="type.value">
+            <mat-option *ngFor="let type of priceRangeType" [value]="type.valNumber">
               {{type.viewValue}}
             </mat-option>
           </mat-select>
@@ -241,12 +241,14 @@
           </mat-expansion-panel>
         </mat-accordion>
 
-<!--        <div class="prod-details">-->
-<!--          <h4 class="prod-name">{{restItem.name}}</h4>-->
-<!--          <span *ngIf="restItem.priceRange">Rs. </span><h5 class="prod-price">{{restItem.priceRange}}</h5>-->
-<!--          <p class="prod-description">{{restItem.location.toal}} {{restItem.location.area}}</p>-->
-<!--          <p class="prod-description">{{restItem.foodType}}</p>-->
-<!--        </div>-->
+
+
+        <div class="prod-details">
+          <h4 class="prod-name">{{restItem.name}}</h4>
+          <span *ngIf="restItem.priceRange">Rs. </span><h5 class="prod-price">{{restItem.priceRange}}</h5>
+          <p class="prod-description">{{restItem.location.toal}} {{restItem.location.area}}</p>
+          <p class="prod-description">{{restItem.foodType}}</p>
+        </div>
       </div>
 
     </div>

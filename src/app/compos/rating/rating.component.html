@@ -1,0 +1,5 @@
+<span class="rating-comp" matTooltip="{{starText}}" [ngClass]="{'price-range' : matIcon === 'attach_money'}" >
+    <i *ngFor="let star of stars"  class="material-icons star">{{matIcon}}</i>
+    <i *ngFor="let noStar of noStars"  class="material-icons no-star">{{matIcon}}</i>
+</span>
+

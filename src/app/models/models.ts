@@ -1,6 +1,7 @@
 export interface SelectType {
   value: string;
   viewValue: string;
+  valNumber?: number;
 }
 
 export interface WishCart {
