@@ -8,6 +8,8 @@ export interface ProductsModel {
   priceRange: number;
   rating: number;
   hovered: boolean;
+  phoneNumber: string;
+  phoneNumberTwo?: string;
   review?: {
     reviewer: string;
     review: string;
@@ -45,4 +47,5 @@ export interface ProductsModel {
     saturday: string;
     sunday: string;
   };
+  isOpen?: boolean;
 }
