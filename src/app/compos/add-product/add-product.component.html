@@ -90,10 +90,30 @@
         <mat-form-field>
           <mat-select required placeholder="Credit card payment"
                       name="creditCards" [(ngModel)]="restItem.services.creditCards">
-            <mat-option *ngFor="let type of yesNoType" [value]="type.value">
+            <mat-option *ngFor="let type of yesNoType" [value]="type.boolean">
               {{type.viewValue}}
             </mat-option>
           </mat-select>
+        </mat-form-field>
+
+        <!--Phone Number-->
+        <mat-form-field class="example-full-width">
+          <input matInput required placeholder="Phone number"
+                 name="phoneNumber" [(ngModel)]="restItem.phoneNumber">
+          <a *ngIf="restItem.phoneNumber" (click)="clearInput($event)"
+             class="clear-input fa fa-times"></a>
+        </mat-form-field>
+        <a class="alt-phone" *ngIf="!alterPhone" (click)="activeAltPh()" matTooltip="Add alternate Phone number">
+          <i class="material-icons">add</i>
+        </a>
+
+
+        <!--ALT Phone Number-->
+        <mat-form-field class="example-full-width" *ngIf="alterPhone">
+          <input matInput placeholder="2nd Phone number"
+                 name="phoneNumberTwo" [(ngModel)]="restItem.phoneNumberTwo">
+          <a *ngIf="restItem.phoneNumberTwo" (click)="clearInput($event)"
+             class="clear-input fa fa-times"></a>
         </mat-form-field>
 
         <!--Store Hours-->
@@ -241,14 +261,27 @@
           </mat-expansion-panel>
         </mat-accordion>
 
-
-
         <div class="prod-details">
           <h4 class="prod-name">{{restItem.name}}</h4>
           <span *ngIf="restItem.priceRange">Rs. </span><h5 class="prod-price">{{restItem.priceRange}}</h5>
           <p class="prod-description">{{restItem.location.toal}} {{restItem.location.area}}</p>
           <p class="prod-description">{{restItem.foodType}}</p>
         </div>
+      </div>
+
+      <div class="idea">
+        <h1>House Garden Project</h1>
+        <p>
+          A crew of 2-4 will come to your backyard and plant a type of garden you want.<br>
+          Garden Regular
+          Koi Pond
+          Plant trees
+          Plant vegetables and more
+        </p>
+
+        <p>
+          Add a logo image that goes on the first on the restaurant logo if applicable else just the outlet or menu images.
+        </p>
       </div>
 
     </div>

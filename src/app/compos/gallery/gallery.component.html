@@ -4,12 +4,16 @@
       <img class="prod-img" src="../../../assets/img/{{item.images.outlet.outletOne}}" alt="{{item.name}}">
 
     </div>
-    <div class="info">
+    <div class="info" *ngIf="item">
       <span class="name">{{item.name}}</span>
       <app-rating [restRating]="item.rating" [src]="'rating'"></app-rating>
 
       <span class="type">{{item.foodType | titlecase}} Restaurant</span>
       <app-rating [restRating]="item.priceRange" [src]="'priceRange'"></app-rating>
+      <span class="location">@{{item.location.area}}, {{item.location.toal}}</span>
+      <span *ngIf="item.isOpen" class="store-open">Open until {{closingTime}} PM</span>
+      <span *ngIf="!item.isOpen && !closedToday" class="store-closed">Closed</span>
+      <span *ngIf="!item.isOpen && closedToday" class="store-closed">Closed until {{nextOpenDay}} </span>
     </div>
   </div>
 </div>

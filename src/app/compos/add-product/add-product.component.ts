@@ -19,6 +19,8 @@ export class AddProductComponent implements OnInit {
     foodType: '',
     priceRange: null,
     rating: null,
+    phoneNumber: '',
+    phoneNumberTwo: '',
     hovered: false,
     review:  {
       reviewer: '',
@@ -64,9 +66,9 @@ export class AddProductComponent implements OnInit {
     {value: 'partan', viewValue: 'Partan'},
   ];
   locationToal: SelectType[] = [
-    {value: 'dillibazar', viewValue: 'Dillibazar'},
-    {value: 'new Road', viewValue: 'New Road'},
-    {value: 'thamel', viewValue: 'Thamel'},
+    {value: 'Dillibazar', viewValue: 'Dillibazar'},
+    {value: 'New Road', viewValue: 'New Road'},
+    {value: 'Thamel', viewValue: 'Thamel'},
   ];
   foodType: SelectType[] = [
     {value: 'tradNepali', viewValue: 'Traditional Nepali'},
@@ -74,8 +76,8 @@ export class AddProductComponent implements OnInit {
     {value: 'newari', viewValue: 'Newari'},
   ];
   yesNoType: SelectType[] = [
-    {value: 'yes', viewValue: 'Yes'},
-    {value: 'no', viewValue: 'No'}
+    {value: 'yes', viewValue: 'Yes', boolean: true},
+    {value: 'no', viewValue: 'No', boolean: false}
   ];
   priceRangeType: SelectType[] = [
     {value: 'affordable', viewValue: 'Affordable', valNumber: 1},
@@ -100,6 +102,7 @@ export class AddProductComponent implements OnInit {
     {name: 'outletFive', srcModel: 'restItem.images.outlet.outletFive'},
     {name: 'outletSix', srcModel: 'restItem.images.outlet.outletSix'},
   ];
+  alterPhone = false;
   constructor(private productService: ProductService) { }
 
   ngOnInit() {}
@@ -145,6 +148,10 @@ export class AddProductComponent implements OnInit {
 
   changeCount(val, src) {
     (src === 'menu') ? this.menuImgCount = val : this.outletImgCount = val;
+  }
+
+  activeAltPh(): void {
+    this.alterPhone = true;
   }
 
   referenceImg(restName): void {
