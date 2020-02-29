@@ -2,7 +2,7 @@ import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 
 import {ProductService} from '../product/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {catchError, map, tap} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {ProductsModel} from '../product/products.model';
 
 @Component({
@@ -11,9 +11,6 @@ import {ProductsModel} from '../product/products.model';
   styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent implements OnInit {
-  @Input() filterType: string;
-  @Input() filterPrice: string;
-  @Input() filterColor: string;
   @Input() fromWishList: boolean;
   @Output() notify: EventEmitter<string> = new EventEmitter();
   @Input() selfId: string;

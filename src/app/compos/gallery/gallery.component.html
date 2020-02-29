@@ -1,5 +1,5 @@
 <div class="row display-view" *ngIf="products$ | async as prodItems">
-  <div class="repeater" *ngFor="let item of prodItems | prodFilter: filterType | prodPriceFilter: filterPrice | prodColorFilter: filterColor | notSelf: selfId">
+  <div class="repeater" *ngFor="let item of prodItems ">
     <div class="circle"  (click)="getProdDetails(item.id)">
       <img class="prod-img" src="../../../assets/img/{{item.images.outlet.outletOne}}" alt="{{item.name}}">
 
