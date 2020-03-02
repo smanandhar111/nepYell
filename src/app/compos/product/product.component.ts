@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {SelectType} from '../../models/models';
 import {Router} from '@angular/router';
 import {ProductService} from './product.service';
 import {map} from 'rxjs/operators';
-import {Observable, from} from 'rxjs';
+import {NgForm} from '@angular/forms';
+import {RestaurantFilterModel} from '../../models/models';
 
 
 @Component({
@@ -12,26 +12,33 @@ import {Observable, from} from 'rxjs';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
-    foodTypeArray = [];
-  foodTypes$ = this.productService.foodTypes$.pipe(
-      map((categories) => {
-        categories.map((d) => {
-          const something = Object.values(d);
-          from(something).subscribe((types) => {
-              console.log('***', types);
-              this.foodTypeArray = types;
-          });
-        });
-      }),
-  ).subscribe();
+  foodTypes$ = this.productService.foodTypes$.pipe();
+  locations$ = this.productService.locations$.pipe();
+  restFilter: RestaurantFilterModel = {
+    Chinese: '',
+    WesternFusion: '',
+    TraditionalNepali: '',
+    MomoSpeciality: '',
+    Japanese: '',
+    Newari: ''
+  };
+  restFilterValArr =  [];
   constructor(public router: Router,
               private productService: ProductService) { }
 
-  ngOnInit() {
-
-  }
-
+  ngOnInit() {}
   showInfo() {
     this.router.navigate(['/login']);
+  }
+  onChangeFoodType(val): void {
+    const play = val.source.value;
+    if (val.checked === true) {
+      this.restFilterValArr.push(play);
+    } else {
+      this.restFilterValArr = this.restFilterValArr.filter(i => i !== play);
+    }
+  }
+  onSubmit(restFilterForm: NgForm) {
+    console.log(restFilterForm);
   }
 }

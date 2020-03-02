@@ -1,24 +1,29 @@
 <div class="ProdDisplayComp none">
   <!--Filter-->
-    <div class="filter-container">
-      <div class="restaurant-type" >
-        <h4 *ngFor="let star of foodTypeArray">Type of Restaurant</h4>
-
-
+    <form class="filter-form" name="restFilter" #restFilterForm="ngForm"
+          (ngSubmit)="onSubmit(restFilterForm)">
+      <div class="restaurant-type flex flex-cln" *ngIf="foodTypes$">
+          <h5>Type of Restaurant:</h5>
+          <mat-checkbox value="{{food.foodType}}" name="foodTypeCheckBox" (change)="onChangeFoodType($event)" [(ngModel)]="restFilter[food.foodType]"
+                        *ngFor="let food of foodTypes$ | async">{{food.foodType}}</mat-checkbox>
       </div>
 
 
       <div class="city-type">
-<!--        <h4>Type of Restaurant</h4>-->
-<!--        <mat-checkbox>Traditional Nepali</mat-checkbox>-->
-<!--        <mat-checkbox>Newari</mat-checkbox>-->
-<!--        <mat-checkbox>American Fusion</mat-checkbox>-->
-<!--        <mat-checkbox>Momo Speciality</mat-checkbox>-->
+        <h5>Location</h5>
+        <mat-form-field>
+          <mat-label>City</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let loco of locations$ | async" [value]="loco.subCity">
+              {{loco.subCity}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
-    </div>
+    </form>
   <!--Display-->
   <div class="gallery-container">
-    <app-gallery></app-gallery>
+    <app-gallery [restFilterValArr]="restFilterValArr"></app-gallery>
   </div>
 
 

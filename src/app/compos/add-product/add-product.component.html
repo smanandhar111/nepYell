@@ -60,10 +60,10 @@
 
         <!--Food Type-->
         <mat-form-field>
-          <mat-select required placeholder="Food Type"
-                      name="foodType" [(ngModel)]="restItem.foodType">
-            <mat-option *ngFor="let type of foodType" [value]="type.value">
-              {{type.viewValue}}
+          <mat-select required placeholder="Food Type" (click)="onChangez($event)"
+                      name="foodType"  [(ngModel)]="restItem.foodType">
+            <mat-option *ngFor="let type of foodTypes$ | async" [value]="type.foodType">
+              {{type.foodType}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -90,6 +90,16 @@
         <mat-form-field>
           <mat-select required placeholder="Credit card payment"
                       name="creditCards" [(ngModel)]="restItem.services.creditCards">
+            <mat-option *ngFor="let type of yesNoType" [value]="type.boolean">
+              {{type.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!--Serve Alcohol-->
+        <mat-form-field>
+          <mat-select required placeholder="Do they serve Alcohol"
+                      name="creditCards" [(ngModel)]="restItem.services.serveAlcohol">
             <mat-option *ngFor="let type of yesNoType" [value]="type.boolean">
               {{type.viewValue}}
             </mat-option>

@@ -3,7 +3,7 @@ import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firest
 import {ProductsModel} from './products.model';
 import {Observable} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
-import {AddToFavModel} from '../../models/models';
+import {AddToFavModel, LocationModel} from '../../models/models';
 import {throwError } from 'rxjs';
 
 interface FoodTypes {
@@ -17,6 +17,7 @@ export class ProductService {
   uuid: string;
   restCollection = this.afs.collection('restaurants');
   foodTypeCollection = this.afs.collection('foodTypes');
+  locationCollection = this.afs.collection('location');
   cartItems$: Observable<AddToFavModel[]>;
   wishList$: Observable<AddToFavModel[]>;
   constructor(private afs: AngularFirestore) {
@@ -38,6 +39,14 @@ export class ProductService {
       map(changes => {
         return changes.map(a => {
           return a.payload.doc.data() as FoodTypes;
+        });
+      })
+  );
+
+  locations$ = this.locationCollection.snapshotChanges().pipe(
+      map(changes => {
+        return changes.map(a => {
+          return a.payload.doc.data() as LocationModel;
         });
       })
   );
