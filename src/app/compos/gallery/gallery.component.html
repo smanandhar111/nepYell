@@ -1,19 +1,40 @@
-<div class="row display-view" *ngIf="products$ | async as prodItems">
-  <div class="repeater" *ngFor="let item of prodItems | prodFilter: filterType | prodPriceFilter: filterPrice | prodColorFilter: filterColor | notSelf: selfId">
-    <div class="circle"  (click)="getProdDetails(item.id)">
-      <img class="prod-img" src="../../../assets/img/{{item.images.outlet.outletOne}}" alt="{{item.name}}">
-
+<div class="fx display-view" *ngIf="products$ | async as prodItems">
+  <div class="repeater"  *ngFor="let rest of prodItems">
+    <div class="img-rating-container">
+      <div class="circle">
+        <img src="../../../assets/img/{{rest.images.outlet.outletOne}}" alt="{{rest.name}}">
+      </div>
     </div>
-    <div class="info" *ngIf="item">
-      <span class="name">{{item.name}}</span>
-      <app-rating [restRating]="item.rating" [src]="'rating'"></app-rating>
+    <div class="more-info">
+      <div class="name-rating-container">
+        <div class="name">{{rest.name}}</div>
+        <app-rating [restRating]="rest.rating" [src]="'rating'"></app-rating>
+      </div>
 
-      <span class="type">{{item.foodType | titlecase}} Restaurant</span>
-      <app-rating [restRating]="item.priceRange" [src]="'priceRange'"></app-rating>
-      <span class="location">@{{item.location.area}}, {{item.location.toal}}</span>
-      <span *ngIf="item.isOpen" class="store-open">Open until {{closingTime}} PM</span>
-      <span *ngIf="!item.isOpen && !closedToday" class="store-closed">Closed</span>
-      <span *ngIf="!item.isOpen && closedToday" class="store-closed">Closed until {{nextOpenDay}} </span>
+      <div class="type">{{rest.foodType | titlecase}} Restaurant</div>
+      <div class="location">
+        <i class="material-icons">home</i>
+        <span>{{rest.location.toal | titlecase}}, {{rest.location.area | titlecase}}</span>
+      </div>
+      <div class="phone-indicators-container">
+        <div class="phone">
+          <i class="material-icons">phone</i>
+          <a href="tel:{{rest.phoneNumber}}">{{rest.phoneNumber}}</a>
+        </div>
+        <div class="indicators">
+          <i class="material-icons" *ngIf="rest.services.creditCards" matTooltip="Accepts Credit Cards">credit_card</i>
+          <i class="material-icons" *ngIf="rest.services.serveAlcohol" matTooltip="Serves Alcohol">local_bar</i>
+          <i class="material-icons" *ngIf="rest.services.selfService" matTooltip="Self Service">emoji_people</i>
+        </div>
+      </div>
+
+      <div class="review">"I went to here for my birthday and they were nice enough to sing my birthday song and also they had the best chicken fries."</div>
+      <div class="open-closed-container">
+        <div *ngIf="rest.isOpen" class="store-open">Open until {{closingTime}} PM today</div>
+        <div *ngIf="!rest.isOpen && !closedToday" class="store-closed">Closed</div>
+        <div *ngIf="!rest.isOpen && closedToday" class="store-closed">Closed until {{nextOpenDay}} </div>
+      </div>
+
     </div>
   </div>
 </div>
