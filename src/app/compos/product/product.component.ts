@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {ProductService} from './product.service';
-import {map} from 'rxjs/operators';
 import {NgForm} from '@angular/forms';
 import {RestaurantFilterModel} from '../../models/models';
 
@@ -30,12 +29,12 @@ export class ProductComponent implements OnInit {
   showInfo() {
     this.router.navigate(['/login']);
   }
-  onChangeFoodType(val): void {
-    const play = val.source.value;
-    if (val.checked === true) {
-      this.restFilterValArr.push(play);
+  onChangeFoodType(foodType: any, isChecked: boolean): void {
+    if (isChecked) {
+      this.restFilterValArr.push(foodType);
     } else {
-      this.restFilterValArr = this.restFilterValArr.filter(i => i !== play);
+      const index = this.restFilterValArr.findIndex(x => x === foodType);
+      this.restFilterValArr.splice(index, 1);
     }
   }
   onSubmit(restFilterForm: NgForm) {

@@ -4,9 +4,11 @@
           (ngSubmit)="onSubmit(restFilterForm)">
       <div class="restaurant-type flex flex-cln" *ngIf="foodTypes$">
           <h5>Type of Restaurant:</h5>
-          <mat-checkbox value="{{food.foodType}}" name="foodTypeCheckBox" (change)="onChangeFoodType($event)" [(ngModel)]="restFilter[food.foodType]"
+          <mat-checkbox value="{{food.foodType}}" name="foodTypeCheckBox" (change)="onChangeFoodType(food.foodType, $event.checked)"
+                        [(ngModel)]="restFilter[food.foodType]"
                         *ngFor="let food of foodTypes$ | async">{{food.foodType}}</mat-checkbox>
       </div>
+
 
 
       <div class="city-type">

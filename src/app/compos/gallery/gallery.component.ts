@@ -41,7 +41,7 @@ export class GalleryComponent implements OnInit, OnChanges {
               private route: ActivatedRoute) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.restFilterSubject.next(this.restFilterValArr);
+    console.log(changes);
   }
 
   ngOnInit(): void {}

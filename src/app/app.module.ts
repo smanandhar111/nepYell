@@ -29,6 +29,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { RatingComponent } from './compos/rating/rating.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {FoodTypeFilterPipe} from './compos/gallery/pipes/foodTypeFilter.pipe';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     GalleryComponent,
     ProductInfoComponent,
     RatingComponent,
+    FoodTypeFilterPipe,
   ],
   imports: [
     BrowserModule,
