@@ -1,44 +1,85 @@
-.display-view .repeater {
-  display: flex;
-  padding: 0 10px;
-  border-bottom: 2px solid #cccccc;
-  .circle {
-    margin-right: 15px;
-    .banner {
-      text-align: center;
-      background: transparent;
-      color: transparent;
-      transition: top .4s ease, background 1s ease, color 1s ease;
-      border-bottom-right-radius: 8px;
-      top: -4px;
-      opacity: 0.5;
+.display-view {
+  padding: 5px 10px;
+  .repeater {
+    display: flex;
+    border: 1px solid #cccccc;
+    padding: 10px;
+    .img-rating-container {
+      display: flex;
+      flex-direction: column;
+    }
+    .more-info {
+      padding-left: 10px;
+      padding-top: 5px;
 
+      .name-rating-container {
+        display: flex;
+        flex-direction: row;
+        .name {
+          font-family: 'Muli', sans-serif;
+          font-size: 16px;
+          font-weight: 500;
+          padding-left: 5px;
+          margin-bottom: 0;
+        }
+      }
+      .type {
+        padding-left: 5px;
+        font-size: 12px;
+        color: #ccc;
+        margin-bottom: 10px;
+      }
+
+      div:not(.name-rating-container) {
+        margin-bottom: 5px;
+      }
+      .phone, .location {
+        .material-icons {
+          font-size: 18px;
+          padding-right: 5px;
+        }
+        a,span {
+          position: relative;
+          bottom: 3px;
+        }
+        a {
+          color: #000;
+          cursor: default;
+          text-decoration: none;
+          font-size: 12px;
+        }
+      }
+      .phone-indicators-container {
+        display: flex;
+        justify-content: space-between;
+        .indicators {
+          display: flex;
+          i {
+            font-size: 20px;
+            margin-right: 10px;
+            transition: transform 0.8s ease;
+            transform: scale(0.85);
+            &:hover {
+              transform: scale(1.2);
+            }
+            &:last-child {
+              margin-right: 0;
+            }
+          }
+        }
+      }
+      .store-closed {
+        color: #f44336;
+      }
+      .store-open {
+        color: #2bc687;
+        font-size: 14px;
+      }
+      .review {
+        max-width: 200px;
+        background: yellow;
+        font-size: 14px;
+      }
     }
   }
-  .info {
-    span {
-      display: block;
-      font-size: 14px;
-    }
-    .name {
-      font-family: 'Muli', sans-serif;
-      font-size: 18px;
-      font-weight: 500;
-      display: inline;
-    }
-    .type {
-      font-size: 12px;
-      color: #ccc;
-    }
-    .location {
-      padding-top: 10px;
-    }
-    .store-closed {
-      color: #f44336;
-    }
-    .store-open {
-      color: #2bc687;
-    }
-  }
-
 }
