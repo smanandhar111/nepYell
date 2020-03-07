@@ -17,7 +17,7 @@ export class ProductService {
   uuid: string;
   restCollection = this.afs.collection('restaurants');
   foodTypeCollection = this.afs.collection('foodTypes');
-  locationCollection = this.afs.collection('location');
+  locationCollection = this.afs.collection('locations');
   cartItems$: Observable<AddToFavModel[]>;
   wishList$: Observable<AddToFavModel[]>;
   constructor(private afs: AngularFirestore) {

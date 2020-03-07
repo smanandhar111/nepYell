@@ -4,7 +4,7 @@ import {ProductService} from '../product/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {catchError, map} from 'rxjs/operators';
 import {combineLatest, Subject} from 'rxjs';
-import {ProductsModel} from "../product/products.model";
+import {ProductsModel} from '../product/products.model';
 
 @Component({
   selector: 'app-gallery',
@@ -41,7 +41,7 @@ export class GalleryComponent implements OnInit, OnChanges {
               private route: ActivatedRoute) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+    // console.log(changes);
   }
 
   ngOnInit(): void {}

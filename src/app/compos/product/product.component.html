@@ -9,18 +9,37 @@
                         *ngFor="let food of foodTypes$ | async">{{food.foodType}}</mat-checkbox>
       </div>
 
-
-
       <div class="city-type">
-        <h5>Location</h5>
         <mat-form-field>
           <mat-label>City</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let loco of locations$ | async" [value]="loco.subCity">
-              {{loco.subCity}}
+          <mat-select (selectionChange)="onChangeSelect($event.value)">
+            <mat-option (click)="optClick(loco.city)" *ngFor="let loco of locations$ | async" [value]="loco.city">
+              {{loco.city}}
             </mat-option>
           </mat-select>
         </mat-form-field>
+
+        <mat-form-field [ngClass]="{'disappear': !citySelected}">
+          <mat-label>Sub City</mat-label>
+          <mat-select>
+            <div class="some" *ngFor="let subCities of locationSubCity$ | async;">
+              <mat-option *ngFor="let sub of subCities" [value]="sub">
+                {{sub}}
+              </mat-option>
+            </div>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field [ngClass]="{'disappear': citySelected}">
+          <mat-label>All City</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let sub of newArray" [value]="sub">
+              {{sub}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
       </div>
     </form>
   <!--Display-->
