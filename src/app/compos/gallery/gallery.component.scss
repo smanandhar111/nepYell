@@ -1,15 +1,19 @@
 .display-view {
   padding: 5px 10px;
+  flex-wrap: wrap;
+  justify-content: space-between;
   .repeater {
     display: flex;
     border: 1px solid #cccccc;
     padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 7px;
     .img-rating-container {
       display: flex;
       flex-direction: column;
     }
     .more-info {
-      padding-left: 10px;
+      padding-left: 15px;
       padding-top: 5px;
       .name-rating-container {
         display: flex;
@@ -74,7 +78,7 @@
         font-size: 14px;
       }
       .review {
-        max-width: 200px;
+        max-width: 250px;
         background: yellow;
         font-size: 14px;
       }
