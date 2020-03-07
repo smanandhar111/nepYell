@@ -1,4 +1,3 @@
-
 <div class="PassComp container">
   <div class="row">
     <div class="add-prod col-sm-5">
@@ -40,28 +39,31 @@
 
         <!--area-->
         <mat-form-field>
-          <mat-select required placeholder="Area"
+          <mat-select required placeholder="City"
+                      (selectionChange)="onChangeSelect($event.value)"
                       name="area" [(ngModel)]="restItem.location.area">
-            <mat-option *ngFor="let type of locationArea" [value]="type.value">
-              {{type.viewValue}}
+            <mat-option (click)="optClick(loco.city)" *ngFor="let loco of locations$ | async" [value]="loco.city">
+              {{loco.city}}
             </mat-option>
           </mat-select>
         </mat-form-field>
 
         <!--toal-->
-        <mat-form-field>
-          <mat-select required placeholder="Toal"
+        <mat-form-field [ngClass]="{'disappear': !restItem.location.area}">
+          <mat-select required placeholder="Neighborhood"
                       name="toal" [(ngModel)]="restItem.location.toal">
-            <mat-option *ngFor="let type of locationToal" [value]="type.value">
-              {{type.viewValue}}
-            </mat-option>
+            <div class="some" *ngFor="let subCities of locationSubCity$ | async">
+              <mat-option *ngFor="let sub of subCities" [value]="sub">
+                {{sub}}
+              </mat-option>
+            </div>
           </mat-select>
         </mat-form-field>
 
         <!--Food Type-->
         <mat-form-field>
-          <mat-select required placeholder="Food Type" (click)="onChangez($event)"
-                      name="foodType"  [(ngModel)]="restItem.foodType">
+          <mat-select required placeholder="Food Type" name="foodType"
+                      [(ngModel)]="restItem.foodType">
             <mat-option *ngFor="let type of foodTypes$ | async" [value]="type.foodType">
               {{type.foodType}}
             </mat-option>
@@ -196,11 +198,11 @@
         </mat-accordion>
 
 
-<!--        <a mat-raised-button class="auto-fill"-->
-<!--           *ngIf="addProdForm.pristine && !addProdForm.valid"-->
-<!--           (click)="autoFill()"><i class="fa fa-id-card-o"></i></a>-->
+        <!--        <a mat-raised-button class="auto-fill"-->
+        <!--           *ngIf="addProdForm.pristine && !addProdForm.valid"-->
+        <!--           (click)="autoFill()"><i class="fa fa-id-card-o"></i></a>-->
 
-<!--        <a mat-raised-button class="clear-form" *ngIf="!addProdForm.pristine || addProdForm.valid" (click)="clearAll(addProdForm)"><i class="fa fa-times-circle-o"></i></a>-->
+        <!--        <a mat-raised-button class="clear-form" *ngIf="!addProdForm.pristine || addProdForm.valid" (click)="clearAll(addProdForm)"><i class="fa fa-times-circle-o"></i></a>-->
 
         <!--SUBMIT-->
         <button [disabled]="!addProdForm.valid" class="add-prod-btn" [ngClass]="{'valid': addProdForm.valid}" type="submit"
@@ -278,4 +280,3 @@
 <div class="container">
   <app-gallery [adminMode]="true"></app-gallery>
 </div>
-
