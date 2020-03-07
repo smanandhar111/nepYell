@@ -3,6 +3,8 @@ import {ProductsModel} from '../product/products.model';
 import {NgForm} from '@angular/forms';
 import {ProductService} from '../product/product.service';
 import {SelectType} from '../../models/models';
+import {BehaviorSubject, combineLatest} from 'rxjs';
+import {map} from 'rxjs/operators';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -10,6 +12,17 @@ import {SelectType} from '../../models/models';
 })
 export class AddProductComponent implements OnInit {
 
+  private categorySelectedSubject = new BehaviorSubject<string>('All');
+  categorySelectedAction$ = this.categorySelectedSubject.asObservable();
+  locationSubCity$ = combineLatest([
+    this.productService.locations$, this.categorySelectedAction$
+  ]).pipe(
+      map(([products, selectedCategoryId]) =>
+          products.filter(product => selectedCategoryId ? product.city === selectedCategoryId : true)),
+      map(x => x.map((y) => {
+        return y.subCity.split(',');
+      })),
+  );
   restItem: ProductsModel = {
     name: '',
     location: {
@@ -61,21 +74,21 @@ export class AddProductComponent implements OnInit {
       sunday: '',
     }
   };
-  locationArea: SelectType[] = [
-    {value: 'kathmandu', viewValue: 'Kathmandu'},
-    {value: 'bhaktapur', viewValue: 'Bhaktapur'},
-    {value: 'partan', viewValue: 'Partan'},
-  ];
-  locationToal: SelectType[] = [
-    {value: 'Dillibazar', viewValue: 'Dillibazar'},
-    {value: 'New Road', viewValue: 'New Road'},
-    {value: 'Thamel', viewValue: 'Thamel'},
-  ];
-  foodType: SelectType[] = [
-    {value: 'Traditional Nepali', viewValue: 'Traditional Nepali'},
-    {value: 'Momo Pasal', viewValue: 'Momo Pasal'},
-    {value: 'Newari', viewValue: 'Newari'},
-  ];
+  // locationArea: SelectType[] = [
+  //   {value: 'kathmandu', viewValue: 'Kathmandu'},
+  //   {value: 'bhaktapur', viewValue: 'Bhaktapur'},
+  //   {value: 'partan', viewValue: 'Partan'},
+  // ];
+  // locationToal: SelectType[] = [
+  //   {value: 'Dillibazar', viewValue: 'Dillibazar'},
+  //   {value: 'New Road', viewValue: 'New Road'},
+  //   {value: 'Thamel', viewValue: 'Thamel'},
+  // ];
+  // foodType: SelectType[] = [
+  //   {value: 'Traditional Nepali', viewValue: 'Traditional Nepali'},
+  //   {value: 'Momo Pasal', viewValue: 'Momo Pasal'},
+  //   {value: 'Newari', viewValue: 'Newari'},
+  // ];
   yesNoType: SelectType[] = [
     {value: 'yes', viewValue: 'Yes', boolean: true},
     {value: 'no', viewValue: 'No', boolean: false}
@@ -103,8 +116,10 @@ export class AddProductComponent implements OnInit {
     {name: 'outletFive', srcModel: 'restItem.images.outlet.outletFive'},
     {name: 'outletSix', srcModel: 'restItem.images.outlet.outletSix'},
   ];
+  citySelected = false;
   alterPhone = false;
   foodTypes$ = this.productService.foodTypes$.pipe();
+  locations$ = this.productService.locations$.pipe();
   constructor(private productService: ProductService) { }
 
   ngOnInit() {}
@@ -181,8 +196,10 @@ export class AddProductComponent implements OnInit {
     // this below line converts the name input to proper Spacing and Capitalizes and sets it as the restaurants name
     this.restItem.name = restName.charAt(0).toUpperCase() + restName.substring(1).replace(/([A-Z])/g, ' $1').trim();
   }
-
-  onChangez(event): void {
-    console.log('>>', event);
+  onChangeSelect(value) {
+    this.categorySelectedSubject.next(value);
+  }
+  optClick(city) {
+    city ? this.citySelected = true : this.citySelected = false;
   }
 }

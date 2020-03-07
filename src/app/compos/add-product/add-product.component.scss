@@ -37,6 +37,7 @@
             display: inline-block;
             width: 26%;
             margin-right: 30px;
+
           }
         }
 
@@ -56,6 +57,10 @@
         mat-form-field {
           z-index: 123;
           color: black!important;
+
+          &.disappear {
+            display: none;
+          }
 
           ::ng-deep {
             .mat-form-field-wrapper .mat-form-field-infix {
