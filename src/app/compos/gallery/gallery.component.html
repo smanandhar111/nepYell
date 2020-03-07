@@ -1,4 +1,3 @@
-
 <div class="fx display-view" *ngIf="products$ | async as prodItems">
   <div class="repeater"  *ngFor="let rest of prodItems">
     <div class="img-rating-container">
@@ -11,7 +10,6 @@
         <div class="name">{{rest.name}}</div>
         <app-rating [restRating]="rest.rating" [src]="'rating'"></app-rating>
       </div>
-
       <div class="type">{{rest.foodType | titlecase}} Restaurant</div>
       <div class="location">
         <i class="material-icons">home</i>
@@ -28,15 +26,12 @@
           <i class="material-icons" *ngIf="rest.services.selfService" matTooltip="Self Service">emoji_people</i>
         </div>
       </div>
-
       <div class="review">"I went to here for my birthday and they were nice enough to sing my birthday song and also they had the best chicken fries."</div>
       <div class="open-closed-container">
         <div *ngIf="rest.isOpen" class="store-open">Open until {{closingTime}} PM today</div>
         <div *ngIf="!rest.isOpen && !closedToday" class="store-closed">Closed</div>
         <div *ngIf="!rest.isOpen && closedToday" class="store-closed">Closed until {{nextOpenDay}} </div>
       </div>
-
     </div>
   </div>
 </div>
-
