@@ -24,14 +24,12 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import { AddProductComponent } from './compos/add-product/add-product.component';
 import {FormsModule} from '@angular/forms';
 import { GalleryComponent } from './compos/gallery/gallery.component';
-import {ProddisplayColorFilterPipe} from './compos/gallery/pipe/proddisplay-colorfilter.pipe';
-import {ProddisplayFilterPipe} from './compos/gallery/pipe/proddisplay-filter.pipe';
-import {ProddisplayNotSelfPipe} from './compos/gallery/pipe/proddisplay-notSelf.pipe';
-import {ProddisplayPricefilterPipe} from './compos/gallery/pipe/proddisplay-pricefilter.pipe';
 import { ProductInfoComponent } from './compos/product-info/product-info.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { RatingComponent } from './compos/rating/rating.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {FoodTypeFilterPipe} from './compos/gallery/pipes/foodTypeFilter.pipe';
 
 
 @NgModule({
@@ -41,12 +39,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     ProductComponent,
     AddProductComponent,
     GalleryComponent,
-    ProddisplayColorFilterPipe,
-    ProddisplayFilterPipe,
-    ProddisplayNotSelfPipe,
-    ProddisplayPricefilterPipe,
     ProductInfoComponent,
-    RatingComponent
+    RatingComponent,
+    FoodTypeFilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +56,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatOptionModule,
     MatExpansionModule,
     MatTooltipModule,
+    MatCheckboxModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireModule,
     AngularFireAuthModule,

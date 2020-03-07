@@ -60,10 +60,10 @@
 
         <!--Food Type-->
         <mat-form-field>
-          <mat-select required placeholder="Food Type"
-                      name="foodType" [(ngModel)]="restItem.foodType">
-            <mat-option *ngFor="let type of foodType" [value]="type.value">
-              {{type.viewValue}}
+          <mat-select required placeholder="Food Type" (click)="onChangez($event)"
+                      name="foodType"  [(ngModel)]="restItem.foodType">
+            <mat-option *ngFor="let type of foodTypes$ | async" [value]="type.foodType">
+              {{type.foodType}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -90,6 +90,16 @@
         <mat-form-field>
           <mat-select required placeholder="Credit card payment"
                       name="creditCards" [(ngModel)]="restItem.services.creditCards">
+            <mat-option *ngFor="let type of yesNoType" [value]="type.boolean">
+              {{type.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!--Serve Alcohol-->
+        <mat-form-field>
+          <mat-select required placeholder="Do they serve Alcohol"
+                      name="creditCards" [(ngModel)]="restItem.services.serveAlcohol">
             <mat-option *ngFor="let type of yesNoType" [value]="type.boolean">
               {{type.viewValue}}
             </mat-option>
@@ -202,8 +212,7 @@
     <!--OFFSET DIV-->
     <div class="col-sm-1"></div>
     <div class="preview-prod col-sm-5">
-      <h3>Product Preview</h3>
-
+      <h3>Restaurant Images</h3>
       <div class="prod-preview-container">
         <!--Image Display-->
         <mat-accordion>
@@ -260,30 +269,9 @@
             </div>
           </mat-expansion-panel>
         </mat-accordion>
-
-        <div class="prod-details">
-          <h4 class="prod-name">{{restItem.name}}</h4>
-          <span *ngIf="restItem.priceRange">Rs. </span><h5 class="prod-price">{{restItem.priceRange}}</h5>
-          <p class="prod-description">{{restItem.location.toal}} {{restItem.location.area}}</p>
-          <p class="prod-description">{{restItem.foodType}}</p>
-        </div>
       </div>
 
-      <div class="idea">
-        <h1>House Garden Project</h1>
-        <p>
-          A crew of 2-4 will come to your backyard and plant a type of garden you want.<br>
-          Garden Regular
-          Koi Pond
-          Plant trees
-          Plant vegetables and more
-        </p>
-
-        <p>
-          Add a logo image that goes on the first on the restaurant logo if applicable else just the outlet or menu images.
-        </p>
-      </div>
-
+      <!---->
     </div>
   </div>
 </div>

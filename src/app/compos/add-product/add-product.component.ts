@@ -48,7 +48,8 @@ export class AddProductComponent implements OnInit {
     },
     services: {
       creditCards: false,
-      selfService: false
+      selfService: false,
+      serveAlcohol: false,
     },
     storeHours: {
       monday: '',
@@ -71,9 +72,9 @@ export class AddProductComponent implements OnInit {
     {value: 'Thamel', viewValue: 'Thamel'},
   ];
   foodType: SelectType[] = [
-    {value: 'tradNepali', viewValue: 'Traditional Nepali'},
-    {value: 'momoPasal', viewValue: 'Momo Pasal'},
-    {value: 'newari', viewValue: 'Newari'},
+    {value: 'Traditional Nepali', viewValue: 'Traditional Nepali'},
+    {value: 'Momo Pasal', viewValue: 'Momo Pasal'},
+    {value: 'Newari', viewValue: 'Newari'},
   ];
   yesNoType: SelectType[] = [
     {value: 'yes', viewValue: 'Yes', boolean: true},
@@ -103,6 +104,7 @@ export class AddProductComponent implements OnInit {
     {name: 'outletSix', srcModel: 'restItem.images.outlet.outletSix'},
   ];
   alterPhone = false;
+  foodTypes$ = this.productService.foodTypes$.pipe();
   constructor(private productService: ProductService) { }
 
   ngOnInit() {}
@@ -110,6 +112,14 @@ export class AddProductComponent implements OnInit {
   onSubmit(addProdForm: NgForm) {
     this.productService.addItem(this.restItem);
     addProdForm.resetForm();
+    // clear preview images
+    this.restItem.images.outlet.outletOne = '';
+    this.restItem.images.outlet.outletTwo = '';
+    this.restItem.images.outlet.outletThree = '';
+
+    this.restItem.images.menu.menuOne = '';
+    this.restItem.images.menu.menuTwo = '';
+    this.restItem.images.menu.menuThree = '';
   }
   clearInput(e): void {
     const inputName = e.target.previousElementSibling.name;
@@ -170,5 +180,9 @@ export class AddProductComponent implements OnInit {
     // Because the image name is tied to the name of the restaurant we can't capitalize and give space btw in the input
     // this below line converts the name input to proper Spacing and Capitalizes and sets it as the restaurants name
     this.restItem.name = restName.charAt(0).toUpperCase() + restName.substring(1).replace(/([A-Z])/g, ' $1').trim();
+  }
+
+  onChangez(event): void {
+    console.log('>>', event);
   }
 }

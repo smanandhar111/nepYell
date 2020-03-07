@@ -37,6 +37,7 @@ export interface ProductsModel {
   services: {
     creditCards: boolean;
     selfService: boolean;
+    serveAlcohol: boolean;
   };
   storeHours: {
     monday: string;

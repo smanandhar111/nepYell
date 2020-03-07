@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {SelectType} from '../../models/models';
 import {Router} from '@angular/router';
+import {ProductService} from './product.service';
+import {NgForm} from '@angular/forms';
+import {RestaurantFilterModel} from '../../models/models';
+import {BehaviorSubject, combineLatest} from 'rxjs';
+import {map} from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-product',
@@ -8,49 +13,67 @@ import {Router} from '@angular/router';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
-  filterType: string;
-  filterPrice: string;
-  filterColor: string;
+  subCitiesArray = [];
+  newArray = [];
+  citySelected = false;
+  foodTypes$ = this.productService.foodTypes$.pipe();
+  locations$ = this.productService.locations$.pipe();
+  private categorySelectedSubject = new BehaviorSubject<string>('All');
+  categorySelectedAction$ = this.categorySelectedSubject.asObservable();
+  locationSubCity$ = combineLatest([
+      this.productService.locations$, this.categorySelectedAction$
+  ]).pipe(
+      map(([products, selectedCategoryId]) =>
+          products.filter(product => selectedCategoryId ? product.city === selectedCategoryId : true)),
+      map(x => x.map((y) => {
+        return y.subCity.split(',');
+      })),
+  );
+  allSubCity = this.productService.locations$.pipe(
+      map(locations => {
+        locations.map((location) => {
+          this.configAllSubCities(location.subCity);
+        });
+      })
+  ).subscribe();
+  restFilter: RestaurantFilterModel = {
+    Chinese: '',
+    WesternFusion: '',
+    TraditionalNepali: '',
+    MomoSpeciality: '',
+    Japanese: '',
+    Newari: ''
+  };
+  restFilterValArr =  [];
 
-  prodTypes: SelectType[] = [
-    {value: 'earring', viewValue: 'Earring'},
-    {value: 'necklace', viewValue: 'Necklace'},
-    {value: 'bracelet', viewValue: 'Bracelet'},
-    {value: 'clothing', viewValue: 'Clothing'},
-  ];
-  prodPrices: SelectType[] = [
-    {value: 'lessThan100', viewValue: 'Less Than Rs.100'},
-    {value: '100-500', viewValue: 'Rs.100 - Rs.500'},
-    {value: '500-1000', viewValue: 'Rs.500 - Rs1000'},
-    {value: 'MoreThan1000', viewValue: 'More Than Rs.1000'}
-  ];
-  prodColors: SelectType[] = [
-    {value: 'gold', viewValue: 'Gold'},
-    {value: 'silver', viewValue: 'Silver'},
-    {value: 'blue', viewValue: 'Blue'},
-    {value: 'pink', viewValue: 'Pink'}
-  ];
-  constructor(public router: Router) { }
-  ngOnInit() {
+  constructor(public router: Router,
+              private productService: ProductService) { }
+
+  ngOnInit() {}
+  configAllSubCities(subCity) {
+    this.subCitiesArray.push(subCity.split(','));
+    this.subCitiesArray.forEach((sub) => {
+      sub.forEach((i) => {
+        this.newArray.push(i);
+      });
+    });
   }
-
-  clearFilterType(e) {
-    const elementName = e.target.previousElementSibling.lastElementChild
-      .firstElementChild.firstElementChild.firstElementChild
-      .getAttribute('name');
-    if (elementName === 'type') {
-      this.filterType = '';
-    }
-    if (elementName === 'price') {
-      this.filterPrice = '';
-    }
-    if (elementName === 'color') {
-      this.filterColor = '';
-    }
-  }
-
   showInfo() {
     this.router.navigate(['/login']);
-
+  }
+  onChangeFoodType(foodType: any, isChecked: boolean): void {
+    if (isChecked) {
+      this.restFilterValArr.push(foodType);
+    } else {
+      const index = this.restFilterValArr.findIndex(x => x === foodType);
+      this.restFilterValArr.splice(index, 1);
+    }
+  }
+  onSubmit(restFilterForm: NgForm) {}
+  onChangeSelect(value) {
+    this.categorySelectedSubject.next(value);
+  }
+  optClick(city) {
+    city ? this.citySelected = true : this.citySelected = false;
   }
 }

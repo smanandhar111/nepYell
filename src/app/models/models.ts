@@ -12,3 +12,17 @@ export interface WishCart {
 export interface AddToFavModel {
   uid: string;
 }
+
+export interface  LocationModel {
+    subCity: string;
+    city: string;
+}
+
+export interface RestaurantFilterModel {
+    Chinese: any;
+    WesternFusion: any;
+    TraditionalNepali: any;
+    MomoSpeciality: any;
+    Japanese: any;
+    Newari: any;
+}

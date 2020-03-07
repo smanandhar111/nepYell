@@ -1,54 +1,26 @@
 .ProdDisplayComp {
-  margin-left: 25px;
-  margin-right: 25px;
-  .row {
-    &.adjust {
-      margin-left: 0;
-    }
-    .filter-fixed {
-      position: fixed;
-      //margin-top: 13%;
-    }
-    //justify-content: center;
-    .filter-by {
-      font-size: 13px;
-    }
-    .filter-container {
-      ::ng-deep mat-form-field {
-        margin-right: 20px;
+  margin: 20px 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
 
-        .mat-select-value {
-          color: #ff8400;
-        }
+  .filter-form {
+    padding-right: 5%;
+    flex: 1;
 
-        &.mat-focused {
-
-          .mat-form-field-underline {
-            height: 0!important;
-
-            .mat-form-field-ripple {
-              background: transparent;
-            }
-          }
-        }
-
-        .mat-form-field-wrapper {
-
-          .mat-select-arrow-wrapper {
-            .mat-select-arrow{
-              color: transparent;
-            }
-          }
-
-          .mat-form-field-underline {
-            height: 0;
-          }
-        }
-      }
-      a.clear-input {
-        position: relative;
-        right: 15px;
+    .restaurant-type {
+      mat-checkbox {
+        padding-right: 10px;
+        font-size: 12px;
       }
     }
+    .city-type {
+      mat-form-field.disappear {
+        display: none;
+      }
+    }
+  }
+  .gallery-container {
+    flex: 6;
   }
 }
