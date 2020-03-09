@@ -17,6 +17,7 @@ export class GalleryComponent implements OnInit {
   @Input() adminMode: boolean;
   @Input() restFilterValArr: Array<string>;
   @Input() citySelect: string;
+  @Input() subCitySelect: string;
   errMessage: string;
   openingTime: string;
   closingTime: string;

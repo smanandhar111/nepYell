@@ -31,6 +31,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {FoodTypeFilterPipe} from './compos/gallery/pipes/foodTypeFilter.pipe';
 import {CitySelectFilterPipe} from './compos/gallery/pipes/citySelectFilter.pipe';
+import {SubCityFilterPipe} from './compos/gallery/pipes/subCityFilter.pipe';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import {CitySelectFilterPipe} from './compos/gallery/pipes/citySelectFilter.pipe
     RatingComponent,
     FoodTypeFilterPipe,
     CitySelectFilterPipe,
+    SubCityFilterPipe,
   ],
   imports: [
     BrowserModule,

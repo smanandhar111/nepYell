@@ -1,5 +1,5 @@
 <div class="fx display-view" *ngIf="products$ | async as prodItems">
-  <div class="repeater"  *ngFor="let rest of prodItems | citySelectFilter: citySelect">
+  <div class="repeater"  *ngFor="let rest of prodItems | citySelectFilter: citySelect | subCitySelectFilter: subCitySelect">
     <div class="img-rating-container">
       <div class="circle">
         <img src="../../../assets/img/{{rest.images.outlet.outletOne}}" alt="{{rest.name}}">
