@@ -37,12 +37,19 @@ export class ProductComponent implements OnInit {
       })
   ).subscribe();
   restFilter: RestaurantFilterModel = {
-    Chinese: '',
-    WesternFusion: '',
-    TraditionalNepali: '',
-    MomoSpeciality: '',
-    Japanese: '',
-    Newari: ''
+    restType : {
+      Chinese: '',
+      WesternFusion: '',
+      TraditionalNepali: '',
+      MomoSpeciality: '',
+      Japanese: '',
+      Newari: ''
+    },
+    locationType: {
+      area: '',
+      toal: '',
+      allSubCities: '',
+    }
   };
   restFilterValArr =  [];
 
@@ -72,8 +79,43 @@ export class ProductComponent implements OnInit {
   onSubmit(restFilterForm: NgForm) {}
   onChangeSelect(value) {
     this.categorySelectedSubject.next(value);
+    if (this.restFilter.locationType.toal) {
+      this.restFilter.locationType.toal = '';
+    }
   }
   optClick(city) {
-    city ? this.citySelected = true : this.citySelected = false;
+    if (city) {
+      this.citySelected = true;
+      this.restFilter.locationType.allSubCities = '';
+    } else {
+      this.citySelected = false;
+    }
+  }
+  clearFitler(e) {
+    const elementName = e.target.previousElementSibling.lastElementChild
+        .firstElementChild.firstElementChild.firstElementChild
+        .getAttribute('name');
+
+    if (elementName === 'citySelect') {
+      this.restFilter.locationType.area = '';
+      this.citySelected = false;
+      this.restFilter.locationType.toal = '';
+    }
+    if (elementName === 'toalSelect') {
+      this.restFilter.locationType.toal = '';
+    }
+    if (elementName === 'allSubCities') {
+      this.restFilter.locationType.allSubCities = '';
+    }
+  }
+  // returns selected toal or allSubCities whichever is available
+  // as UI wise there can only be either a toal or all city selection
+  // both these select have the same data toal is specific to selected city
+  getThis(): string {
+    if (this.restFilter.locationType.toal) {
+      return this.restFilter.locationType.toal;
+    } else {
+      return this.restFilter.locationType.allSubCities;
+    }
   }
 }

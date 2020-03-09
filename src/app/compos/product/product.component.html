@@ -3,51 +3,56 @@
     <form class="filter-form" name="restFilter" #restFilterForm="ngForm"
           (ngSubmit)="onSubmit(restFilterForm)">
       <div class="restaurant-type fx fx-cl" *ngIf="foodTypes$">
-          <h5>Type of Restaurant:</h5>
+          <h5>Type of Restaurant</h5>
           <mat-checkbox value="{{food.foodType}}" name="foodTypeCheckBox" (change)="onChangeFoodType(food.foodType, $event.checked)"
-                        [(ngModel)]="restFilter[food.foodType]"
+                        [(ngModel)]="restFilter.restType[food.foodType]"
                         *ngFor="let food of foodTypes$ | async">{{food.foodType}}</mat-checkbox>
       </div>
-
       <div class="city-type">
-        <mat-form-field>
-          <mat-label>City</mat-label>
-          <mat-select (selectionChange)="onChangeSelect($event.value)">
-            <mat-option (click)="optClick(loco.city)" *ngFor="let loco of locations$ | async" [value]="loco.city">
-              {{loco.city}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div class="mat-form-field-container">
+          <mat-form-field>
+            <mat-label>City</mat-label>
+            <mat-select (selectionChange)="onChangeSelect($event.value)" name="citySelect" [(ngModel)]="restFilter.locationType.area" >
+              <mat-option (click)="optClick(loco.city)" *ngFor="let loco of locations$ | async" [value]="loco.city">
+                {{loco.city}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <a class="clear-select material-icons" [ngClass]="{'appear': restFilter.locationType.area}" (click)="clearFitler($event)">close</a>
+        </div>
 
-        <mat-form-field [ngClass]="{'disappear': !citySelected}">
-          <mat-label>Sub City</mat-label>
-          <mat-select>
-            <div class="some" *ngFor="let subCities of locationSubCity$ | async;">
-              <mat-option *ngFor="let sub of subCities" [value]="sub">
+        <div class="mat-form-field-container" [ngClass]="{'disappear': !citySelected}">
+          <mat-form-field>
+            <mat-label>Sub City</mat-label>
+            <mat-select [(ngModel)]="restFilter.locationType.toal" name="toalSelect">
+              <div class="some" *ngFor="let subCities of locationSubCity$ | async;">
+                <mat-option *ngFor="let sub of subCities" [value]="sub">
+                  {{sub}}
+                </mat-option>
+              </div>
+            </mat-select>
+          </mat-form-field>
+          <a class="clear-select material-icons" [ngClass]="{'appear': restFilter.locationType.toal}" (click)="clearFitler($event)">close</a>
+        </div>
+
+        <div class="mat-form-field-container" [ngClass]="{'disappear': citySelected}">
+          <mat-form-field>
+            <mat-label>All City</mat-label>
+            <mat-select [(ngModel)]="restFilter.locationType.allSubCities" name="allSubCities">
+              <mat-option *ngFor="let sub of newArray" [value]="sub">
                 {{sub}}
               </mat-option>
-            </div>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field [ngClass]="{'disappear': citySelected}">
-          <mat-label>All City</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let sub of newArray" [value]="sub">
-              {{sub}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-
+            </mat-select>
+          </mat-form-field>
+          <a class="clear-select material-icons" [ngClass]="{'appear': restFilter.locationType.allSubCities}" (click)="clearFitler($event)">close</a>
+        </div>
       </div>
     </form>
   <!--Display-->
   <div class="gallery-container">
-    <app-gallery [restFilterValArr]="restFilterValArr"></app-gallery>
+    <app-gallery [restFilterValArr]="restFilterValArr"
+                 [subCitySelect]="getThis()"
+                 [citySelect]="restFilter.locationType.area"></app-gallery>
   </div>
-
-
-
 </div>
 

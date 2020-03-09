@@ -1,9 +1,8 @@
-import {Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 
 import {ProductService} from '../product/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {catchError, map} from 'rxjs/operators';
-import {combineLatest, Subject} from 'rxjs';
 import {ProductsModel} from '../product/products.model';
 
 @Component({
@@ -11,27 +10,26 @@ import {ProductsModel} from '../product/products.model';
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss']
 })
-export class GalleryComponent implements OnInit, OnChanges {
+export class GalleryComponent implements OnInit {
   @Input() fromWishList: boolean;
   @Output() notify: EventEmitter<string> = new EventEmitter();
   @Input() selfId: string;
   @Input() adminMode: boolean;
   @Input() restFilterValArr: Array<string>;
+  @Input() citySelect: string;
+  @Input() subCitySelect: string;
   errMessage: string;
   openingTime: string;
   closingTime: string;
   closedToday = false;
   nextOpenDay: string;
 
-  private restFilterSubject = new Subject<Array<string>>();
-  restFilterObservable = this.restFilterSubject.asObservable();
-
   products$ = this.productService.products$
     .pipe(
         map((products) => {
           return products.map((prod) => ({
             ...prod,
-            isOpen: this.checkIfOpen(prod.storeHours)
+            isOpen: this.checkIfOpen(prod.storeHours),
           }) as ProductsModel);
         }),
         catchError(err => this.errMessage = err)
@@ -40,11 +38,9 @@ export class GalleryComponent implements OnInit, OnChanges {
               private router: Router,
               private route: ActivatedRoute) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    // console.log(changes);
-  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   getProdDetails(id: string) {
     this.router.navigate(['/product-info', id]);
@@ -95,23 +91,4 @@ export class GalleryComponent implements OnInit, OnChanges {
     }
 
   }
-
-  // Copy of Clipboard
-  copyId(val: string) {
-    const selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = val;
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
-  }
-  removeItem(id: string) {
-    this.notify.emit(id);
-  }
-
 }

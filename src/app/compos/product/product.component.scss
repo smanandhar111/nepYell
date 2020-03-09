@@ -8,15 +8,53 @@
     padding-right: 5%;
     flex: 1;
 
+    .restaurant-type, .city-type {
+      border-bottom: 1px solid #ccc;
+    }
+
     .restaurant-type {
+      padding-bottom: 10px;
+      h5 {
+        margin: 5px 0;
+      }
       mat-checkbox {
         padding-right: 10px;
         font-size: 12px;
       }
     }
     .city-type {
-      mat-form-field.disappear {
+      .mat-form-field-container {
+        display: flex;
+        a.clear-select.material-icons {
+          position: relative;
+          left: 10px;
+          top: 19px;
+          font-size: 16px;
+          color: #ffffff;
+          cursor: pointer;
+          visibility: hidden;
+          &.appear {
+            visibility: visible;
+          }
+        }
+      }
+      .mat-form-field-container.disappear {
         display: none;
+      }
+      padding-top: 10px;
+
+      mat-form-field ::ng-deep .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {
+        border-top-width: 10px;
+        .mat-select-value-text {
+          color: red;
+          font-size: 14px;
+        }
+
+        mat-select .mat-form-field-label {
+          mat-label {
+            color: darkorange;
+          }
+        }
       }
     }
   }
