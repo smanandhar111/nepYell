@@ -83,11 +83,9 @@ export class ProductComponent implements OnInit {
   optClick(city) {
     if (city) {
       this.citySelected = true;
-      if (this.restFilter.locationType.allSubCities) {
-        this.restFilter.locationType.allSubCities = '';
-      } else {
-        this.citySelected = false;
-      }
+      this.restFilter.locationType.allSubCities = '';
+    } else {
+      this.citySelected = false;
     }
   }
   clearFitler(e) {
@@ -104,6 +102,16 @@ export class ProductComponent implements OnInit {
     }
     if (elementName === 'allSubCities') {
       this.restFilter.locationType.allSubCities = '';
+    }
+  }
+  // returns selected toal or allSubCities whichever is available
+  // as UI wise there can only be either a toal or all city selection
+  // both these select have the same data toal is specific to selected city
+  getThis(): string {
+    if (this.restFilter.locationType.toal) {
+      return this.restFilter.locationType.toal;
+    } else {
+      return this.restFilter.locationType.allSubCities;
     }
   }
 }
