@@ -19,10 +19,17 @@ export interface  LocationModel {
 }
 
 export interface RestaurantFilterModel {
-    Chinese: any;
-    WesternFusion: any;
-    TraditionalNepali: any;
-    MomoSpeciality: any;
-    Japanese: any;
-    Newari: any;
+    restType: {
+        Chinese: string;
+        WesternFusion: string;
+        TraditionalNepali: string;
+        MomoSpeciality: string;
+        Japanese: string;
+        Newari: string;
+    };
+    locationType: {
+        area: string;
+        toal: string;
+        allSubCities: string;
+    };
 }

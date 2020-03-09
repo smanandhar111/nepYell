@@ -37,12 +37,19 @@ export class ProductComponent implements OnInit {
       })
   ).subscribe();
   restFilter: RestaurantFilterModel = {
-    Chinese: '',
-    WesternFusion: '',
-    TraditionalNepali: '',
-    MomoSpeciality: '',
-    Japanese: '',
-    Newari: ''
+    restType : {
+      Chinese: '',
+      WesternFusion: '',
+      TraditionalNepali: '',
+      MomoSpeciality: '',
+      Japanese: '',
+      Newari: ''
+    },
+    locationType: {
+      area: '',
+      toal: '',
+      allSubCities: '',
+    }
   };
   restFilterValArr =  [];
 
@@ -74,6 +81,29 @@ export class ProductComponent implements OnInit {
     this.categorySelectedSubject.next(value);
   }
   optClick(city) {
-    city ? this.citySelected = true : this.citySelected = false;
+    if (city) {
+      this.citySelected = true;
+      if (this.restFilter.locationType.allSubCities) {
+        this.restFilter.locationType.allSubCities = '';
+      } else {
+        this.citySelected = false;
+      }
+    }
+  }
+  clearFitler(e) {
+    const elementName = e.target.previousElementSibling.lastElementChild
+        .firstElementChild.firstElementChild.firstElementChild
+        .getAttribute('name');
+
+    if (elementName === 'citySelect') {
+      this.restFilter.locationType.area = '';
+      this.citySelected = false;
+    }
+    if (elementName === 'toalSelect') {
+      this.restFilter.locationType.toal = '';
+    }
+    if (elementName === 'allSubCities') {
+      this.restFilter.locationType.allSubCities = '';
+    }
   }
 }
