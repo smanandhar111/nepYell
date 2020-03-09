@@ -79,6 +79,9 @@ export class ProductComponent implements OnInit {
   onSubmit(restFilterForm: NgForm) {}
   onChangeSelect(value) {
     this.categorySelectedSubject.next(value);
+    if (this.restFilter.locationType.toal) {
+      this.restFilter.locationType.toal = '';
+    }
   }
   optClick(city) {
     if (city) {
@@ -96,6 +99,7 @@ export class ProductComponent implements OnInit {
     if (elementName === 'citySelect') {
       this.restFilter.locationType.area = '';
       this.citySelected = false;
+      this.restFilter.locationType.toal = '';
     }
     if (elementName === 'toalSelect') {
       this.restFilter.locationType.toal = '';

@@ -21,8 +21,8 @@
           <a class="clear-select material-icons" [ngClass]="{'appear': restFilter.locationType.area}" (click)="clearFitler($event)">close</a>
         </div>
 
-        <div class="mat-form-field-container">
-          <mat-form-field [ngClass]="{'disappear': !citySelected}">
+        <div class="mat-form-field-container" [ngClass]="{'disappear': !citySelected}">
+          <mat-form-field>
             <mat-label>Sub City</mat-label>
             <mat-select [(ngModel)]="restFilter.locationType.toal" name="toalSelect">
               <div class="some" *ngFor="let subCities of locationSubCity$ | async;">
@@ -35,8 +35,8 @@
           <a class="clear-select material-icons" [ngClass]="{'appear': restFilter.locationType.toal}" (click)="clearFitler($event)">close</a>
         </div>
 
-        <div class="mat-form-field-container">
-          <mat-form-field [ngClass]="{'disappear': citySelected}">
+        <div class="mat-form-field-container" [ngClass]="{'disappear': citySelected}">
+          <mat-form-field>
             <mat-label>All City</mat-label>
             <mat-select [(ngModel)]="restFilter.locationType.allSubCities" name="allSubCities">
               <mat-option *ngFor="let sub of newArray" [value]="sub">

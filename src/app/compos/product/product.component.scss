@@ -38,10 +38,11 @@
           }
         }
       }
-      padding-top: 10px;
-      mat-form-field.disappear {
+      .mat-form-field-container.disappear {
         display: none;
       }
+      padding-top: 10px;
+
       mat-form-field ::ng-deep .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {
         border-top-width: 10px;
         .mat-select-value-text {
