@@ -1,0 +1,50 @@
+.weather-billboard-con {
+  &.day {
+    color: orangered;
+  }
+  &.night {
+    color: #ffffff;
+  }
+  margin-right: 25px;
+  display: inline-flex;
+  * {
+    margin-right: 10px;
+  }
+  h5 {
+    margin: 0;
+  }
+  .weather-icon {
+
+    i {
+      font-size: 30px;
+    }
+  }
+  .temp-n-format {
+
+    .temp {
+      margin-right: 5px;
+    }
+    .temp-format {
+      position: relative;
+      bottom: 2px;
+      font-size: 12px;
+    }
+  }
+
+  .city-name {
+    font-size: 14px;
+    margin-right: 10px;
+  }
+  form.edit-city {
+
+    .example-full-width {
+      position: relative;
+      font-size: 12px;
+      width: 125px;
+    }
+    a.clear-input {
+      position: absolute;
+    }
+  }
+}
+

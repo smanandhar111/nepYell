@@ -33,6 +33,8 @@ import {FoodTypeFilterPipe} from './compos/gallery/pipes/foodTypeFilter.pipe';
 import {CitySelectFilterPipe} from './compos/gallery/pipes/citySelectFilter.pipe';
 import {SubCityFilterPipe} from './compos/gallery/pipes/subCityFilter.pipe';
 import {PriceRangeFilterPipe} from './compos/gallery/pipes/priceRangeFilter.pipe';
+import { WeatherComponent } from './compos/weather/weather.component';
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -47,7 +49,8 @@ import {PriceRangeFilterPipe} from './compos/gallery/pipes/priceRangeFilter.pipe
     FoodTypeFilterPipe,
     CitySelectFilterPipe,
     SubCityFilterPipe,
-    PriceRangeFilterPipe
+    PriceRangeFilterPipe,
+    WeatherComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ import {PriceRangeFilterPipe} from './compos/gallery/pipes/priceRangeFilter.pipe
     AngularFireModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [AuthService, ProductService],
   bootstrap: [AppComponent]
