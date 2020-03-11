@@ -18,6 +18,7 @@ export class GalleryComponent implements OnInit {
   @Input() restFilterValArr: Array<string>;
   @Input() citySelect: string;
   @Input() subCitySelect: string;
+  @Input() priceRangeSelect: number;
   errMessage: string;
   openingTime: string;
   closingTime: string;
@@ -39,8 +40,7 @@ export class GalleryComponent implements OnInit {
               private route: ActivatedRoute) { }
 
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   getProdDetails(id: string) {
     this.router.navigate(['/product-info', id]);

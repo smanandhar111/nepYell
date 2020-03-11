@@ -74,30 +74,11 @@ export class AddProductComponent implements OnInit {
       sunday: '',
     }
   };
-  // locationArea: SelectType[] = [
-  //   {value: 'kathmandu', viewValue: 'Kathmandu'},
-  //   {value: 'bhaktapur', viewValue: 'Bhaktapur'},
-  //   {value: 'partan', viewValue: 'Partan'},
-  // ];
-  // locationToal: SelectType[] = [
-  //   {value: 'Dillibazar', viewValue: 'Dillibazar'},
-  //   {value: 'New Road', viewValue: 'New Road'},
-  //   {value: 'Thamel', viewValue: 'Thamel'},
-  // ];
-  // foodType: SelectType[] = [
-  //   {value: 'Traditional Nepali', viewValue: 'Traditional Nepali'},
-  //   {value: 'Momo Pasal', viewValue: 'Momo Pasal'},
-  //   {value: 'Newari', viewValue: 'Newari'},
-  // ];
   yesNoType: SelectType[] = [
     {value: 'yes', viewValue: 'Yes', boolean: true},
     {value: 'no', viewValue: 'No', boolean: false}
   ];
-  priceRangeType: SelectType[] = [
-    {value: 'affordable', viewValue: 'Affordable', valNumber: 1},
-    {value: 'reasonable', viewValue: 'Reasonable', valNumber: 2},
-    {value: 'expensive', viewValue: 'Expensive', valNumber: 3},
-  ];
+  priceRangeType: SelectType[] = this.productService.priceRangeType;
   outletImgCount: number;
   menuImgCount: number;
   menuImages = [

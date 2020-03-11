@@ -119,7 +119,6 @@
           <i class="material-icons">add</i>
         </a>
 
-
         <!--ALT Phone Number-->
         <mat-form-field class="example-full-width" *ngIf="alterPhone">
           <input matInput placeholder="2nd Phone number"
@@ -196,14 +195,6 @@
 
           </mat-expansion-panel>
         </mat-accordion>
-
-
-        <!--        <a mat-raised-button class="auto-fill"-->
-        <!--           *ngIf="addProdForm.pristine && !addProdForm.valid"-->
-        <!--           (click)="autoFill()"><i class="fa fa-id-card-o"></i></a>-->
-
-        <!--        <a mat-raised-button class="clear-form" *ngIf="!addProdForm.pristine || addProdForm.valid" (click)="clearAll(addProdForm)"><i class="fa fa-times-circle-o"></i></a>-->
-
         <!--SUBMIT-->
         <button [disabled]="!addProdForm.valid" class="add-prod-btn" [ngClass]="{'valid': addProdForm.valid}" type="submit"
                 mat-raised-button color="accent">Add Product

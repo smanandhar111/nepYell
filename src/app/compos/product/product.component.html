@@ -47,11 +47,27 @@
           <a class="clear-select material-icons" [ngClass]="{'appear': restFilter.locationType.allSubCities}" (click)="clearFitler($event)">close</a>
         </div>
       </div>
+
+
+      <div class="price-range-type">
+        <div class="mat-form-field-container">
+          <mat-form-field>
+            <mat-label>Price Range</mat-label>
+            <mat-select name="priceRange" [(ngModel)]="restFilter.priceRangeType">
+              <mat-option *ngFor="let type of priceRangeType" [value]="type.valNumber">
+                {{type.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <a class="clear-select material-icons" [ngClass]="{'appear': restFilter.priceRangeType}" (click)="clearFitler($event)">close</a>
+        </div>
+      </div>
     </form>
   <!--Display-->
   <div class="gallery-container">
     <app-gallery [restFilterValArr]="restFilterValArr"
                  [subCitySelect]="getThis()"
+                 [priceRangeSelect]="restFilter.priceRangeType"
                  [citySelect]="restFilter.locationType.area"></app-gallery>
   </div>
 </div>

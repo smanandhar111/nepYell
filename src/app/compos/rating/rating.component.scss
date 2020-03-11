@@ -16,13 +16,24 @@
   }
 
   &.price-range {
-    padding-top: 5px;
-    display: block;
+    padding-left: 10px;
+    position: relative;
+    top: 3px;
     width: 60px;
+
+    &:hover {
+      .star {
+        transform: scale(1);
+      }
+    }
+
     .star {
       color: green;
-      font-size: 15px;
+      font-size: 18px;
       position: relative;
+      transform: scale(0.8);
+      transition: transform 0.5s ease;
+
       &:nth-child(2) {
         right: 6px;
       }
