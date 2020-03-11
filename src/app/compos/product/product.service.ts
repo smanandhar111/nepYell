@@ -3,7 +3,7 @@ import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firest
 import {ProductsModel} from './products.model';
 import {Observable} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
-import {AddToFavModel, LocationModel} from '../../models/models';
+import {AddToFavModel, LocationModel, SelectType} from '../../models/models';
 import {throwError } from 'rxjs';
 
 interface FoodTypes {
@@ -20,6 +20,12 @@ export class ProductService {
   locationCollection = this.afs.collection('locations');
   cartItems$: Observable<AddToFavModel[]>;
   wishList$: Observable<AddToFavModel[]>;
+  // Static Array to be shared with Multiple Components
+  priceRangeType: SelectType[] = [
+    {value: 'affordable', viewValue: 'Affordable', valNumber: 1},
+    {value: 'reasonable', viewValue: 'Reasonable', valNumber: 2},
+    {value: 'expensive', viewValue: 'Expensive', valNumber: 3},
+  ];
   constructor(private afs: AngularFirestore) {
       this.getUserData();
   }

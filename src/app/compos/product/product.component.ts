@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {ProductService} from './product.service';
 import {NgForm} from '@angular/forms';
-import {RestaurantFilterModel} from '../../models/models';
+import {RestaurantFilterModel, SelectType} from '../../models/models';
 import {BehaviorSubject, combineLatest} from 'rxjs';
 import {map} from 'rxjs/operators';
 
@@ -16,10 +16,10 @@ export class ProductComponent implements OnInit {
   subCitiesArray = [];
   newArray = [];
   citySelected = false;
-  foodTypes$ = this.productService.foodTypes$.pipe();
-  locations$ = this.productService.locations$.pipe();
   private categorySelectedSubject = new BehaviorSubject<string>('All');
   categorySelectedAction$ = this.categorySelectedSubject.asObservable();
+  foodTypes$ = this.productService.foodTypes$.pipe();
+  locations$ = this.productService.locations$.pipe();
   locationSubCity$ = combineLatest([
       this.productService.locations$, this.categorySelectedAction$
   ]).pipe(
@@ -29,6 +29,7 @@ export class ProductComponent implements OnInit {
         return y.subCity.split(',');
       })),
   );
+  // Todo: Unsubscribe
   allSubCity = this.productService.locations$.pipe(
       map(locations => {
         locations.map((location) => {
@@ -49,14 +50,17 @@ export class ProductComponent implements OnInit {
       area: '',
       toal: '',
       allSubCities: '',
-    }
+    },
+    priceRangeType: ''
   };
   restFilterValArr =  [];
+  priceRangeType: SelectType[] = this.productService.priceRangeType;
 
   constructor(public router: Router,
               private productService: ProductService) { }
 
   ngOnInit() {}
+  // Todo: Fix naming conventions
   configAllSubCities(subCity) {
     this.subCitiesArray.push(subCity.split(','));
     this.subCitiesArray.forEach((sub) => {
@@ -106,6 +110,9 @@ export class ProductComponent implements OnInit {
     }
     if (elementName === 'allSubCities') {
       this.restFilter.locationType.allSubCities = '';
+    }
+    if (elementName === 'priceRange') {
+      this.restFilter.priceRangeType = '';
     }
   }
   // returns selected toal or allSubCities whichever is available
