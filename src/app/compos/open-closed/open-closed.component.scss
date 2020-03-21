@@ -1,0 +1,16 @@
+.store-open, .opening-soon {
+  color: #2bc687;
+  span {
+    color: #ffffff;
+    font-size: 12px;
+  }
+
+}
+.store-closed, .closing-soon{
+  color: #f44336;
+  span {
+    display: block;
+    color: #ffffff;
+    font-size: 12px;
+  }
+}

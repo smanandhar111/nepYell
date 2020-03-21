@@ -33,6 +33,7 @@ export class WeatherComponent implements OnInit {
   ngOnInit() {
     this.getWeather();
   }
+  // Todo: Convert into Observables and make component OnPush
   getWeather() {
     const url = `${this.rootUrl}q=${this.defaultCity}&APPID=${this.appId}&units=${this.unit}`;
     this.http.get<WeatherInfo>(url)
@@ -53,7 +54,7 @@ export class WeatherComponent implements OnInit {
   roundUp() {
     this.temp = Math.round(this.temp);
   }
-  updatelocation(inputCity) {
+  updateLocation(inputCity) {
     this.defaultCity = this.inputCity;
     this.getWeather();
     this.inputCity = '';

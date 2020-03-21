@@ -31,9 +31,7 @@
       </div>
       <div class="review">"I went to here for my birthday and they were nice enough to sing my birthday song and also they had the best chicken fries."</div>
       <div class="open-closed-container">
-        <div *ngIf="rest.isOpen" class="store-open">Open until {{closingTime}} PM today</div>
-        <div *ngIf="!rest.isOpen && !closedToday" class="store-closed">Closed</div>
-        <div *ngIf="!rest.isOpen && closedToday" class="store-closed">Closed until {{nextOpenDay}} </div>
+        <app-open-closed [storeHours]="rest.storeHours"></app-open-closed>
       </div>
     </div>
   </div>
