@@ -12,7 +12,7 @@
         *ngIf="!editCity">{{weatherInfo.name}}
     </h5>
 
-    <form #editCityForm="ngForm" class="edit-city" *ngIf="editCity" (ngSubmit)="updatelocation(inputCity)" >
+    <form #editCityForm="ngForm" class="edit-city" *ngIf="editCity" (ngSubmit)="updateLocation(inputCity)" >
         <mat-form-field class="example-full-width">
             <input matInput required placeholder="City" [(ngModel)]="inputCity"
                    name="City" >
