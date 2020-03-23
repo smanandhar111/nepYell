@@ -26,6 +26,9 @@ body {
   @media (min-width: 1200px) {
     max-width: 1140px;
   }
+  &.sm {
+    max-width: 1375px;
+  }
 }
 
 .row {

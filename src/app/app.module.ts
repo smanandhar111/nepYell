@@ -34,7 +34,8 @@ import {CitySelectFilterPipe} from './compos/gallery/pipes/citySelectFilter.pipe
 import {SubCityFilterPipe} from './compos/gallery/pipes/subCityFilter.pipe';
 import {PriceRangeFilterPipe} from './compos/gallery/pipes/priceRangeFilter.pipe';
 import { WeatherComponent } from './compos/weather/weather.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from '@angular/common/http';
+import { OpenClosedComponent } from './compos/open-closed/open-closed.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import {HttpClientModule} from "@angular/common/http";
     CitySelectFilterPipe,
     SubCityFilterPipe,
     PriceRangeFilterPipe,
-    WeatherComponent
+    WeatherComponent,
+    OpenClosedComponent
   ],
   imports: [
     BrowserModule,
