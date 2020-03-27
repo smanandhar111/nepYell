@@ -1,16 +1,27 @@
 @import url('https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700&display=swap');
-
+@import 'styles/variables';
 mat-toolbar {
-  box-shadow: 2px 1px 6px red;
+  box-shadow: 2px 1px 6px whitesmoke;
   justify-content: space-between;
-  button {
+  //background: $main ;
+  background-image: linear-gradient(to bottom, $main, #e92f71);
+  // Night Mode
+  //background-image: linear-gradient(to bottom, #302c8c, #48318c);
+  button.app-logo {
     .material-icons {
       font-size: 28px;
+      color: ivory;
     }
     b {
       position: relative;
       left: 5px;
       font-size: 16px;
+      color: ivory;
+    }
+  }
+  .weather-auth-container {
+    app-weather {
+      align-self: center;
     }
   }
 }

@@ -1,16 +1,18 @@
+@import 'src/app/styles/variables';
+
 .store-open, .opening-soon {
   color: #2bc687;
   span {
-    color: #ffffff;
     font-size: 12px;
+    color: #000000;
   }
 
 }
 .store-closed, .closing-soon{
-  color: #f44336;
+  color: $alpha;
   span {
     display: block;
-    color: #ffffff;
     font-size: 12px;
+    color: #000000;
   }
 }

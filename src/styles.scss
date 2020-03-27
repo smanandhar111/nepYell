@@ -1,9 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'src/app/styles/utils.scss';
-
-html, body { height: 100%; }
+@import 'src/app/styles/variables';
+html, body { height: 100%;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
   //background-image: url('/assets/img/back.jpg');
   //background-position: center;
   //background-size: cover;
+  //background-image: linear-gradient(to bottom, #48318c, #ffffff);
+  background: #EEEEE0;
+  //background-image: radial-gradient( #302c8c, #48318c, #000000) ;
 }

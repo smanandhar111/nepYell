@@ -1,16 +1,25 @@
+@import 'src/app/styles/variables';
 .display-view {
   padding: 5px 10px;
   flex-wrap: wrap;
   justify-content: space-between;
   .repeater {
     display: flex;
-    border: 1px solid #cccccc;
+    border: 1px solid #ffffff;
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 7px;
+    //background: #392770;
+    background: transparent;
+    transition: box-shadow .5s ease;
+    &:hover {
+      background: #392770;
+      box-shadow: 1px 5px 60px #000000;
+    }
     .img-rating-container {
       display: flex;
       flex-direction: column;
+      align-self: center;
     }
     .more-info {
       padding-left: 15px;
@@ -24,6 +33,10 @@
           font-weight: 500;
           padding-left: 5px;
           margin-bottom: 0;
+          cursor: pointer;
+          &:hover {
+            text-decoration: underline;
+          }
         }
       }
       .type {
@@ -72,15 +85,15 @@
         }
       }
       .store-closed {
-        color: #f44336;
+        color: $alpha;
       }
       .store-open {
-        color: #2bc687;
+        color: $activeX;
         font-size: 14px;
       }
       .review {
         max-width: 250px;
-        background: yellow;
+        background: $highlight;
         font-size: 14px;
       }
     }

@@ -34,7 +34,10 @@ import {CitySelectFilterPipe} from './compos/gallery/pipes/citySelectFilter.pipe
 import {SubCityFilterPipe} from './compos/gallery/pipes/subCityFilter.pipe';
 import {PriceRangeFilterPipe} from './compos/gallery/pipes/priceRangeFilter.pipe';
 import { WeatherComponent } from './compos/weather/weather.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from '@angular/common/http';
+import { OpenClosedComponent } from './compos/open-closed/open-closed.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { WriteReviewComponent } from './compos/write-review/write-review.component';
 
 
 @NgModule({
@@ -50,7 +53,9 @@ import {HttpClientModule} from "@angular/common/http";
     CitySelectFilterPipe,
     SubCityFilterPipe,
     PriceRangeFilterPipe,
-    WeatherComponent
+    WeatherComponent,
+    OpenClosedComponent,
+    WriteReviewComponent
   ],
   imports: [
     BrowserModule,
@@ -66,6 +71,7 @@ import {HttpClientModule} from "@angular/common/http";
     MatExpansionModule,
     MatTooltipModule,
     MatCheckboxModule,
+    MatDialogModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireModule,
     AngularFireAuthModule,
@@ -73,6 +79,7 @@ import {HttpClientModule} from "@angular/common/http";
     FormsModule,
     HttpClientModule,
   ],
+  entryComponents: [WriteReviewComponent],
   providers: [AuthService, ProductService],
   bootstrap: [AppComponent]
 })

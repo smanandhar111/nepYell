@@ -1,28 +1,14 @@
-<div class="weather-billboard-con" [ngClass]="getDayOrNight()" *ngIf="weatherInfo">
+<div class="weather-billboard-con" *ngIf="weather$ | async as weathers">
     <div class="weather-icon">
-        <i [ngClass]="{'i-cloudy': weatherConditions === 'Clouds' || weatherConditions === 'Haze' || weatherConditions === 'Mist',
-                    'i-clear-night': weatherConditions === 'Clear',
-                   'i-snow': weatherConditions === 'Snow',
-                   'i-sunny': weatherConditions === 'Sunny'}">
-        </i>
+        <span class="w-info">{{weathers["weather"][0].main}}</span>
+        <i class="material-icons">{{getWeatherIcon(weathers["weather"][0].main)}}</i>
     </div>
 
-    <h5 class="city-name"
-        (dblclick)="editCityActive()"
-        *ngIf="!editCity">{{weatherInfo.name}}
-    </h5>
-
-    <form #editCityForm="ngForm" class="edit-city" *ngIf="editCity" (ngSubmit)="updateLocation(inputCity)" >
-        <mat-form-field class="example-full-width">
-            <input matInput required placeholder="City" [(ngModel)]="inputCity"
-                   name="City" >
-            <a *ngIf="!editCityForm.valid" (click)="clearEdit()"
-               class="clear-input fa fa-times"></a>
-        </mat-form-field>
-    </form>
+    <h5 class="city-name">{{weathers.name}}</h5>
 
     <div class="temp-n-format">
-        <span class="temp">{{temp}}</span>
+        <span class="temp">{{roundUpTemp(weathers.main.temp)}}</span>
+        <span class="degree">o</span>
         <span class="temp-format i-celcius">C</span>
     </div>
 </div>

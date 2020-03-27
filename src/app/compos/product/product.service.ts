@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {ProductsModel} from './products.model';
 import {Observable} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
+import {catchError, map, shareReplay, tap} from 'rxjs/operators';
 import {AddToFavModel, LocationModel, SelectType} from '../../models/models';
 import {throwError } from 'rxjs';
 
@@ -38,6 +38,8 @@ export class ProductService {
         return resp;
       });
     }),
+    // tap(data => console.log('restaurants', JSON.stringify(data))),
+    shareReplay(1),
     catchError(this.handleError)
   );
 
@@ -46,7 +48,10 @@ export class ProductService {
         return changes.map(a => {
           return a.payload.doc.data() as FoodTypes;
         });
-      })
+      }),
+      // tap(data => console.log('foodType', JSON.stringify(data))),
+      shareReplay(1),
+      catchError(this.handleError)
   );
 
   locations$ = this.locationCollection.snapshotChanges().pipe(
@@ -54,7 +59,10 @@ export class ProductService {
         return changes.map(a => {
           return a.payload.doc.data() as LocationModel;
         });
-      })
+      }),
+      // tap(data => console.log(JSON.stringify(data))),
+      shareReplay(1),
+      catchError(this.handleError)
   );
 
   getUserData(): void {

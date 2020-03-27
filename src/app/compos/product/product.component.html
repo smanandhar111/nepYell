@@ -3,7 +3,7 @@
     <form class="filter-form" name="restFilter" #restFilterForm="ngForm"
           (ngSubmit)="onSubmit(restFilterForm)">
       <div class="restaurant-type fx fx-cl" *ngIf="foodTypes$">
-          <h5>Type of Restaurant</h5>
+          <h5 class="filter-title">Type of Restaurant</h5>
           <mat-checkbox value="{{food.foodType}}" name="foodTypeCheckBox" (change)="onChangeFoodType(food.foodType, $event.checked)"
                         [(ngModel)]="restFilter.restType[food.foodType]"
                         *ngFor="let food of foodTypes$ | async">{{food.foodType}}</mat-checkbox>
@@ -11,7 +11,7 @@
       <div class="city-type">
         <div class="mat-form-field-container">
           <mat-form-field>
-            <mat-label>City</mat-label>
+            <mat-label class="labeler">City</mat-label>
             <mat-select (selectionChange)="onChangeSelect($event.value)" name="citySelect" [(ngModel)]="restFilter.locationType.area" >
               <mat-option (click)="optClick(loco.city)" *ngFor="let loco of locations$ | async" [value]="loco.city">
                 {{loco.city}}
@@ -23,7 +23,7 @@
 
         <div class="mat-form-field-container" [ngClass]="{'disappear': !citySelected}">
           <mat-form-field>
-            <mat-label>Sub City</mat-label>
+            <mat-label class="labeler">Sub City</mat-label>
             <mat-select [(ngModel)]="restFilter.locationType.toal" name="toalSelect">
               <div class="some" *ngFor="let subCities of locationSubCity$ | async;">
                 <mat-option *ngFor="let sub of subCities" [value]="sub">
@@ -37,7 +37,7 @@
 
         <div class="mat-form-field-container" [ngClass]="{'disappear': citySelected}">
           <mat-form-field>
-            <mat-label>All City</mat-label>
+            <mat-label class="labeler">All City</mat-label>
             <mat-select [(ngModel)]="restFilter.locationType.allSubCities" name="allSubCities">
               <mat-option *ngFor="let sub of newArray" [value]="sub">
                 {{sub}}
@@ -52,7 +52,7 @@
       <div class="price-range-type">
         <div class="mat-form-field-container">
           <mat-form-field>
-            <mat-label>Price Range</mat-label>
+            <mat-label class="labeler">Price Range</mat-label>
             <mat-select name="priceRange" [(ngModel)]="restFilter.priceRangeType">
               <mat-option *ngFor="let type of priceRangeType" [value]="type.valNumber">
                 {{type.viewValue}}
