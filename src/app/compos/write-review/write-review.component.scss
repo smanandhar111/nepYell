@@ -1,0 +1,43 @@
+.modal-container {
+  padding: 0 30px;
+  background: #48318c;
+  h3 {
+    display: inline;
+  }
+  .name-rating {
+    justify-content: space-between;
+    .mat-button {
+      min-width: 30px;
+      line-height: 0;
+      align-self: center;
+      padding: 0 5px;
+      &.star-clicked {
+        color: gold;
+      }
+      &.star-hovered {
+        color: gold;
+      }
+    }
+
+  }
+  .review-submit {
+    textarea {
+      resize: none;
+      padding: 20px 20px 40px 20px;
+      font-size: 14px;
+      font-family: 'Muli', sans-serif;
+
+    }
+  }
+}
+.header {
+  padding: 20px 30px;
+  border-bottom: 1px solid #ccc;
+  background: #302c8c;
+  .review-text {
+    font-family: 'Muli', sans-serif;
+    font-size: 16px;
+  }
+}
+
+

@@ -4,6 +4,8 @@ import {catchError, map} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
 import {AddToFavModel} from '../../models/models';
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {WriteReviewComponent} from "../write-review/write-review.component";
 
 @Component({
   selector: 'app-product-info',
@@ -14,13 +16,10 @@ export class ProductInfoComponent implements OnInit {
   productId = this.activeRoute.snapshot.paramMap.get('id');
   sessionStoreAuth = sessionStorage.getItem('auth');
   imgCaro = 1;
-  inCart: boolean;
-  wished: boolean;
   errMessage: string;
   addToFav: AddToFavModel = {
     uid: ''
   };
-  imgHovered = false;
 
   product$ = this.productService.products$
     .pipe(
@@ -35,18 +34,10 @@ export class ProductInfoComponent implements OnInit {
 
   constructor(private productService: ProductService,
               private activeRoute: ActivatedRoute,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private dialog: MatDialog) { }
 
   ngOnInit() {
-
-    // this.authService.logStatus$.subscribe((user) => {
-    //   if (user != null) {
-    //
-    //   } else {
-    //     this.inCart = false;
-    //     this.wished = false;
-    //   }
-    // });
   }
   imgCaros(numb) {
     this.imgCaro = numb;
@@ -63,7 +54,19 @@ export class ProductInfoComponent implements OnInit {
       this.authService.googleLogin();
     }
   }
-  toggleImg(): void {
-    // this.imgHovered = true;
+
+  openRatingDialog(name): void {
+    const auth = sessionStorage.getItem('auth');
+    if (auth === 'true') {
+      const dialogConfig = new MatDialogConfig();
+      const dialogRef = this.dialog.open(WriteReviewComponent, {
+        data: {
+          name
+        }
+      });
+    } else {
+      alert('Please log in first Idiot !!!!');
+    }
+
   }
 }

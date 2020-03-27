@@ -1,10 +1,7 @@
 <div class="weather-billboard-con" [ngClass]="getDayOrNight()" *ngIf="weatherInfo">
     <div class="weather-icon">
-        <i [ngClass]="{'i-cloudy': weatherConditions === 'Clouds' || weatherConditions === 'Haze' || weatherConditions === 'Mist',
-                    'i-clear-night': weatherConditions === 'Clear',
-                   'i-snow': weatherConditions === 'Snow',
-                   'i-sunny': weatherConditions === 'Sunny'}">
-        </i>
+        <span class="w-info">{{weatherConditions}}</span>
+        <i class="material-icons">{{getWeatherIcon()}}</i>
     </div>
 
     <h5 class="city-name"
@@ -23,6 +20,7 @@
 
     <div class="temp-n-format">
         <span class="temp">{{temp}}</span>
+        <span class="degree">o</span>
         <span class="temp-format i-celcius">C</span>
     </div>
 </div>

@@ -1,0 +1,27 @@
+<div class="header">
+        <span class="logo">
+            <i class="material-icons">fastfood</i>
+            <b>Yogi</b>
+        </span>
+    <span class="review-text">Post a Review</span>
+</div>
+<div class="modal-container">
+    <div class="name-rating fx">
+        <h3>{{name}}</h3>
+
+            <a mat-button [ngStyle]="{'color': rateStar.clicked ? 'gold' : '' }"
+               [ngClass]="{'star-hovered': rateStar.hover}" *ngFor="let rateStar of rateStars"
+               (click)="rated(rateStar.numb)" matTooltip="{{rateStar.des}}" (mouseleave)="starUnHovered()"
+               (mouseenter)="starHovered(rateStar)">
+                <i class="material-icons">star_border</i>
+            </a>
+
+
+    </div>
+    <div class="fx fx-cl review-submit">
+        <textarea [(ngModel)]="review" maxlength="5000" style="height: 200px"></textarea>
+        <button color="warn" [disabled]="checkDisability()" mat-button
+                (click)="submitReview()">Post it!</button>
+    </div>
+</div>
+

@@ -1,6 +1,6 @@
 .weather-billboard-con {
   &.day {
-    color: orangered;
+    color: #ffffff;
   }
   &.night {
     color: #ffffff;
@@ -14,13 +14,23 @@
     margin: 0;
   }
   .weather-icon {
-
+    .w-info {
+      font-size: 8px;
+      position: absolute;
+      top: 30px;
+    }
     i {
       font-size: 30px;
     }
   }
   .temp-n-format {
-
+    position: relative;
+    .degree {
+      position: absolute;
+      right: 8px;
+      font-size: 10px;
+      bottom: 13px;
+    }
     .temp {
       margin-right: 5px;
     }

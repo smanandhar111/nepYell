@@ -18,7 +18,7 @@ interface WeatherInfo {
 export class WeatherComponent implements OnInit {
   defaultCity = 'Kathmandu';
   inputCity: string;
-  unit = 'Imperial';
+  unit = 'metric';
   temp: number;
   weatherConditions: string;
   private readonly rootUrl: string = 'http://api.openweathermap.org/data/2.5/weather?';
@@ -71,6 +71,24 @@ export class WeatherComponent implements OnInit {
       return 'night';
     } else {
       return 'day';
+    }
+  }
+  getWeatherIcon(): string {
+    switch (this.weatherConditions) {
+      case 'Clouds':
+        return 'filter_drama';
+      case 'Sunny':
+        return 'wb_sunny';
+      case 'Clear':
+        return this.dayOrNight();
+    }
+  }
+  dayOrNight(): string {
+    const hour = new Date().getHours();
+    if (hour > 8 && hour < 17) {
+      return 'wb_sunny';
+    } else {
+      return 'brightness_3';
     }
   }
 }

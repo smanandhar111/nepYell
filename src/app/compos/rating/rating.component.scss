@@ -1,6 +1,7 @@
 .rating-comp {
   position: relative;
   width: auto;
+  min-width: 90px;
   &:not(.price-range) {
     position: relative;
     top: 3px;

@@ -36,6 +36,8 @@ import {PriceRangeFilterPipe} from './compos/gallery/pipes/priceRangeFilter.pipe
 import { WeatherComponent } from './compos/weather/weather.component';
 import {HttpClientModule} from '@angular/common/http';
 import { OpenClosedComponent } from './compos/open-closed/open-closed.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { WriteReviewComponent } from './compos/write-review/write-review.component';
 
 
 @NgModule({
@@ -52,7 +54,8 @@ import { OpenClosedComponent } from './compos/open-closed/open-closed.component'
     SubCityFilterPipe,
     PriceRangeFilterPipe,
     WeatherComponent,
-    OpenClosedComponent
+    OpenClosedComponent,
+    WriteReviewComponent
   ],
   imports: [
     BrowserModule,
@@ -68,6 +71,7 @@ import { OpenClosedComponent } from './compos/open-closed/open-closed.component'
     MatExpansionModule,
     MatTooltipModule,
     MatCheckboxModule,
+    MatDialogModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireModule,
     AngularFireAuthModule,
@@ -75,6 +79,7 @@ import { OpenClosedComponent } from './compos/open-closed/open-closed.component'
     FormsModule,
     HttpClientModule,
   ],
+  entryComponents: [WriteReviewComponent],
   providers: [AuthService, ProductService],
   bootstrap: [AppComponent]
 })

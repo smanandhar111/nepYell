@@ -1,13 +1,13 @@
 <div class="fx display-view" *ngIf="products$ | async as prodItems">
-  <div class="repeater"  *ngFor="let rest of prodItems | citySelectFilter: citySelect | subCitySelectFilter: subCitySelect| priceRangeFilter: priceRangeSelect">
+  <div class="repeater" *ngFor="let rest of prodItems | citySelectFilter: citySelect | subCitySelectFilter: subCitySelect| priceRangeFilter: priceRangeSelect">
     <div class="img-rating-container">
-      <div class="circle" (click)="getProdDetails(rest.id)">
+      <div class="circle">
         <img src="../../../assets/img/{{rest.images.outlet.outletOne}}" alt="{{rest.name}}">
       </div>
     </div>
     <div class="more-info">
       <div class="name-rating-container">
-        <div class="name">{{rest.name}}</div>
+        <div class="name" (click)="getProdDetails(rest.id)">{{rest.name}}</div>
         <app-rating [restRating]="rest.rating" [src]="'rating'"></app-rating>
       </div>
       <div class="type">

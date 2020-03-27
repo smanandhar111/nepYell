@@ -1,3 +1,6 @@
+@import 'variables.scss';
+
+
 body {
   font-family: 'Muli',sans-serif;
   margin-left: 0;
@@ -251,9 +254,6 @@ a.clear-input {
   border-radius: 99px;
   transition: color 0.3s ease, border-color 0.8s ease;
   display: inline;
-  &.fa-times {
-
-  }
   &:hover {
     color: #f44336;
   }
@@ -261,4 +261,37 @@ a.clear-input {
     position: relative;
     bottom: 1px;
   }
+}
+
+// Modal Popup Modification Globally
+.cdk-overlay-container {
+  .cdk-overlay-pane {
+    mat-dialog-container {
+      padding: 0;
+
+      .header {
+          padding: 20px;
+          .logo {
+            padding-right: 20px;
+          }
+        }
+
+    }
+  }
+}
+mat-form-field {
+  .mat-form-field-wrapper {
+    .mat-form-field-underline {
+
+      height: 0;
+    }
+  }
+  ::ng-deep {
+    .mat-form-field-wrapper {
+      z-index: 3344;
+    }
+  }
+}
+mat-checkbox .mat-checkbox-layout .mat-checkbox-label {
+  font-family: $Muli
 }

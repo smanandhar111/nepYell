@@ -34,3 +34,10 @@ export interface RestaurantFilterModel {
     };
     priceRangeType: string;
 }
+
+export interface RateStarModel {
+    des: string;
+    numb: number;
+    hover: boolean;
+    clicked: boolean;
+}

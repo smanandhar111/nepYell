@@ -1,3 +1,4 @@
+@import 'src/app/styles/variables';
 :host {
   display: flex;
   .login-btn {
@@ -17,16 +18,16 @@
     display: flex;
     .user-img-con {
       border-radius: 94px;
-      border: 1.5px solid #f44336;
-      width: 40px;
-      height: 40px;
+      border: 1.5px solid #ffffff;
+      width: 50px;
+      height: 50px;
       display: inline-block;
 
       img {
-        width: 40px;
+        width: 50px;
         border-radius: 99px;
         position: relative;
-        right: 1px;
+        top: 1px;
       }
     }
   }

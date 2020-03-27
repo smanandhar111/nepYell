@@ -1,9 +1,8 @@
 <div class="container sm">
   <div class="fx" *ngIf="product$ | async as rest">
-    <div class="rest-info-container" *ngFor="let restaurant of rest" (mouseenter)="toggleImg()">
-      <img *ngIf="!imgHovered" src="{{restaurant.images.outlet.outletOne}}" alt="">
-      <img *ngIf="!imgHovered" src="{{restaurant.images.outlet.outletTwo}}" alt="">
-      <img *ngIf="!imgHovered" src="{{restaurant.images.outlet.outletThree}}" alt="">
+    <div class="rest-info-container" *ngFor="let restaurant of rest">
+      <h2>{{restaurant.name}}</h2>
+      <button mat-button (click)="openRatingDialog(restaurant.name)">Write a Review</button>
     </div>
 
   </div>

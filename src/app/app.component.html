@@ -1,10 +1,12 @@
 <mat-toolbar>
-  <button mat-button color="warn"  [routerLink]="['/products']">
+  <button class="app-logo" mat-button  [routerLink]="['/products']">
     <i class="material-icons">fastfood</i>
     <b>Yogi</b>
   </button>
-
-  <app-auth></app-auth>
+  <div class="weather-auth-container fx">
+    <app-weather></app-weather>
+    <app-auth></app-auth>
+  </div>
 </mat-toolbar>
 <router-outlet></router-outlet>
 
