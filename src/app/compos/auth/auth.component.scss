@@ -2,16 +2,8 @@
 :host {
   display: flex;
   .login-btn {
-    span {
-      display: none;
-      line-height: 16px;
-      font-family: 'Muli', sans-serif;
-      transition: display 1s ease;
-    }
-    &:hover {
-      span {
-        display: block;
-      }
+    i {
+      color: #ffffff;
     }
   }
   .logout-menu {

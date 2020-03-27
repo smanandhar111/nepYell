@@ -41,3 +41,13 @@ export interface RateStarModel {
     hover: boolean;
     clicked: boolean;
 }
+
+export interface WeatherModel {
+    weather: any;
+    name: string;
+    description: string;
+    main: {
+        humidity: number;
+        temp: number;
+    };
+}

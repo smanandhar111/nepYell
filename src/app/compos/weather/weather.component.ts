@@ -1,80 +1,54 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-
-interface WeatherInfo {
-  name: string;
-  description: string;
-  main: {
-    humidity: number;
-    temp: number;
-  };
-}
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {catchError, map, shareReplay, tap} from 'rxjs/operators';
+import {throwError} from 'rxjs';
+import {WeatherModel} from '../../models/models';
 
 @Component({
   selector: 'app-weather',
   templateUrl: './weather.component.html',
-  styleUrls: ['./weather.component.scss']
+  styleUrls: ['./weather.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WeatherComponent implements OnInit {
-  defaultCity = 'Kathmandu';
-  inputCity: string;
+  defaultCity = 'Dallas';
   unit = 'metric';
-  temp: number;
-  weatherConditions: string;
   private readonly rootUrl: string = 'http://api.openweathermap.org/data/2.5/weather?';
   private readonly appId: string = '641f2c4c590661bd176222ddd81e362f';
-  editCity = false;
-  weatherInfo;
-  localHour: number;
-  constructor(private http: HttpClient) {
-    this.localHour = new Date().getHours();
+  url = `${this.rootUrl}q=${this.defaultCity}&APPID=${this.appId}&units=${this.unit}`;
+
+  weather$ = this.http.get<WeatherModel>(this.url).pipe(
+      // tap(changes => console.log(changes)),
+      map(changes =>  {
+        return changes;
+      }),
+      shareReplay(1), // Todo: May be we should cache here
+      catchError(this.handleError)
+  );
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {}
+
+  handleError(err: any) {
+    let errorMessage: string;
+    if (err.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      errorMessage = `An error occurred: ${err.error.message}`;
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      errorMessage = `Backend returned code ${err.status}: ${err.body.error}`;
+    }
+    console.error(err);
+    return throwError(errorMessage);
+  }
+  roundUpTemp(temp: number): number {
+    return Math.round(temp);
   }
 
-  ngOnInit() {
-    this.getWeather();
-  }
-  // Todo: Convert into Observables and make component OnPush
-  getWeather() {
-    const url = `${this.rootUrl}q=${this.defaultCity}&APPID=${this.appId}&units=${this.unit}`;
-    this.http.get<WeatherInfo>(url)
-        .subscribe((data) => {
-              this.weatherInfo = data;
-              this.temp = data.main.temp;
-              this.weatherConditions = this.weatherInfo.weather[0].main;
-              this.roundUp();
-            },
-            (err: HttpErrorResponse) => {
-              if (err.error instanceof Error) {
-                console.log('ClientSide Error');
-              } else {
-                console.log('Serverside Error');
-              }
-            });
-  }
-  roundUp() {
-    this.temp = Math.round(this.temp);
-  }
-  updateLocation(inputCity) {
-    this.defaultCity = this.inputCity;
-    this.getWeather();
-    this.inputCity = '';
-    this.editCity = false;
-  }
-  editCityActive(): void {
-    this.editCity = true;
-  }
-  clearEdit() {
-    this.editCity = false;
-  }
-  getDayOrNight(): string {
-    if (this.localHour >= 16) {
-      return 'night';
-    } else {
-      return 'day';
-    }
-  }
-  getWeatherIcon(): string {
-    switch (this.weatherConditions) {
+  getWeatherIcon(weatherCondition): string {
+    switch (weatherCondition) {
       case 'Clouds':
         return 'filter_drama';
       case 'Sunny':
