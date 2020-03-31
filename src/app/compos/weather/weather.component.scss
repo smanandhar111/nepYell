@@ -9,10 +9,12 @@
     margin: 0;
   }
   .weather-icon {
+    position: relative;
     .w-info {
       font-size: 8px;
       position: absolute;
-      top: 30px;
+      top: 22px;
+      left: 5px;
     }
     i {
       font-size: 30px;
@@ -22,7 +24,7 @@
     position: relative;
     .degree {
       position: absolute;
-      right: 8px;
+      right: 7px;
       font-size: 10px;
       bottom: 13px;
     }

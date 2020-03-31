@@ -38,6 +38,8 @@ import {HttpClientModule} from '@angular/common/http';
 import { OpenClosedComponent } from './compos/open-closed/open-closed.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { WriteReviewComponent } from './compos/write-review/write-review.component';
+import { LoginModalComponent } from './compos/login-modal/login-modal.component';
+import {ReviewService} from "./compos/write-review/review.service";
 
 
 @NgModule({
@@ -55,7 +57,8 @@ import { WriteReviewComponent } from './compos/write-review/write-review.compone
     PriceRangeFilterPipe,
     WeatherComponent,
     OpenClosedComponent,
-    WriteReviewComponent
+    WriteReviewComponent,
+    LoginModalComponent
   ],
   imports: [
     BrowserModule,
@@ -79,8 +82,8 @@ import { WriteReviewComponent } from './compos/write-review/write-review.compone
     FormsModule,
     HttpClientModule,
   ],
-  entryComponents: [WriteReviewComponent],
-  providers: [AuthService, ProductService],
+  entryComponents: [WriteReviewComponent, LoginModalComponent],
+  providers: [AuthService, ProductService, ReviewService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

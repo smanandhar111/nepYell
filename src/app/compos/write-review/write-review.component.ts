@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {RateStarModel} from '../../models/models';
+import {RateStarModel, ReviewModel} from '../../models/models';
+import {ReviewService} from './review.service';
 
 @Component({
   selector: 'app-write-review',
@@ -9,6 +10,7 @@ import {RateStarModel} from '../../models/models';
 })
 export class WriteReviewComponent implements OnInit {
   name: string;
+  restID: string;
   rateStars: RateStarModel[] = [
     {des: 'I have seen better', numb: 1, hover: false, clicked: false},
     {des: 'Could have been better', numb: 2, hover: false, clicked: false},
@@ -19,12 +21,14 @@ export class WriteReviewComponent implements OnInit {
   rating = null;
   review = '';
   constructor(public dialogRef: MatDialogRef<WriteReviewComponent>,
+              private reviewService: ReviewService,
               @Inject(MAT_DIALOG_DATA) public data: any) {
     this.name = data.name;
+    this.restID = data.restID;
   }
 
   ngOnInit() {
-    console.log(this.name);
+    console.log(this.restID);
   }
   rated(numb: number): void {
     this.rateStars.forEach((i) => {
@@ -33,17 +37,21 @@ export class WriteReviewComponent implements OnInit {
     this.rating = numb;
   }
   submitReview(): void {
+    const reviewData: ReviewModel = {
+      postedDate : new Date(),
+      userID : sessionStorage.getItem('uuid'),
+      rating: this.rating,
+      review: this.review
+    };
+    this.reviewService.addReview(reviewData, this.restID);
+    // Clear the UI after submit
     this.rateStars.forEach((i) => {
       i.clicked = false;
     });
     this.review = '';
   }
   checkDisability(): boolean {
-    if (this.review === '' || this.rating === null) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.review === '' || this.rating === null;
   }
   starHovered(rateStar): void {
     const numb = rateStar.numb;
