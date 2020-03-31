@@ -11,7 +11,7 @@ interface FoodTypes {
 }
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ProductService {
   uuid: string;
@@ -38,7 +38,7 @@ export class ProductService {
         return resp;
       });
     }),
-    // tap(data => console.log('restaurants', JSON.stringify(data))),
+    tap(data => console.log('restaurants', JSON.stringify(data))),
     shareReplay(1),
     catchError(this.handleError)
   );

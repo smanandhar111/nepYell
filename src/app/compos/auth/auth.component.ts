@@ -4,6 +4,9 @@ import {Observable, of, Subscription} from 'rxjs';
 import {ProductService} from '../product/product.service';
 import {catchError, map} from 'rxjs/operators';
 import {AddToFavModel} from '../../models/models';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {WriteReviewComponent} from '../write-review/write-review.component';
+import {LoginModalComponent} from "../login-modal/login-modal.component";
 
 @Component({
   selector: 'app-auth',
@@ -20,7 +23,8 @@ export class AuthComponent implements OnInit, OnDestroy {
 
 
   constructor(private authService: AuthService,
-              private productService: ProductService) { }
+              private productService: ProductService,
+              private dialog: MatDialog) { }
 
   ngOnInit() {
     this.authSub = this.authService.logStatus$.subscribe((user) => {
@@ -63,5 +67,13 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.authSub.unsubscribe();
+  }
+  openLoginModal(): void {
+    const dialogConfig = new MatDialogConfig();
+    const dialogRef = this.dialog.open(LoginModalComponent, {
+      data: {
+        name
+      }
+    });
   }
 }

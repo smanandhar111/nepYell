@@ -51,3 +51,10 @@ export interface WeatherModel {
         temp: number;
     };
 }
+
+export interface ReviewModel {
+    postedDate: Date;
+    userID: string;
+    rating: number;
+    review: string;
+}

@@ -2,8 +2,7 @@
   <div class="fx" *ngIf="product$ | async as rest">
     <div class="rest-info-container" *ngFor="let restaurant of rest">
       <h2>{{restaurant.name}}</h2>
-      <button mat-button (click)="openRatingDialog(restaurant.name)">Write a Review</button>
+      <button mat-button (click)="openRatingDialog(restaurant.name, restaurant.id)">Write a Review</button>
     </div>
-
   </div>
 </div>

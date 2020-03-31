@@ -1,0 +1,15 @@
+.modal-container {
+  padding: 20px 30px;
+  button {
+    justify-content: space-around;
+    margin-bottom: 20px;
+    img {
+      width: 50px;
+      margin-right: 20px;
+    }
+    &.face {
+      background: cornflowerblue;
+      color: #fff;
+    }
+  }
+}

@@ -229,15 +229,15 @@ mat-form-field {
   cursor: pointer;
   //margin: 20px 30px;
   outline: none;
-  transition: transform 1s ease, box-shadow 0.8s ease, opacity 1s ease ;
+  transition: transform 1s ease, box-shadow 0.8s ease;
   //transform: scale(0.85);
-  opacity: 0.8;
+  //opacity: 0.8;
   border-radius: 8px;
 
   &:hover {
     //transform: scale(.95);
-    box-shadow: 3px 3px 8px #8e8e8e;
-    opacity: 1;
+    //box-shadow: 3px 3px 8px #8e8e8e;
+    //opacity: 1;
   }
   img {
     outline: none;
@@ -268,12 +268,20 @@ a.clear-input {
   .cdk-overlay-pane {
     mat-dialog-container {
       padding: 0;
-
+      min-width: 500px;
       .header {
-          padding: 20px;
+        padding: 20px 30px;
+        border-bottom: 1px solid #ccc;
+        background: $gradient;
           .logo {
             padding-right: 20px;
+            color: #ffffff;
           }
+        .review-text {
+          position: relative;
+          left: 23%;
+          color: #ffffff;
+        }
         }
 
     }

@@ -4,8 +4,9 @@ import {catchError, map} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
 import {AddToFavModel} from '../../models/models';
-import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
-import {WriteReviewComponent} from "../write-review/write-review.component";
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {WriteReviewComponent} from '../write-review/write-review.component';
+import {LoginModalComponent} from '../login-modal/login-modal.component';
 
 @Component({
   selector: 'app-product-info',
@@ -39,9 +40,7 @@ export class ProductInfoComponent implements OnInit {
 
   ngOnInit() {
   }
-  imgCaros(numb) {
-    this.imgCaro = numb;
-  }
+
   addToFavClick(id: string, src: string) {
     this.addToFav.uid = id;
     if (this.sessionStoreAuth === 'true') {
@@ -55,18 +54,19 @@ export class ProductInfoComponent implements OnInit {
     }
   }
 
-  openRatingDialog(name): void {
+  openRatingDialog(name, restID): void {
     const auth = sessionStorage.getItem('auth');
     if (auth === 'true') {
       const dialogConfig = new MatDialogConfig();
       const dialogRef = this.dialog.open(WriteReviewComponent, {
         data: {
-          name
+          name,
+          restID
         }
       });
     } else {
-      alert('Please log in first Idiot !!!!');
+      const dialogConfig = new MatDialogConfig();
+      const dialogRef = this.dialog.open(LoginModalComponent, {});
     }
-
   }
 }
