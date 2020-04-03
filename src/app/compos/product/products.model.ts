@@ -49,4 +49,5 @@ export interface ProductsModel {
     sunday: string;
   };
   isOpen?: boolean;
+  storeHoursString?: string;
 }

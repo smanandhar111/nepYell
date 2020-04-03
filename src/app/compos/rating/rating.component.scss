@@ -1,3 +1,4 @@
+@import 'src/app/styles/variables';
 .rating-comp {
   position: relative;
   width: auto;
@@ -12,7 +13,7 @@
     font-size: 18px;
   }
   .star {
-    color: red;
+    color: $main;
     font-size: 18px;
   }
 
