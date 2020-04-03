@@ -57,4 +57,5 @@ export interface ReviewModel {
     userID: string;
     rating: number;
     review: string;
+    restID: string;
 }

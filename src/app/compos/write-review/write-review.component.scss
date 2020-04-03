@@ -1,31 +1,46 @@
+@import 'src/app/styles/variables';
 .modal-container {
-  padding: 0 30px;
+  padding: 0 30px 30px 30px;
   h3 {
     display: inline;
   }
   .name-rating {
     justify-content: space-between;
-    .mat-button {
-      min-width: 30px;
-      line-height: 0;
-      align-self: center;
-      padding: 0 5px;
-      transition: color .5s ease;
-      &.star-clicked {
-        color: #ffc107;
-      }
-      &.star-hovered {
-        color: #ffc107;
+    .star-container {
+      display: flex;
+      .mat-button {
+        min-width: 30px;
+        line-height: 0;
+        align-self: center;
+        padding: 0 5px;
+        transition: color .5s ease;
+        &.star-clicked {
+          color: #ffc107;
+        }
+        &.star-hovered {
+          color: #ffc107;
+        }
       }
     }
+
   }
   .review-submit {
     textarea {
       resize: none;
-      padding: 20px 20px 40px 20px;
+      padding: 20px;
       font-size: 14px;
       font-family: 'Muli', sans-serif;
-
+    }
+    .mat-button {
+      margin-top: 20px;
+      background-color: $main;
+      color: #ffffff;
+      width: 120px;
+      float: right;
+      transition: background-color .5s ease;
+      &.disabled-btn {
+        background-color: #cccccc;
+      }
     }
   }
 }

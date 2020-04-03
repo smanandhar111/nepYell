@@ -27,9 +27,7 @@ export class WriteReviewComponent implements OnInit {
     this.restID = data.restID;
   }
 
-  ngOnInit() {
-    console.log(this.restID);
-  }
+  ngOnInit() {}
   rated(numb: number): void {
     this.rateStars.forEach((i) => {
       i.clicked = i.numb <= numb;
@@ -41,14 +39,16 @@ export class WriteReviewComponent implements OnInit {
       postedDate : new Date(),
       userID : sessionStorage.getItem('uuid'),
       rating: this.rating,
-      review: this.review
+      review: this.review,
+      restID: this.restID,
     };
-    this.reviewService.addReview(reviewData, this.restID);
+    this.reviewService.addReview(reviewData);
     // Clear the UI after submit
     this.rateStars.forEach((i) => {
       i.clicked = false;
     });
     this.review = '';
+    this.dialogRef.close();
   }
   checkDisability(): boolean {
     return this.review === '' || this.rating === null;

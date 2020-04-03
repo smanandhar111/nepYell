@@ -1,6 +1,99 @@
+@import 'src/app/styles/variables';
+
 .container {
   margin-top: 20px;
+  .fx {
+    justify-content: center;
+  }
   .rest-info-container {
+    .rest-details {
+      display: flex;
+      margin-top: 30px;
+      justify-content: space-between;
+      .identity {
+        .name-rating-container {
+          .name {
+            font-size: 22px;
+            font-weight: 500;
+          }
+          ::ng-deep {
+            .rating-comp i {
+              &:not(.no-star) {
+                color: $main;
+              }
+              font-size: 20px;
+            }
+          }
+        }
+        .type-price-range-container {
+          display: flex;
+          .type {
+            color: #4c4c4c;
+            font-size: 13px;
+            font-family: $Muli;
+            align-self: center;
+          }
+        }
+        .services {
+          margin-top: 10px;
+          span.service-container {
+            display: flex;
+            margin-bottom: 5px;
+            span {
+              margin-left: 5px;
+              font-size: 12px;
+              align-self: center;
+            }
+          }
+        }
+      }
+      .store-hours {
+        label {
+          font-size: 16px;
+          font-weight: 600;
+          margin-bottom: 10px;
+          display: block;
+        }
+        table#store-hours {
+          tr {
+            &.active {
+              font-weight: bolder;
+              font-size: 16px;
+            }
+            &.active.open {
+              color: $activeX;
+            }
+            td {
+              font-family: $Muli;
+              font-size: 14px;
+              &:nth-child(2) {
+                padding-left: 35px;
+              }
+            }
+          }
+        }
+      }
+      .contact {
+        .contact-container {
+          display: flex;
+          margin-bottom: 10px;
+          span, a {
+            align-self: center;
+            margin-left: 10px;
+            font-family: $Muli;
+            font-size: 14px;
+          }
+          a {
+            color: #000000;
+          }
+        }
+      }
+    }
+
+    .review-btn {
+      margin-top: 20px;
+    }
+
     img {
       width: 300px;
       height: 250px;
