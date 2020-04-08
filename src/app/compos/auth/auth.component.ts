@@ -1,12 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from './auth.service';
-import {Observable, of, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {ProductService} from '../product/product.service';
-import {catchError, map} from 'rxjs/operators';
-import {AddToFavModel} from '../../models/models';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {WriteReviewComponent} from '../write-review/write-review.component';
-import {LoginModalComponent} from "../login-modal/login-modal.component";
+import {LoginModalComponent} from '../login-modal/login-modal.component';
 
 @Component({
   selector: 'app-auth',
@@ -17,8 +14,6 @@ export class AuthComponent implements OnInit, OnDestroy {
   authenticatedUserInfo: any;
   userLoggedIn: boolean;
   authSub: Subscription;
-  errMessage: string;
-  cartLength: number;
   uuid: string;
 
 
@@ -33,17 +28,6 @@ export class AuthComponent implements OnInit, OnDestroy {
 
       if (this.userLoggedIn) {
         this.productService.uuid = user.uid;
-
-        // Waiting 2 seconds for UUID to be in the productService
-        // Todo: Find a way not to use Timeout
-        setTimeout(() => {
-          this.productService.getUserData();
-          if (this.productService.cartItems$) {
-            this.productService.cartItems$.subscribe(cart => {
-              this.cartLength = cart.length;
-            });
-          }
-        }, 2000);
       }
       // setting uuid after using log in the first time
       const sessionUuid = sessionStorage.getItem('uuid');

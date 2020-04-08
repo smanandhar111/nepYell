@@ -59,3 +59,10 @@ export interface ReviewModel {
     review: string;
     restID: string;
 }
+
+export interface UserModel {
+    uid: string;
+    userName: string;
+    avatarUrl: string;
+    email: string;
+}

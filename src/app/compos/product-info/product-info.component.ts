@@ -45,7 +45,7 @@ export class ProductInfoComponent implements OnInit {
             return review;
           }
         }))
-    );
+    )
     week = [
       {day: 'Monday', i: 1, status: ''},
       {day: 'Tuesday', i: 2, status: ''},
