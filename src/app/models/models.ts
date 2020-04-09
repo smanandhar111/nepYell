@@ -53,7 +53,7 @@ export interface WeatherModel {
 }
 
 export interface ReviewModel {
-    postedDate: Date;
+    postedDate: string;
     userID: string;
     rating: number;
     review: string;

@@ -40,6 +40,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { WriteReviewComponent } from './compos/write-review/write-review.component';
 import { LoginModalComponent } from './compos/login-modal/login-modal.component';
 import {ReviewService} from "./compos/write-review/review.service";
+import { DisplayReviewComponent } from './compos/display-review/display-review.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import {ReviewService} from "./compos/write-review/review.service";
     WeatherComponent,
     OpenClosedComponent,
     WriteReviewComponent,
-    LoginModalComponent
+    LoginModalComponent,
+    DisplayReviewComponent
   ],
   imports: [
     BrowserModule,
