@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {RateStarModel, ReviewModel} from '../../models/models';
 import {ReviewService} from './review.service';
+import {MonthsEnum} from '../../enums/date.enum';
 
 @Component({
   selector: 'app-write-review',
@@ -36,7 +37,7 @@ export class WriteReviewComponent implements OnInit {
   }
   submitReview(): void {
     const reviewData: ReviewModel = {
-      postedDate : new Date(),
+      postedDate : this.convertDate(new Date()),
       userID : sessionStorage.getItem('uuid'),
       rating: this.rating,
       review: this.review,
@@ -65,5 +66,11 @@ export class WriteReviewComponent implements OnInit {
     this.rateStars.forEach((i) => {
       i.hover = false;
     });
+  }
+  convertDate(date: Date): string {
+    const dd = date.getDate();
+    const mm = MonthsEnum[date.getMonth()];
+    const yyyy = date.getFullYear();
+    return `${dd} ${mm}, ${yyyy}`;
   }
 }

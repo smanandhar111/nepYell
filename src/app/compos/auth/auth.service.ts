@@ -3,9 +3,9 @@ import * as firebase from 'firebase/app';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {ProductService} from '../product/product.service';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {map} from 'rxjs/operators';
+import {catchError, map, shareReplay, take, tap} from 'rxjs/operators';
 import {UserModel} from '../../models/models';
-import {Subscription} from 'rxjs';
+import {Subscription, throwError} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -79,7 +79,12 @@ export class AuthService {
               this.userAdded = true;
             }
           }
-        })
+          return 'this should only return once';
+        }),
+        tap(data => console.log(JSON.stringify(data))),
+        shareReplay(1),
+        take(1),
+        catchError(this.productService.handleError)
     ).subscribe();
     const addToDb = () => {
       this.usersCollection.add(userData);

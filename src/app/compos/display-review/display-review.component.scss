@@ -1,0 +1,32 @@
+@import 'src/app/styles/variables';
+.repeater {
+  display: flex;
+  .reviewer-info {
+    display: flex;
+    img.circled {
+      width: 35px;
+      height: 35px;
+      border-radius: 99px;
+      border: 1.5px solid $main;
+    }
+    span.display-name {
+      //align-self: center;
+      padding-left: 10px;
+      font-size: 12px;
+    }
+  }
+  .review-container {
+    margin-left: 20px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    .review {
+      font-family: $Muli;
+    }
+    .review-x-info {
+      display: flex;
+    }
+  }
+}
+
