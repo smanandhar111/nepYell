@@ -65,4 +65,5 @@ export interface UserModel {
     userName: string;
     avatarUrl: string;
     email: string;
+    id: string;
 }

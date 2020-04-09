@@ -15,6 +15,8 @@ export class AuthService {
   logStatus$ = this.af.user;
   usersCollection = this.afs.collection('users');
   usersSub: Subscription;
+  userAdded: boolean;
+
   constructor(private af: AngularFireAuth,
               private afs: AngularFirestore,
               private productService: ProductService) {
@@ -35,6 +37,7 @@ export class AuthService {
       });
     });
   }
+
   googleLogout() {
     this.af.auth.signOut().then(() => {
       sessionStorage.setItem('auth', 'false');
@@ -49,48 +52,38 @@ export class AuthService {
       avatarUrl,
       email
     };
-    const emailArray = []; // empty array to store added uids
     const users$ = this.usersCollection.snapshotChanges().pipe(
         map(changes => {
           return changes.map(a => {
-            return a.payload.doc.data() as UserModel;
+            const users = a.payload.doc.data() as UserModel;
+            users.id = a.payload.doc.id;
+            return users;
           });
         }),
-    );
-    this.usersSub = users$.subscribe((users) => {
-      users.forEach(user => {
-        // Todo : the identifier should probably change to email instead of uid
-        // Todo: Check after FB is also integrated to the app
-        emailArray.push(user.email); // pushing added uids to Array
-      });
-    });
-    // can't call this function under subscribe as it ends in an endless loop
-    // could use on stream complete but firebase Observables don't return complete
-    setTimeout(() => {
-      let isThere: boolean;
-      // loops over entire array of uids, after if not there adds to the list else nothing
-      // tslint:disable-next-line:prefer-for-of
-      for (let x = 0; x < emailArray.length; x++) {
-        if (emailArray[x] === email) {
-          isThere = true;
-          break;
-        } else {
-          isThere = false;
-        }
-      }
-      if (isThere)  {
-        this.validatePhotoUrl(); // This function makes sure the PhotoUrl is upToDate
-        this.usersSub.unsubscribe();
-        // Todo: add a function that checkout if photoUrl matches the one we have on file
-      } else {
-        this.usersCollection.add(userData).then(() => {
-          this.usersSub.unsubscribe();
-        });
-      }
-    }, 5000);
-  }
-  validatePhotoUrl(): void {
-
+        map(users => {
+          let bool: boolean;
+          // tslint:disable-next-line:prefer-for-of
+          for (let x = 0; x < users.length; x++) {
+            if (email === users[x].email) {
+              bool = true;
+              break;
+            } else {
+              bool = false;
+            }
+          }
+          if (!this.userAdded) {
+            if (bool === true) {
+              // this fn validates and updated the photoUrl
+            } else {
+              addToDb();
+              this.userAdded = true;
+            }
+          }
+        })
+    ).subscribe();
+    const addToDb = () => {
+      this.usersCollection.add(userData);
+    };
   }
 }
 
