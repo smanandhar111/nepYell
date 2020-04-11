@@ -89,9 +89,17 @@
         }
       }
     }
+    :host {
+      .app-display-review {
+        z-index: 123;
+        margin: 10px;
+      }
+    }
 
     .review-btn {
       margin-top: 20px;
+      background: $gradient;
+      color: #ffffff;
     }
 
     img {

@@ -9,7 +9,9 @@
     margin-bottom: 20px;
     border-radius: 7px;
     transition: background-color .5s ease, box-shadow .5s ease;
+    //TODO: Media Query
     min-width: 420px;
+    max-width: 420px;
     cursor: pointer;
     &:hover {
       box-shadow: 1px 1px 6px #ccc;
@@ -33,9 +35,11 @@
     .more-info {
       padding-left: 15px;
       padding-top: 5px;
+      width: 100%;
       .name-rating-container {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
         .name {
           font-family: 'Muli', sans-serif;
           font-size: 17px;

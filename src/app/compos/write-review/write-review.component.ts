@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {RateStarModel, ReviewModel} from '../../models/models';
 import {ReviewService} from './review.service';
+import {MonthsEnum} from '../../enums/date.enum';
 
 @Component({
   selector: 'app-write-review',
@@ -11,6 +12,8 @@ import {ReviewService} from './review.service';
 export class WriteReviewComponent implements OnInit {
   name: string;
   restID: string;
+  displayName: string;
+  photoURL: string;
   rateStars: RateStarModel[] = [
     {des: 'I have seen better', numb: 1, hover: false, clicked: false},
     {des: 'Could have been better', numb: 2, hover: false, clicked: false},
@@ -25,6 +28,8 @@ export class WriteReviewComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any) {
     this.name = data.name;
     this.restID = data.restID;
+    this.displayName = data.displayName;
+    this.photoURL = data.photoURL;
   }
 
   ngOnInit() {}
@@ -36,11 +41,13 @@ export class WriteReviewComponent implements OnInit {
   }
   submitReview(): void {
     const reviewData: ReviewModel = {
-      postedDate : new Date(),
+      postedDate : this.convertDate(new Date()),
       userID : sessionStorage.getItem('uuid'),
       rating: this.rating,
       review: this.review,
       restID: this.restID,
+      displayName: this.displayName,
+      photoURL: this.photoURL,
     };
     this.reviewService.addReview(reviewData);
     // Clear the UI after submit
@@ -65,5 +72,11 @@ export class WriteReviewComponent implements OnInit {
     this.rateStars.forEach((i) => {
       i.hover = false;
     });
+  }
+  convertDate(date: Date): string {
+    const dd = date.getDate();
+    const mm = MonthsEnum[date.getMonth()];
+    const yyyy = date.getFullYear();
+    return `${dd} ${mm}, ${yyyy}`;
   }
 }

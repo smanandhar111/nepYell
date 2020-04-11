@@ -54,12 +54,11 @@
         </div>
       </div>
 
-      <button class="review-btn" mat-button (click)="openRatingDialog(rest.name, rest.id)">Write a Review</button>
+      <div class="rating-btn-container" *ngIf="logStatus$ | async as user">
+        <button class="review-btn" mat-button (click)="openRatingDialog(rest.name, rest.id, user.displayName, user.photoURL)">Write a Review</button>
+      </div>
+      <app-display-review class="app-display-view" [restId] = productId></app-display-review>
     </div>
-<!--    <div *ngIf="reviews$ | async as reviews">-->
-<!--      <div *ngFor="let review of reviews">-->
-<!--        {{review.review}}-->
-<!--      </div>-->
-<!--    </div>-->
+
   </div>
 </div>

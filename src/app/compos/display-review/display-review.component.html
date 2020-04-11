@@ -1,0 +1,15 @@
+<div *ngIf="reviews$ | async as reviews">
+  <div class="repeater" *ngFor="let review of reviews">
+      <div class="reviewer-info">
+          <img class="circled" src="{{review.photoURL}}" alt="">
+          <span class="display-name">{{review.displayName}}</span>
+      </div>
+      <div class="review-container">
+          <span class="review">{{review.review}}</span>
+          <span class="review-x-info">
+              <app-rating [restRating]="review.rating" [src]="'rating'"></app-rating>
+              <span class="posted-date">{{review.postedDate}}</span>
+          </span>
+      </div>
+  </div>
+</div>
