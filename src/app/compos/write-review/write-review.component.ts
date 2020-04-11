@@ -12,6 +12,8 @@ import {MonthsEnum} from '../../enums/date.enum';
 export class WriteReviewComponent implements OnInit {
   name: string;
   restID: string;
+  displayName: string;
+  photoURL: string;
   rateStars: RateStarModel[] = [
     {des: 'I have seen better', numb: 1, hover: false, clicked: false},
     {des: 'Could have been better', numb: 2, hover: false, clicked: false},
@@ -26,6 +28,8 @@ export class WriteReviewComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any) {
     this.name = data.name;
     this.restID = data.restID;
+    this.displayName = data.displayName;
+    this.photoURL = data.photoURL;
   }
 
   ngOnInit() {}
@@ -42,6 +46,8 @@ export class WriteReviewComponent implements OnInit {
       rating: this.rating,
       review: this.review,
       restID: this.restID,
+      displayName: this.displayName,
+      photoURL: this.photoURL,
     };
     this.reviewService.addReview(reviewData);
     // Clear the UI after submit

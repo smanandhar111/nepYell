@@ -58,6 +58,8 @@ export interface ReviewModel {
     rating: number;
     review: string;
     restID: string;
+    displayName: string;
+    photoURL: string;
 }
 
 export interface UserModel {

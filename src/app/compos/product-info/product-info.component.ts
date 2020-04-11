@@ -39,7 +39,7 @@ export class ProductInfoComponent implements OnInit {
         }),
       catchError(err => this.errMessage = err)
     );
-
+  logStatus$ = this.authService.logStatus$.pipe();
     week = [
       {day: 'Monday', i: 1, status: ''},
       {day: 'Tuesday', i: 2, status: ''},
@@ -71,14 +71,16 @@ export class ProductInfoComponent implements OnInit {
     }
   }
 
-  openRatingDialog(name, restID): void {
+  openRatingDialog(name, restID, displayName, photoURL): void {
     const auth = sessionStorage.getItem('auth');
     if (auth === 'true') {
       const dialogConfig = new MatDialogConfig();
       const dialogRef = this.dialog.open(WriteReviewComponent, {
         data: {
           name,
-          restID
+          restID,
+          displayName,
+          photoURL
         }
       });
     } else {

@@ -1,8 +1,13 @@
 @import 'src/app/styles/variables';
+:host {
+  margin: 20px;
+}
 .repeater {
   display: flex;
+  margin-bottom: 20px;
   .reviewer-info {
     display: flex;
+    align-self: center;
     img.circled {
       width: 35px;
       height: 35px;
@@ -13,6 +18,9 @@
       //align-self: center;
       padding-left: 10px;
       font-size: 12px;
+      min-width: 100px;
+      max-width: 100px;
+      align-self: center;
     }
   }
   .review-container {
@@ -21,6 +29,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
+    background: #f6f6ef;
     .review {
       font-family: $Muli;
       margin-bottom: 10px;
