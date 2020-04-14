@@ -36,19 +36,20 @@ export class OpenClosedComponent implements OnInit {
     let hoursArr = [];
     const currentDate = new Date();
     const currentHour = currentDate.getHours();
+    const currentDay = currentDate.getDay();
     // creating new Object with sorted days in a week
     const sortedWeek = {
+      sunday: storeHours.sunday,
       monday: storeHours.monday,
       tuesday: storeHours.tuesday,
       wednesday: storeHours.wednesday,
       thursday: storeHours.thursday,
       friday: storeHours.friday,
       saturday: storeHours.saturday,
-      sunday: storeHours.sunday,
     };
     const sortedKeys = Object.keys(sortedWeek);
     for (let i = 0; i < sortedKeys.length; i++) {
-      if (this.day === i + 1) {
+      if (currentDay === i) {
         const dayHours = storeHours[sortedKeys[i]];
 
         if (dayHours === 'closed') {  // Today is closed
