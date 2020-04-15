@@ -18,7 +18,6 @@ import {ProductsModel} from '../product/products.model';
 })
 export class ProductInfoComponent implements OnInit {
   productId = this.activeRoute.snapshot.paramMap.get('id');
-  sessionStoreAuth = sessionStorage.getItem('auth');
   errMessage: string;
   addToFav: AddToFavModel = {
     uid: ''
@@ -55,25 +54,12 @@ export class ProductInfoComponent implements OnInit {
               private reviewService: ReviewService,
               private dialog: MatDialog) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+  getSessionAuth(): boolean {
+    const sessionAuth = sessionStorage.getItem('auth');
+    return sessionAuth === 'true';
   }
-
-  addToFavClick(id: string, src: string) {
-    this.addToFav.uid = id;
-    if (this.sessionStoreAuth === 'true') {
-      if (src === 'wish') {
-        this.productService.addToWish(this.addToFav);
-      } else {
-        this.productService.addToCart(this.addToFav);
-      }
-    } else {
-      this.authService.googleLogin();
-    }
-  }
-
   openRatingDialog(name, restID, displayName, photoURL): void {
-    const auth = sessionStorage.getItem('auth');
-    if (auth === 'true') {
       const dialogConfig = new MatDialogConfig();
       const dialogRef = this.dialog.open(WriteReviewComponent, {
         data: {
@@ -83,20 +69,20 @@ export class ProductInfoComponent implements OnInit {
           photoURL
         }
       });
-    } else {
-      const dialogConfig = new MatDialogConfig();
-      const dialogRef = this.dialog.open(LoginModalComponent, {});
-    }
+  }
+  firstLogIn(): void {
+    const dialogConfig = new MatDialogConfig();
+    const dialogRef = this.dialog.open(LoginModalComponent, {});
   }
   configStoreHours(storeHours): StoreHoursModel {
     return {
+      sunday: this.sortHours(storeHours.sunday),
       monday: this.sortHours(storeHours.monday),
       tuesday: this.sortHours(storeHours.tuesday),
       wednesday: this.sortHours(storeHours.wednesday),
       thursday: this.sortHours(storeHours.thursday),
       friday: this.sortHours(storeHours.friday),
       saturday: this.sortHours(storeHours.saturday),
-      sunday: this.sortHours(storeHours.sunday)
     };
   }
   sortHours(hours: string): string {

@@ -18,6 +18,7 @@ export class DisplayReviewComponent implements OnInit {
   );
   constructor(private reviewService: ReviewService) { }
   @Input() restId: string;
+  @Input() restName: string;
   ngOnInit() {
   }
 
