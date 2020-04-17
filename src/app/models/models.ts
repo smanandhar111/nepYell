@@ -52,8 +52,6 @@ export interface WeatherModel {
     };
 }
 
-
-
 export interface UserModel {
     uid: string;
     userName: string;
@@ -62,12 +60,3 @@ export interface UserModel {
     id: string;
 }
 
-export interface IconsModel {
-    src: string;
-    name: string;
-}
-
-export interface DateTimeModel {
-   date: string;
-   time: string;
-}
