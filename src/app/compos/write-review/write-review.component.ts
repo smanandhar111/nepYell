@@ -45,7 +45,7 @@ export class WriteReviewComponent implements OnInit {
 
     const reviewData: ReviewInputModel = {
       rawDate: new Date(),
-      postedDate : this.convertDate(new Date()),
+      postedDate : this.reviewService.convertDate(new Date()),
       userID : sessionStorage.getItem('uuid'),
       rating: this.rating,
       review: this.review,
