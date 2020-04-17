@@ -59,10 +59,7 @@
       <div class="rating-btn-container" *ngIf="getSessionAuth() && logStatus$ | async as user">
         <button class="review-btn" mat-button (click)="openRatingDialog(rest.name, rest.id, user.displayName, user.photoURL)">Write a Review</button>
       </div>
-      <app-display-review class="app-display-view" [restName]="rest.name" [restId] = productId>
-
-      </app-display-review>
+      <app-display-review class="app-display-view" [restName]="rest.name" [restId] = productId></app-display-review>
     </div>
-
   </div>
 </div>

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AuthService} from '../auth/auth.service';
-import {MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login-modal',
@@ -8,14 +8,20 @@ import {MatDialogRef} from "@angular/material/dialog";
   styleUrls: ['./login-modal.component.scss']
 })
 export class LoginModalComponent implements OnInit {
-
+  note: string;
   constructor(public dialogRef: MatDialogRef<LoginModalComponent>,
-              private authService: AuthService) { }
-
-  ngOnInit() {
+              private authService: AuthService,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.note = data.note;
   }
+
+  ngOnInit() {}
   loginGoogle(): void {
-    this.authService.googleLogin();
-    this.dialogRef.close();
+    if (this.note !== undefined) {
+      this.authService.googleLogin(true);
+    } else {
+      this.authService.googleLogin(false);
+      this.dialogRef.close();
+    }
   }
 }

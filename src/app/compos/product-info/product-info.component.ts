@@ -39,7 +39,7 @@ export class ProductInfoComponent implements OnInit {
       catchError(err => this.errMessage = err)
     );
   logStatus$ = this.authService.logStatus$.pipe();
-    week = [
+  week = [
       {day: 'Monday', i: 1, status: ''},
       {day: 'Tuesday', i: 2, status: ''},
       {day: 'Wednesday', i: 3, status: ''},

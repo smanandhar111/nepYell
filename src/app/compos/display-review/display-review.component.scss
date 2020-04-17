@@ -1,14 +1,11 @@
 @import 'src/app/styles/variables';
 :host {
   margin: 20px;
-}
-.repeater {
-  display: flex;
-  margin-bottom: 20px;
+
   .reviewer-info {
     display: flex;
     align-self: center;
-    img.circled {
+    .circled {
       width: 35px;
       height: 35px;
       border-radius: 99px;
@@ -46,5 +43,27 @@
       }
     }
   }
+  .new-user {
+    display: flex;
+    align-self: center;
+    .circled {
+      border: none;
+      font-size: 35px;
+    }
+
+      textarea {
+        resize: none;
+        font-size: 14px;
+        font-family: 'Muli', sans-serif;
+        background: transparent;
+        border: none;
+        padding: 0 0 0 10px;
+      }
+    }
+
+}
+.repeater {
+  display: flex;
+  margin-bottom: 20px;
 }
 

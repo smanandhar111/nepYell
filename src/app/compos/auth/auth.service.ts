@@ -22,11 +22,13 @@ export class AuthService {
               private productService: ProductService) {
   }
 
-  googleLogin() {
+  googleLogin(hasNote: boolean) {
     this.login = this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(() => {
       sessionStorage.setItem('auth', 'true');
-
       this.logStatus$.subscribe((user) => {
+        if (hasNote) {
+          alert('pop up open');
+        }
         // this function add the new users to the users Collection
         this.archiveUser(user.uid, user.displayName, user.photoURL, user.email);
         const sessionAuth = sessionStorage.getItem('auth');
