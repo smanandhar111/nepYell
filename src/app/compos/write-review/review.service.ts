@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
+import {MonthsEnum} from '../../enums/date.enum';
 import {ReviewInputModel, ReviewOutputModel} from '../display-review/review.model';
 
 @Injectable({
@@ -21,6 +22,12 @@ export class ReviewService {
        this.reviewCollection.add(review).then((i) => {
            console.log('added');
        });
+    }
+    convertDate(date: Date): string {
+        const dd = date.getDate();
+        const mm = MonthsEnum[date.getMonth()];
+        const yyyy = date.getFullYear();
+        return `${dd} ${mm}, ${yyyy}`;
     }
 }
 

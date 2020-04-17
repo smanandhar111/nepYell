@@ -5,6 +5,7 @@ import {ReviewService} from './review.service';
 import {MonthsEnum} from '../../enums/date.enum';
 import {ReviewInputModel} from '../display-review/review.model';
 
+
 @Component({
   selector: 'app-write-review',
   templateUrl: './write-review.component.html',
@@ -41,6 +42,7 @@ export class WriteReviewComponent implements OnInit {
     this.rating = numb;
   }
   submitReview(): void {
+
     const reviewData: ReviewInputModel = {
       rawDate: new Date(),
       postedDate : this.convertDate(new Date()),
@@ -75,11 +77,5 @@ export class WriteReviewComponent implements OnInit {
     this.rateStars.forEach((i) => {
       i.hover = false;
     });
-  }
-  convertDate(date: Date): string {
-    const dd = date.getDate();
-    const mm = MonthsEnum[date.getMonth()];
-    const yyyy = date.getFullYear();
-    return `${dd} ${mm}, ${yyyy}`;
   }
 }

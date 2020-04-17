@@ -1,3 +1,4 @@
+@import 'src/app/styles/variables';
 .modal-container {
   padding: 20px 30px;
   button {
@@ -11,5 +12,11 @@
       background: cornflowerblue;
       color: #fff;
     }
+  }
+  .note {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: $main;
   }
 }

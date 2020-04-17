@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {map} from 'rxjs/operators';
 import {ReviewService} from '../write-review/review.service';
+import {MatDialog} from '@angular/material/dialog';
 import {ReviewOutputModel} from './review.model';
 
 @Component({
@@ -20,7 +21,9 @@ export class DisplayReviewComponent implements OnInit {
           return a.rawDate.seconds - b.rawDate.seconds;
       }))
   );
-  constructor(private reviewService: ReviewService) { }
+  constructor(private reviewService: ReviewService,
+              private dialog: MatDialog) { }
   @Input() restId: string;
+  @Input() restName: string;
   ngOnInit() {}
 }

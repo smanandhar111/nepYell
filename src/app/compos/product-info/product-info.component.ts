@@ -3,7 +3,7 @@ import {ProductService} from '../product/product.service';
 import {catchError, map} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
-import {AddToFavModel} from '../../models/models';
+import {AddToFavModel, ReviewModel} from '../../models/models';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {WriteReviewComponent} from '../write-review/write-review.component';
 import {LoginModalComponent} from '../login-modal/login-modal.component';
@@ -18,13 +18,9 @@ import {ProductsModel} from '../product/products.model';
 })
 export class ProductInfoComponent implements OnInit {
   productId = this.activeRoute.snapshot.paramMap.get('id');
-  sessionStoreAuth = sessionStorage.getItem('auth');
   errMessage: string;
-  addToFav: AddToFavModel = {
-    uid: ''
-  };
-  product$ = this.productService.products$
-    .pipe(
+  currentDate = this.reviewService.convertDate(new Date());
+  product$ = this.productService.products$.pipe(
       map(product =>
         product.filter(prod => {
           if (prod.id === this.productId) {
@@ -40,7 +36,14 @@ export class ProductInfoComponent implements OnInit {
       catchError(err => this.errMessage = err)
     );
   logStatus$ = this.authService.logStatus$.pipe();
-    week = [
+  reviews$ = this.reviewService.reviews$.pipe(
+      map(reviews => reviews.filter(review => {
+        if (this.productId === review.restID) {
+          return review as ReviewModel;
+        }
+      }))
+  );
+  week = [
       {day: 'Monday', i: 1, status: ''},
       {day: 'Tuesday', i: 2, status: ''},
       {day: 'Wednesday', i: 3, status: ''},
@@ -55,12 +58,12 @@ export class ProductInfoComponent implements OnInit {
               private reviewService: ReviewService,
               private dialog: MatDialog) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+  getSessionAuth(): boolean {
+    const sessionAuth = sessionStorage.getItem('auth');
+    return sessionAuth === 'true';
   }
-
   openRatingDialog(name, restID, displayName, photoURL): void {
-    const auth = sessionStorage.getItem('auth');
-    if (auth === 'true') {
       const dialogConfig = new MatDialogConfig();
       const dialogRef = this.dialog.open(WriteReviewComponent, {
         data: {
@@ -70,20 +73,26 @@ export class ProductInfoComponent implements OnInit {
           photoURL
         }
       });
-    } else {
-      const dialogConfig = new MatDialogConfig();
-      const dialogRef = this.dialog.open(LoginModalComponent, {});
-    }
+  }
+  firstLogIn(restName: string, restId: string): void {
+    const dialogConfig = new MatDialogConfig();
+    const dialogRef = this.dialog.open(LoginModalComponent, {
+      data: {
+        note: `Please Sign in to Post a review for ${restName}`,
+        restName,
+        restId,
+      }
+    });
   }
   configStoreHours(storeHours): StoreHoursModel {
     return {
+      sunday: this.sortHours(storeHours.sunday),
       monday: this.sortHours(storeHours.monday),
       tuesday: this.sortHours(storeHours.tuesday),
       wednesday: this.sortHours(storeHours.wednesday),
       thursday: this.sortHours(storeHours.thursday),
       friday: this.sortHours(storeHours.friday),
       saturday: this.sortHours(storeHours.saturday),
-      sunday: this.sortHours(storeHours.sunday)
     };
   }
   sortHours(hours: string): string {
@@ -144,6 +153,14 @@ export class ProductInfoComponent implements OnInit {
       } else {
         return 'active closed';
       }
+    }
+  }
+  areaFocused(restName: string, restId: string): void {
+    const sessionAuth = sessionStorage.getItem('auth');
+    if (sessionAuth === 'true') {
+      // pop up Write Review Dialog
+    } else {
+      this.firstLogIn(restName, restId);
     }
   }
 }
