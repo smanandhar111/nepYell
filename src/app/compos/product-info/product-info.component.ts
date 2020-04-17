@@ -58,19 +58,6 @@ export class ProductInfoComponent implements OnInit {
   ngOnInit() {
   }
 
-  addToFavClick(id: string, src: string) {
-    this.addToFav.uid = id;
-    if (this.sessionStoreAuth === 'true') {
-      if (src === 'wish') {
-        this.productService.addToWish(this.addToFav);
-      } else {
-        this.productService.addToCart(this.addToFav);
-      }
-    } else {
-      this.authService.googleLogin();
-    }
-  }
-
   openRatingDialog(name, restID, displayName, photoURL): void {
     const auth = sessionStorage.getItem('auth');
     if (auth === 'true') {

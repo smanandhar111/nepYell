@@ -52,16 +52,6 @@ export interface WeatherModel {
     };
 }
 
-export interface ReviewModel {
-    postedDate: string;
-    userID: string;
-    rating: number;
-    review: string;
-    restID: string;
-    displayName: string;
-    photoURL: string;
-}
-
 export interface UserModel {
     uid: string;
     userName: string;
@@ -69,3 +59,4 @@ export interface UserModel {
     email: string;
     id: string;
 }
+
