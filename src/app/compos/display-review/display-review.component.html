@@ -1,23 +1,4 @@
 <div *ngIf="reviews$ | async as reviews">
-  <!--No Reviews-->
-  <div class="no-review" *ngIf="reviews.length === 0">
-    <span class="text"></span>
-      <!---When no user logged in-->
-      <div class="new-user">
-          <div class="reviewer-info">
-              <i class="circled material-icons">face</i>
-              <span class="display-name">Current User</span>
-          </div>
-          <div class="review-container">
-              <textarea placeholder="Be the 1st to review {{restName}}"
-                        cols="35" rows="2" (click)="areaFocused()"></textarea>
-              <span class="review-x-info">
-              <app-rating [restRating]="4" [src]="'rating'"></app-rating>
-              <span class="posted-date">{{currentDate}}</span>
-          </span>
-          </div>
-      </div>
-  </div>
     <!--Has Reviews -->
   <div class="repeater" *ngFor="let review of reviews">
       <div class="reviewer-info">

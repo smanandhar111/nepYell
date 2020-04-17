@@ -6,6 +6,8 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {catchError, map, shareReplay, take, tap} from 'rxjs/operators';
 import {UserModel} from '../../models/models';
 import {Subscription, throwError} from 'rxjs';
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {WriteReviewComponent} from "../write-review/write-review.component";
 
 @Injectable({
   providedIn: 'root'
@@ -14,20 +16,28 @@ export class AuthService {
   login: Promise<any>;
   logStatus$ = this.af.user;
   usersCollection = this.afs.collection('users');
-  usersSub: Subscription;
   userAdded: boolean;
 
   constructor(private af: AngularFireAuth,
               private afs: AngularFirestore,
+              private dialog: MatDialog,
               private productService: ProductService) {
   }
 
-  googleLogin(hasNote: boolean) {
+  googleLogin(hasNote?: boolean, restName?: string, restId?: string) {
     this.login = this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(() => {
       sessionStorage.setItem('auth', 'true');
       this.logStatus$.subscribe((user) => {
         if (hasNote) {
-          alert('pop up open');
+          const dialogConfig = new MatDialogConfig();
+          const dialogRef = this.dialog.open(WriteReviewComponent, {
+            data: {
+              name: restName,
+              restID: restId,
+              displayName: user.displayName,
+              photoURL: user.photoURL
+            }
+          });
         }
         // this function add the new users to the users Collection
         this.archiveUser(user.uid, user.displayName, user.photoURL, user.email);

@@ -107,6 +107,25 @@
       height: 250px;
       padding-right: 10px;
     }
+    // No Review
+    .no-review {
+      .new-user {
+        display: flex;
+        align-self: center;
+        .circled {
+          border: none;
+          font-size: 35px;
+        }
+        textarea {
+          resize: none;
+          font-size: 14px;
+          font-family: 'Muli', sans-serif;
+          background: transparent;
+          border: none;
+          padding: 0 0 0 10px;
+        }
+      }
+    }
   }
 }
 

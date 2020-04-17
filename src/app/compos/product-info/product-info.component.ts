@@ -3,7 +3,7 @@ import {ProductService} from '../product/product.service';
 import {catchError, map} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
-import {AddToFavModel} from '../../models/models';
+import {AddToFavModel, ReviewModel} from '../../models/models';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {WriteReviewComponent} from '../write-review/write-review.component';
 import {LoginModalComponent} from '../login-modal/login-modal.component';
@@ -19,11 +19,8 @@ import {ProductsModel} from '../product/products.model';
 export class ProductInfoComponent implements OnInit {
   productId = this.activeRoute.snapshot.paramMap.get('id');
   errMessage: string;
-  addToFav: AddToFavModel = {
-    uid: ''
-  };
-  product$ = this.productService.products$
-    .pipe(
+  currentDate = this.reviewService.convertDate(new Date());
+  product$ = this.productService.products$.pipe(
       map(product =>
         product.filter(prod => {
           if (prod.id === this.productId) {
@@ -39,6 +36,13 @@ export class ProductInfoComponent implements OnInit {
       catchError(err => this.errMessage = err)
     );
   logStatus$ = this.authService.logStatus$.pipe();
+  reviews$ = this.reviewService.reviews$.pipe(
+      map(reviews => reviews.filter(review => {
+        if (this.productId === review.restID) {
+          return review as ReviewModel;
+        }
+      }))
+  );
   week = [
       {day: 'Monday', i: 1, status: ''},
       {day: 'Tuesday', i: 2, status: ''},
@@ -70,9 +74,15 @@ export class ProductInfoComponent implements OnInit {
         }
       });
   }
-  firstLogIn(): void {
+  firstLogIn(restName: string, restId: string): void {
     const dialogConfig = new MatDialogConfig();
-    const dialogRef = this.dialog.open(LoginModalComponent, {});
+    const dialogRef = this.dialog.open(LoginModalComponent, {
+      data: {
+        note: `Please Sign in to Post a review for ${restName}`,
+        restName,
+        restId,
+      }
+    });
   }
   configStoreHours(storeHours): StoreHoursModel {
     return {
@@ -143,6 +153,14 @@ export class ProductInfoComponent implements OnInit {
       } else {
         return 'active closed';
       }
+    }
+  }
+  areaFocused(restName: string, restId: string): void {
+    const sessionAuth = sessionStorage.getItem('auth');
+    if (sessionAuth === 'true') {
+      // pop up Write Review Dialog
+    } else {
+      this.firstLogIn(restName, restId);
     }
   }
 }

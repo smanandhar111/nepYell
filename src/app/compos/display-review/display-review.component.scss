@@ -2,64 +2,7 @@
 :host {
   margin: 20px;
 
-  .reviewer-info {
-    display: flex;
-    align-self: center;
-    .circled {
-      width: 35px;
-      height: 35px;
-      border-radius: 99px;
-      border: 1.5px solid $main;
-    }
-    span.display-name {
-      //align-self: center;
-      padding-left: 10px;
-      font-size: 12px;
-      min-width: 100px;
-      max-width: 100px;
-      align-self: center;
-    }
-  }
-  .review-container {
-    margin-left: 20px;
-    width: 300px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    background: #f6f6ef;
-    .review {
-      font-family: $Muli;
-      margin-bottom: 10px;
-      display: flex;
-      font-size: 14px;
-    }
-    .review-x-info {
-      display: flex;
-      justify-content: space-between;
-      span.posted-date {
-        font-size: 12px;
-        color: $textLite;
-        align-self: flex-end;
-      }
-    }
-  }
-  .new-user {
-    display: flex;
-    align-self: center;
-    .circled {
-      border: none;
-      font-size: 35px;
-    }
 
-      textarea {
-        resize: none;
-        font-size: 14px;
-        font-family: 'Muli', sans-serif;
-        background: transparent;
-        border: none;
-        padding: 0 0 0 10px;
-      }
-    }
 
 }
 .repeater {
