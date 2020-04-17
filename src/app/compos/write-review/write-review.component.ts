@@ -1,8 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {RateStarModel, ReviewModel} from '../../models/models';
+import {RateStarModel} from '../../models/models';
 import {ReviewService} from './review.service';
 import {MonthsEnum} from '../../enums/date.enum';
+import {ReviewInputModel} from '../display-review/review.model';
 
 @Component({
   selector: 'app-write-review',
@@ -40,7 +41,8 @@ export class WriteReviewComponent implements OnInit {
     this.rating = numb;
   }
   submitReview(): void {
-    const reviewData: ReviewModel = {
+    const reviewData: ReviewInputModel = {
+      rawDate: new Date(),
       postedDate : this.convertDate(new Date()),
       userID : sessionStorage.getItem('uuid'),
       rating: this.rating,
@@ -57,6 +59,7 @@ export class WriteReviewComponent implements OnInit {
     this.review = '';
     this.dialogRef.close();
   }
+
   checkDisability(): boolean {
     return this.review === '' || this.rating === null;
   }

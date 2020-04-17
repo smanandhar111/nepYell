@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {ReviewModel} from '../../models/models';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
+import {ReviewInputModel, ReviewOutputModel} from '../display-review/review.model';
 
 @Injectable({
     providedIn: 'root'
@@ -11,13 +11,13 @@ export class ReviewService {
     reviews$ = this.reviewCollection.snapshotChanges().pipe(
         map(changes => {
             return changes.map(a => {
-                return a.payload.doc.data() as ReviewModel;
+                return a.payload.doc.data() as ReviewOutputModel;
             });
         })
     );
     constructor(private afs: AngularFirestore) {
     }
-    addReview(review: ReviewModel): void {
+    addReview(review: ReviewInputModel): void {
        this.reviewCollection.add(review).then((i) => {
            console.log('added');
        });
