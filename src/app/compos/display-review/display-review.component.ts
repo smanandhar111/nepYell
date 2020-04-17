@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {map} from 'rxjs/operators';
 import {ReviewService} from '../write-review/review.service';
-import {ReviewModel} from '../../models/models';
 import {MatDialog} from '@angular/material/dialog';
+import {ReviewOutputModel} from './review.model';
 
 @Component({
   selector: 'app-display-review',
@@ -13,8 +13,12 @@ export class DisplayReviewComponent implements OnInit {
   reviews$ = this.reviewService.reviews$.pipe(
       map(reviews => reviews.filter(review => {
         if (this.restId === review.restID) {
-          return review as ReviewModel;
+          return review as ReviewOutputModel;
         }
+      })),
+      // sorting the review accord to date and time
+      map(result => result.sort((a, b) => {
+          return a.rawDate.seconds - b.rawDate.seconds;
       }))
   );
   constructor(private reviewService: ReviewService,
