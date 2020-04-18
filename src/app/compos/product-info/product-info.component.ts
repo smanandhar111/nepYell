@@ -3,13 +3,13 @@ import {ProductService} from '../product/product.service';
 import {catchError, map} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
-import {AddToFavModel, ReviewModel} from '../../models/models';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {WriteReviewComponent} from '../write-review/write-review.component';
 import {LoginModalComponent} from '../login-modal/login-modal.component';
 import {ReviewService} from '../write-review/review.service';
 import {StoreHoursModel} from '../open-closed/storeHours.model';
 import {ProductsModel} from '../product/products.model';
+import {ReviewOutputModel} from '../display-review/review.model';
 
 @Component({
   selector: 'app-product-info',
@@ -39,7 +39,7 @@ export class ProductInfoComponent implements OnInit {
   reviews$ = this.reviewService.reviews$.pipe(
       map(reviews => reviews.filter(review => {
         if (this.productId === review.restID) {
-          return review as ReviewModel;
+          return review as ReviewOutputModel;
         }
       }))
   );

@@ -58,15 +58,19 @@ export class OpenClosedComponent implements OnInit {
           let dayAfter: number;
           // add a function that takes the storeHours and sortedKeys and figure out
           // opening and closing time
-          if (storeHours[sortedKeys[i + 1]] !== 'closed') { // Meaning that its closed today and opens the tomorrow
+          // when Saturday val is 6 then + 1 will be seven
+          const inputOut = this.looping(i + 1);
+          if (storeHours[sortedKeys[inputOut]] !== 'closed') { // Meaning that its closed today and opens the tomorrow
             dayAfter = 1;
-            const nextDayArr = storeHours[sortedKeys[i + dayAfter]].split('-');
+            const inputInOne = this.looping(i + dayAfter);
+            const nextDayArr = storeHours[sortedKeys[inputInOne]].split('-');
             const openingTimeNumb = parseInt(nextDayArr[0], 10);
             const closingTimeNumb = parseInt(nextDayArr[1], 10);
             this.nextOpenDay = `Tomorrow ${this.findAmPm(openingTimeNumb)} - ${this.findAmPm(closingTimeNumb)}`;
           } else { // closed for more than 1 day
             dayAfter = 2;
-            const dayNextOpen =  sortedKeys[i + 2];
+            const inputInTwo = this.looping(i + dayAfter);
+            const dayNextOpen =  sortedKeys[inputInTwo];
             const dayString = `${dayNextOpen.charAt(0).toUpperCase()}${dayNextOpen.slice(1)}`;
             const nextDayArr = storeHours[sortedKeys[i + dayAfter]].split('-');
             this.nextOpenDay = `${dayString} ${this.findAmPm(parseInt(nextDayArr[0], 10))} - ${this.findAmPm(parseInt(nextDayArr[1], 10))}`;
@@ -86,6 +90,14 @@ export class OpenClosedComponent implements OnInit {
           }
         }
       }
+    }
+  }
+  // the loop ends at 6 this so it start back to 0
+  looping(inputNumb: number): number {
+    if (inputNumb > 6) {
+      return 0;
+    } else {
+      return inputNumb;
     }
   }
   openingClosingSoon(): void {
