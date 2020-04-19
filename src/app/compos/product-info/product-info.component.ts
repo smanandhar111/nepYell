@@ -58,7 +58,7 @@ export class ProductInfoComponent implements OnInit {
               private reviewService: ReviewService,
               private dialog: MatDialog) { }
 
-  ngOnInit() {}
+  ngOnInit() {console.log(': )', this.week)}
   getSessionAuth(): boolean {
     const sessionAuth = sessionStorage.getItem('auth');
     return sessionAuth === 'true';
@@ -99,11 +99,9 @@ export class ProductInfoComponent implements OnInit {
     if (hours === 'closed') {
       return 'closed';
     } else {
-      let openString;
-      let closeString;
+      let openString; let closeString;
       const storeHoursArr = this.splitter(hours);
-      let openTime = storeHoursArr[0];
-      let closeTime = storeHoursArr[1];
+      let openTime = storeHoursArr[0]; let closeTime = storeHoursArr[1];
 
       if (openTime === 12) {
         openString = `${openTime} pm`;
@@ -128,6 +126,13 @@ export class ProductInfoComponent implements OnInit {
     const today =  date.getDay();
     const currentHour = date.getHours();
     const storeHoursArr = this.splitter(hour);
+
+    this.week.forEach(daz => {
+      if (today === daz.i) {
+        daz.status = evalOpnCls();
+      }
+    });
+
     const evalOpnCls = () => {
       if (currentHour > storeHoursArr[0] && currentHour < storeHoursArr[1]) {
         return 'open';
@@ -135,11 +140,6 @@ export class ProductInfoComponent implements OnInit {
         return 'closed';
       }
     };
-    this.week.forEach(daz => {
-      if (today === daz.i) {
-        daz.status = evalOpnCls();
-      }
-    });
   }
   splitter(hour: string): Array<number> {
     const splitArr = hour.split('-');

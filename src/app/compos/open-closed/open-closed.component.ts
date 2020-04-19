@@ -11,7 +11,7 @@ export class OpenClosedComponent implements OnInit {
   isOpen: boolean;
   openingTime: string;
   closingTime: string;
-  closedToday = false;
+  closedToday: boolean;
   nextOpenDay: string;
   isOpeningSoon: boolean;
   openSoonTimeLeft: number;

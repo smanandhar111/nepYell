@@ -1,5 +1,5 @@
 <div class="container sm">
-  <div class="fx" *ngIf="product$ | async as restaurant">
+  <div class="fx" *ngIf="product$ | async as restaurant"><!---todo: Product$-->
 
     <div class="rest-info-container" *ngFor="let rest of restaurant">
       <div class="images-container">
@@ -34,7 +34,7 @@
           <label for="store-hours">Store Hours</label>
           <table id="store-hours">
             <tr *ngFor="let week of week"
-                [ngClass]="getHoursClass(week.status)">
+              [ngClass]="getHoursClass(week.status)">
               <td>{{week.day}}</td>
               <td>{{rest.storeHoursString[week.day | lowercase]}}</td>
               <td hidden>{{openClose(week.day, rest.storeHours[week.day | lowercase])}}</td>
@@ -58,11 +58,12 @@
         <button class="review-btn" mat-button (click)="firstLogIn(rest.name, rest.id)">Write a Review</button>
       </div>
       <div class="rating-btn-container" *ngIf="getSessionAuth() && logStatus$ | async as user">
-        <button class="review-btn" mat-button (click)="openRatingDialog(rest.name, rest.id, user.displayName, user.photoURL)">Write a Review</button>
+        <button class="review-btn" mat-button
+                (click)="openRatingDialog(rest.name, rest.id, user.displayName, user.photoURL)">Write a Review</button>
       </div>
       <app-display-review class="app-display-view" [restName]="rest.name" [restId] ="productId"></app-display-review>
       <!--No Reviews-->
-      <div class="" *ngIf="reviews$ | async as reviews">
+      <div class="" *ngIf="reviews$ | async as reviews"><!--todo: Reviews$-->
         <!---When no user logged in && review is zero-->
         <div class="no-review" *ngIf="!getSessionAuth()">
           <div class="new-user">
@@ -82,14 +83,14 @@
         </div>
         <!---When user logged in && review is zero-->
         <div class="no-review logged-in" *ngIf="getSessionAuth()">
-          <div class="new-user" *ngIf="logStatus$ | async as user">
+          <div class="new-user" *ngIf="logStatus$ | async as user"><!--todo: LogStatus$-->
             <div class="reviewer-info">
               <img class="circle" src="{{user.photoURL}}" alt="">
               <span class="display-name">{{user.displayName}}</span>
             </div>
             <div class="review-container">
-              <textarea placeholder="{{getPlaceHolder(rest.name, reviews.length)}}"
-                        cols="35" rows="2" (click)="openRatingDialog(rest.name, rest.id, user.displayName, user.photoURL)"></textarea>
+              <textarea placeholder="{{getPlaceHolder(rest.name, reviews.length)}}" cols="35" rows="2"
+                        (click)="openRatingDialog(rest.name, rest.id, user.displayName, user.photoURL)"></textarea>
               <span class="review-x-info">
                 <app-rating [restRating]="4" [src]="'rating'"></app-rating>
                 <span class="posted-date">{{currentDate}}</span>
