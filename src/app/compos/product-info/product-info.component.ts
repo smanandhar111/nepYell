@@ -163,4 +163,11 @@ export class ProductInfoComponent implements OnInit {
       this.firstLogIn(restName, restId);
     }
   }
+  getPlaceHolder(restName: string, reviewLength: number): string {
+    if (reviewLength === 0) {
+      return `Be the 1st one to review ${restName}`;
+    } else {
+      return `Please review ${restName}`;
+    }
+  }
 }
