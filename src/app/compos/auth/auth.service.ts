@@ -27,6 +27,7 @@ export class AuthService {
   googleLogin(hasNote?: boolean, restName?: string, restId?: string) {
     this.login = this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(() => {
       sessionStorage.setItem('auth', 'true');
+      // TODO : Unsubscribe too
       this.logStatus$.subscribe((user) => {
         if (hasNote) {
           const dialogConfig = new MatDialogConfig();

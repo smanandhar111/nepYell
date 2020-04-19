@@ -3,10 +3,10 @@
 
     <div class="rest-info-container" *ngFor="let rest of restaurant">
       <div class="images-container">
-        <img src="../../../assets/img/{{rest.images.outlet.outletOne}}" alt="">
-        <img src="../../../assets/img/{{rest.images.outlet.outletTwo}}" alt="">
-        <img src="../../../assets/img/{{rest.images.outlet.outletThree}}" alt="">
-        <img src="../../../assets/img/{{rest.images.outlet.outletFour}}" alt="">
+        <img class="rest-img" src="../../../assets/img/{{rest.images.outlet.outletOne}}" alt="">
+        <img class="rest-img" src="../../../assets/img/{{rest.images.outlet.outletTwo}}" alt="">
+        <img class="rest-img" src="../../../assets/img/{{rest.images.outlet.outletThree}}" alt="">
+        <img class="rest-img" src="../../../assets/img/{{rest.images.outlet.outletFour}}" alt="">
       </div>
       <div class="rest-details">
         <div class="identity">
@@ -53,6 +53,7 @@
           </div>
         </div>
       </div>
+
       <div *ngIf="!getSessionAuth()">
         <button class="review-btn" mat-button (click)="firstLogIn(rest.name, rest.id)">Write a Review</button>
       </div>
@@ -62,23 +63,42 @@
       <app-display-review class="app-display-view" [restName]="rest.name" [restId] ="productId"></app-display-review>
       <!--No Reviews-->
       <div class="" *ngIf="reviews$ | async as reviews">
-        <div class="no-review" *ngIf="reviews.length === 0">
-          <!---When no user logged in-->
+        <!---When no user logged in && review is zero-->
+        <div class="no-review" *ngIf="!getSessionAuth()">
           <div class="new-user">
             <div class="reviewer-info">
               <i class="circled material-icons">face</i>
               <span class="display-name">Current User</span>
             </div>
             <div class="review-container">
-              <textarea placeholder="Be the 1st to review {{rest.name}}"
+              <textarea placeholder="{{getPlaceHolder(rest.name, reviews.length)}}"
                         cols="35" rows="2" (click)="areaFocused(rest.name, rest.id)"></textarea>
               <span class="review-x-info">
-              <app-rating [restRating]="4" [src]="'rating'"></app-rating>
-              <span class="posted-date">{{currentDate}}</span>
-          </span>
+                <app-rating [restRating]="4" [src]="'rating'"></app-rating>
+                <span class="posted-date">{{currentDate}}</span>
+              </span>
             </div>
           </div>
         </div>
+        <!---When user logged in && review is zero-->
+        <div class="no-review logged-in" *ngIf="getSessionAuth()">
+          <div class="new-user" *ngIf="logStatus$ | async as user">
+            <div class="reviewer-info">
+              <img class="circle" src="{{user.photoURL}}" alt="">
+              <span class="display-name">{{user.displayName}}</span>
+            </div>
+            <div class="review-container">
+              <textarea placeholder="{{getPlaceHolder(rest.name, reviews.length)}}"
+                        cols="35" rows="2" (click)="openRatingDialog(rest.name, rest.id, user.displayName, user.photoURL)"></textarea>
+              <span class="review-x-info">
+                <app-rating [restRating]="4" [src]="'rating'"></app-rating>
+                <span class="posted-date">{{currentDate}}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!--When we hav review-->
       </div>
 
     </div>
