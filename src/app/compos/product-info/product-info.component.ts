@@ -70,43 +70,7 @@ export class ProductInfoComponent implements OnInit {
       }
     });
   }
-  configStoreHours(storeHours): StoreHoursModel {
-    return {
-      sunday: this.sortHours(storeHours.sunday),
-      monday: this.sortHours(storeHours.monday),
-      tuesday: this.sortHours(storeHours.tuesday),
-      wednesday: this.sortHours(storeHours.wednesday),
-      thursday: this.sortHours(storeHours.thursday),
-      friday: this.sortHours(storeHours.friday),
-      saturday: this.sortHours(storeHours.saturday),
-    };
-  }
-  sortHours(hours: string): string {
-    if (hours === 'closed') {
-      return 'closed';
-    } else {
-      let openString; let closeString;
-      const storeHoursArr = this.splitter(hours);
-      let openTime = storeHoursArr[0]; let closeTime = storeHoursArr[1];
 
-      if (openTime === 12) {
-        openString = `${openTime} pm`;
-      }
-      if (openTime > 12 && openTime !== 12) {
-        openTime = openTime - 12;
-        openString = `${openTime} pm`;
-      } else if (openTime < 12) {
-         openString = `${openTime} am`;
-      }
-      if (closeTime > 12) {
-        closeTime = closeTime - 12;
-        closeString = `${closeTime} pm`;
-      } else {
-        closeString = `${closeTime} am`;
-      }
-      return `${openString} - ${closeString}`;
-    }
-  }
   // Todo: openclosedComp also has one
   splitter(hour: string): Array<number> {
     const splitArr = hour.split('-');

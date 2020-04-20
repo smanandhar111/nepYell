@@ -22,7 +22,7 @@
             [ngClass]="getHoursClass(week.status)">
             <td>{{week.day}}</td>
             <td>{{week.hours}}</td>
-            <td>{{week.status}}</td>
+            <td>{{week.status | titlecase}}</td>
         </tr>
     </table>
 </div>

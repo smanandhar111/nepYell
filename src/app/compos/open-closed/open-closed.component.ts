@@ -42,13 +42,13 @@ export class OpenClosedComponent implements OnInit {
     } else if (this.src === 'prodInfo') {
       // Fire the function that would return what we need on the product info side
       this.week = [
-        {day: 'Sunday', hours: this.storeHours.sunday,  status: this.findToday(0, this.storeHours.sunday)},
-        {day: 'Monday', hours: this.storeHours.monday, status: this.findToday(1, this.storeHours.monday)},
-        {day: 'Tuesday', hours: this.storeHours.tuesday, status: this.findToday(2, this.storeHours.tuesday)},
-        {day: 'Wednesday', hours: this.storeHours.wednesday, status: this.findToday(3, this.storeHours.wednesday)},
-        {day: 'Thursday', hours: this.storeHours.thursday, status: this.findToday(4, this.storeHours.thursday)},
-        {day: 'Friday', hours: this.storeHours.friday, status: this.findToday(5, this.storeHours.friday)},
-        {day: 'Saturday', hours: this.storeHours.saturday, status: this.findToday(6, this.storeHours.saturday)},
+        {day: 'Sunday', hours: this.sortHours(this.storeHours.sunday),  status: this.findToday(0, this.storeHours.sunday)},
+        {day: 'Monday', hours: this.sortHours(this.storeHours.monday), status: this.findToday(1, this.storeHours.monday)},
+        {day: 'Tuesday', hours: this.sortHours(this.storeHours.tuesday), status: this.findToday(2, this.storeHours.tuesday)},
+        {day: 'Wednesday', hours: this.sortHours(this.storeHours.wednesday), status: this.findToday(3, this.storeHours.wednesday)},
+        {day: 'Thursday', hours: this.sortHours(this.storeHours.thursday), status: this.findToday(4, this.storeHours.thursday)},
+        {day: 'Friday', hours: this.sortHours(this.storeHours.friday), status: this.findToday(5, this.storeHours.friday)},
+        {day: 'Saturday', hours: this.sortHours(this.storeHours.saturday), status: this.findToday(6, this.storeHours.saturday)},
       ];
     }
   }
@@ -65,7 +65,7 @@ export class OpenClosedComponent implements OnInit {
 
   getStatus(hours: string): string {
     if (hours === 'closed') {
-      return 'closed';
+      return ' ';
     } else {
       const hoursArr = this.splitter(hours);
       const currentHour = new Date().getHours();
@@ -77,35 +77,44 @@ export class OpenClosedComponent implements OnInit {
     }
   }
 
-  openClose(day: string, hour: string): void {
-    const date = new Date();
-    const today =  date.getDay();
-    const currentHour = date.getHours();
-    const storeHoursArr = this.splitter(hour);
-
-    this.week.forEach(daz => {
-      if (today === daz.i) {
-        daz.status = evalOpnCls();
-      }
-    });
-
-    const evalOpnCls = () => {
-      if (currentHour > storeHoursArr[0] && currentHour < storeHoursArr[1]) {
-        return 'open';
-      } else {
-        return 'closed';
-      }
-    };
-  }
   splitter(hour: string): Array<number> {
     const splitArr = hour.split('-');
     return [parseInt(splitArr[0], 10), parseInt(splitArr[1], 10)];
+  }
+
+  sortHours(hours: string): string {
+    if (hours === 'closed') {
+      return 'Closed';
+    } else {
+      let openString; let closeString;
+      const storeHoursArr = this.splitter(hours);
+      let openTime = storeHoursArr[0]; let closeTime = storeHoursArr[1];
+
+      if (openTime === 12) {
+        openString = `${openTime} pm`;
+      }
+      if (openTime > 12 && openTime !== 12) {
+        openTime = openTime - 12;
+        openString = `${openTime} pm`;
+      } else if (openTime < 12) {
+        openString = `${openTime} am`;
+      }
+      if (closeTime > 12) {
+        closeTime = closeTime - 12;
+        closeString = `${closeTime} pm`;
+      } else {
+        closeString = `${closeTime} am`;
+      }
+      return `${openString} - ${closeString}`;
+    }
   }
 
   getHoursClass(status: string): string {
     if (status !== '') {
       if (status === 'open') {
         return 'active open';
+      } else if (status === 'closed') {
+        return 'active closed';
       } else {
         return 'active closed';
       }
@@ -232,7 +241,6 @@ export class OpenClosedComponent implements OnInit {
     }
   }
 }
-
 // + Find the different types of function
 //  - 1 that is called from the HTMl
 //  - 2 From Angular LifeCycle Hooks

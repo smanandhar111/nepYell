@@ -33,6 +33,9 @@
       &.active.open {
         color: $activeX;
       }
+      &.active.closed {
+        color: $main;
+      }
       td {
         font-family: $Muli;
         font-size: 14px;
