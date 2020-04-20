@@ -30,18 +30,20 @@
         </span>
           </div>
         </div>
-        <div class="store-hours">
-          <label for="store-hours">Store Hours</label>
-          <table id="store-hours">
-            <tr *ngFor="let week of week"
-              [ngClass]="getHoursClass(week.status)">
-              <td>{{week.day}}</td>
-              <td>{{rest.storeHoursString[week.day | lowercase]}}</td>
-              <td hidden>{{openClose(week.day, rest.storeHours[week.day | lowercase])}}</td>
-              <td>{{week.status}}</td>
-            </tr>
-          </table>
-        </div>
+        <app-open-closed [storeHours]="rest.storeHours"
+                         [src]="'prodInfo'"></app-open-closed>
+<!--        <div class="store-hours">-->
+<!--          <label for="store-hours">Store Hours</label>-->
+<!--          <table id="store-hours">-->
+<!--            <tr *ngFor="let week of week"-->
+<!--              [ngClass]="getHoursClass(week.status)">-->
+<!--              <td>{{week.day}}</td>-->
+<!--              <td>{{rest.storeHoursString[week.day | lowercase]}}</td>-->
+<!--              <td hidden>{{openClose(week.day, rest.storeHours[week.day | lowercase])}}</td>-->
+<!--              <td>{{week.status}}</td>-->
+<!--            </tr>-->
+<!--          </table>-->
+<!--        </div>-->
         <div class="contact">
           <div class="contact-container">
             <i class="material-icons">home</i>

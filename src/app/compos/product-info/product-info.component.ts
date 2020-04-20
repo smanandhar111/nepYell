@@ -27,12 +27,6 @@ export class ProductInfoComponent implements OnInit {
             return prod;
           }
         })),
-        map(restaurant => {
-          return restaurant.map(rest => ({
-            ...rest,
-            storeHoursString: this.configStoreHours(rest.storeHours)
-          }) as unknown as ProductsModel);
-        }),
       catchError(err => this.errMessage = err)
     );
   logStatus$ = this.authService.logStatus$.pipe();
@@ -43,22 +37,14 @@ export class ProductInfoComponent implements OnInit {
         }
       }))
   );
-  week = [
-      {day: 'Monday', i: 1, status: ''},
-      {day: 'Tuesday', i: 2, status: ''},
-      {day: 'Wednesday', i: 3, status: ''},
-      {day: 'Thursday', i: 4, status: ''},
-      {day: 'Friday', i: 5, status: ''},
-      {day: 'Saturday', i: 6, status: ''},
-      {day: 'Sunday', i: 7, status: ''},
-    ];
+
   constructor(private productService: ProductService,
               private activeRoute: ActivatedRoute,
               private authService: AuthService,
               private reviewService: ReviewService,
               private dialog: MatDialog) { }
 
-  ngOnInit() {console.log(': )', this.week)}
+  ngOnInit() {}
   getSessionAuth(): boolean {
     const sessionAuth = sessionStorage.getItem('auth');
     return sessionAuth === 'true';
@@ -121,40 +107,13 @@ export class ProductInfoComponent implements OnInit {
       return `${openString} - ${closeString}`;
     }
   }
-  openClose(day: string, hour: string): void {
-    const date = new Date();
-    const today =  date.getDay();
-    const currentHour = date.getHours();
-    const storeHoursArr = this.splitter(hour);
-
-    this.week.forEach(daz => {
-      if (today === daz.i) {
-        daz.status = evalOpnCls();
-      }
-    });
-
-    const evalOpnCls = () => {
-      if (currentHour > storeHoursArr[0] && currentHour < storeHoursArr[1]) {
-        return 'open';
-      } else {
-        return 'closed';
-      }
-    };
-  }
+  // Todo: openclosedComp also has one
   splitter(hour: string): Array<number> {
     const splitArr = hour.split('-');
     return [parseInt(splitArr[0], 10), parseInt(splitArr[1], 10)];
   }
   // Todo: Fix its returning st
-  getHoursClass(status: string): string {
-    if (status !== '') {
-      if (status === 'open') {
-        return 'active open';
-      } else {
-        return 'active closed';
-      }
-    }
-  }
+
   areaFocused(restName: string, restId: string): void {
     const sessionAuth = sessionStorage.getItem('auth');
     if (sessionAuth === 'true') {
