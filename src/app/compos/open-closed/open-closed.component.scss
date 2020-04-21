@@ -16,3 +16,33 @@
     color: #000000;
   }
 }
+
+.store-hours {
+  label {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+  }
+  table#store-hours {
+    tr {
+      &.active {
+        font-weight: bolder;
+        font-size: 16px;
+      }
+      &.active.open {
+        color: $activeX;
+      }
+      &.active.closed {
+        color: $main;
+      }
+      td {
+        font-family: $Muli;
+        font-size: 14px;
+        &:nth-child(2) {
+          padding-left: 35px;
+        }
+      }
+    }
+  }
+}

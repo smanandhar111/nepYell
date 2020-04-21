@@ -12,3 +12,13 @@ export enum MonthsEnum {
     November,
     December
 }
+
+export enum WeekEnum {
+    sunday,
+    monday,
+    tuesday,
+    wednesday,
+    thursday,
+    friday,
+    saturday,
+}

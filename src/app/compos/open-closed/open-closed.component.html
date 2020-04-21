@@ -1,6 +1,28 @@
-<div *ngIf="isOpen && !isClosingSoon" class="store-open">OPEN <span>until {{closingTime}} today</span></div>
-<div class="closing-soon" *ngIf="isClosingSoon">Closing Soon <span>in {{closingSoonTimeLeft}} minutes</span></div>
-<div *ngIf="!isOpen && closedToday" class="store-closed closed-today">Closed <span>Opens {{nextOpenDay}}</span></div>
-<div *ngIf="!isOpen && !closedToday && !isOpeningSoon" class="store-closed">CLOSED <span>{{reOpeningTime}}</span></div>
-<div class="opening-soon" *ngIf="isOpeningSoon">Opening Soon <span>in {{openSoonTimeLeft}} minutes</span></div>
+<div class="src-gallery" *ngIf="src === 'gallery'">
+    <!--Open and not closing soon (in an hour)-->
+    <div *ngIf="isOpen && !isClosingSoon" class="store-open">OPEN <span>until {{closingTime}} today</span></div>
 
+    <!--Open but closing soon (in an hour)-->
+    <div *ngIf="isClosingSoon" class="closing-soon">Closing Soon <span>in {{closingSoonTimeLeft}} minutes</span></div>
+
+    <!---Closed Today and opens tomorrow-->
+    <div *ngIf="!isOpen && closedToday" class="store-closed closed-today">Closed <span>Opens {{nextOpenDay}}</span></div>
+
+    <!---Closed Today and tomorrow-->
+    <div *ngIf="!isOpen && !closedToday && !isOpeningSoon" class="store-closed">CLOSED <span>{{reOpeningTime}}</span></div>
+
+    <!--Closed but opening soon (in an hour)-->
+    <div *ngIf="isOpeningSoon" class="opening-soon">Opening Soon <span>in {{openSoonTimeLeft}} minutes</span></div>
+</div>
+
+<div class="store-hours" *ngIf="src === 'prodInfo'">
+    <label for="store-hours">Store Hours</label>
+    <table id="store-hours">
+        <tr *ngFor="let week of week"
+            [ngClass]="getHoursClass(week.status)">
+            <td>{{week.day}}</td>
+            <td>{{week.hours}}</td>
+            <td>{{week.status | titlecase}}</td>
+        </tr>
+    </table>
+</div>

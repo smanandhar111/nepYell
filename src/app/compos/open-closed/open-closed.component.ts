@@ -7,11 +7,12 @@ import {StoreHoursModel} from './storeHours.model';
   styleUrls: ['./open-closed.component.scss']
 })
 export class OpenClosedComponent implements OnInit {
+  @Input() src: string;
   @Input() storeHours: StoreHoursModel;
   isOpen: boolean;
   openingTime: string;
   closingTime: string;
-  closedToday = false;
+  closedToday: boolean;
   nextOpenDay: string;
   isOpeningSoon: boolean;
   openSoonTimeLeft: number;
@@ -26,12 +27,97 @@ export class OpenClosedComponent implements OnInit {
   openingTimeInt: number;
   closingTimeInt: number;
   reOpeningTime: string;
+
+  week = [];
   constructor() { }
 
   ngOnInit() {
-    this.fireCheckIfOpen();
-    this.fireOpeningClosingSoon();
+    // todo: OpenClosed Component --
+    // Here is where the function start
+    // Does the magic
+    // Returns property on the html
+    if (this.src === 'gallery') {
+      this.fireCheckIfOpen();
+      this.fireOpeningClosingSoon();
+    } else if (this.src === 'prodInfo') {
+      // Fire the function that would return what we need on the product info side
+      this.week = [
+        {day: 'Sunday', hours: this.sortHours(this.storeHours.sunday),  status: this.findToday(0, this.storeHours.sunday)},
+        {day: 'Monday', hours: this.sortHours(this.storeHours.monday), status: this.findToday(1, this.storeHours.monday)},
+        {day: 'Tuesday', hours: this.sortHours(this.storeHours.tuesday), status: this.findToday(2, this.storeHours.tuesday)},
+        {day: 'Wednesday', hours: this.sortHours(this.storeHours.wednesday), status: this.findToday(3, this.storeHours.wednesday)},
+        {day: 'Thursday', hours: this.sortHours(this.storeHours.thursday), status: this.findToday(4, this.storeHours.thursday)},
+        {day: 'Friday', hours: this.sortHours(this.storeHours.friday), status: this.findToday(5, this.storeHours.friday)},
+        {day: 'Saturday', hours: this.sortHours(this.storeHours.saturday), status: this.findToday(6, this.storeHours.saturday)},
+      ];
+    }
   }
+  // Fn: verify the day and only passes getStatus if its today
+  // Fn: otherwise return empty string
+  findToday(day: number, hours: string): string {
+    const today = new Date().getDay();
+    if (day === today) {
+      return this.getStatus(hours);
+    } else {
+      return '';
+    }
+  }
+  getStatus(hours: string): string {
+    if (hours === 'closed') {
+      return ' ';
+    } else {
+      const hoursArr = this.splitter(hours);
+      const currentHour = new Date().getHours();
+      if (currentHour < hoursArr[0] || currentHour >= hoursArr[1]) {
+        return 'closed';
+      } else {
+        return 'open';
+      }
+    }
+  }
+  splitter(hour: string): Array<number> {
+    const splitArr = hour.split('-');
+    return [parseInt(splitArr[0], 10), parseInt(splitArr[1], 10)];
+  }
+  sortHours(hours: string): string {
+    if (hours === 'closed') {
+      return 'Closed';
+    } else {
+      let openString; let closeString;
+      const storeHoursArr = this.splitter(hours);
+      let openTime = storeHoursArr[0]; let closeTime = storeHoursArr[1];
+
+      if (openTime === 12) {
+        openString = `${openTime} pm`;
+      }
+      if (openTime > 12 && openTime !== 12) {
+        openTime = openTime - 12;
+        openString = `${openTime} pm`;
+      } else if (openTime < 12) {
+        openString = `${openTime} am`;
+      }
+      if (closeTime > 12) {
+        closeTime = closeTime - 12;
+        closeString = `${closeTime} pm`;
+      } else {
+        closeString = `${closeTime} am`;
+      }
+      return `${openString} - ${closeString}`;
+    }
+  }
+  getHoursClass(status: string): string {
+    if (status !== '') {
+      if (status === 'open') {
+        return 'active open';
+      } else if (status === 'closed') {
+        return 'active closed';
+      } else {
+        return 'active closed';
+      }
+    }
+  }
+
+  // --> Internal Function
   checkIfOpen(storeHours): void {
     let hoursArr = [];
     const currentDate = new Date();
@@ -59,17 +145,17 @@ export class OpenClosedComponent implements OnInit {
           // add a function that takes the storeHours and sortedKeys and figure out
           // opening and closing time
           // when Saturday val is 6 then + 1 will be seven
-          const inputOut = this.looping(i + 1);
+          const inputOut = this.looping$$(i + 1);
           if (storeHours[sortedKeys[inputOut]] !== 'closed') { // Meaning that its closed today and opens the tomorrow
             dayAfter = 1;
-            const inputInOne = this.looping(i + dayAfter);
+            const inputInOne = this.looping$$(i + dayAfter);
             const nextDayArr = storeHours[sortedKeys[inputInOne]].split('-');
             const openingTimeNumb = parseInt(nextDayArr[0], 10);
             const closingTimeNumb = parseInt(nextDayArr[1], 10);
             this.nextOpenDay = `Tomorrow ${this.findAmPm(openingTimeNumb)} - ${this.findAmPm(closingTimeNumb)}`;
           } else { // closed for more than 1 day
             dayAfter = 2;
-            const inputInTwo = this.looping(i + dayAfter);
+            const inputInTwo = this.looping$$(i + dayAfter);
             const dayNextOpen =  sortedKeys[inputInTwo];
             const dayString = `${dayNextOpen.charAt(0).toUpperCase()}${dayNextOpen.slice(1)}`;
             const nextDayArr = storeHours[sortedKeys[i + dayAfter]].split('-');
@@ -93,7 +179,7 @@ export class OpenClosedComponent implements OnInit {
     }
   }
   // the loop ends at 6 this so it start back to 0
-  looping(inputNumb: number): number {
+  looping$$(inputNumb: number): number {
     if (inputNumb > 6) {
       return 0;
     } else {
@@ -104,6 +190,7 @@ export class OpenClosedComponent implements OnInit {
     const currentDate = new Date();
     const currentMinutes = currentDate.getMinutes();
     const currentHour = currentDate.getHours();
+
     this.isOpeningSoon = this.openingTimeInt - currentHour === 1;
     if (this.isOpeningSoon) {
       this.openSoonTimeLeft = this.secMinUnit - currentMinutes;
@@ -150,3 +237,8 @@ export class OpenClosedComponent implements OnInit {
     }
   }
 }
+// + Find the different types of function
+//  - 1 that is called from the HTMl
+//  - 2 From Angular LifeCycle Hooks
+//  - 3 InternalFunctions called from external or AngularLifeCycle Fn
+
