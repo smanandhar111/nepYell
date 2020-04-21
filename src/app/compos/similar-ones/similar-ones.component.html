@@ -1,0 +1,6 @@
+<div *ngIf="SimilarRestaurants$ | async as similarRest">
+    <div *ngFor="let rest of similarRest">
+        <h5>{{rest.name}}</h5>
+        {{rest.foodType}}
+    </div>
+</div>
