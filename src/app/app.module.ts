@@ -41,6 +41,7 @@ import { WriteReviewComponent } from './compos/write-review/write-review.compone
 import { LoginModalComponent } from './compos/login-modal/login-modal.component';
 import {ReviewService} from "./compos/write-review/review.service";
 import { DisplayReviewComponent } from './compos/display-review/display-review.component';
+import { SimilarOnesComponent } from './compos/similar-ones/similar-ones.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { DisplayReviewComponent } from './compos/display-review/display-review.c
     OpenClosedComponent,
     WriteReviewComponent,
     LoginModalComponent,
-    DisplayReviewComponent
+    DisplayReviewComponent,
+    SimilarOnesComponent
   ],
   imports: [
     BrowserModule,
