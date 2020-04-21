@@ -4,6 +4,7 @@ import {ProductService} from '../product/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {catchError, map} from 'rxjs/operators';
 import {ProductsModel} from '../product/products.model';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-gallery',
@@ -11,6 +12,8 @@ import {ProductsModel} from '../product/products.model';
   styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent implements OnInit {
+  @Input() src: string;
+  @Input() products$: Observable<ProductsModel[]>;
   @Input() fromWishList: boolean;
   @Output() notify: EventEmitter<string> = new EventEmitter();
   @Input() selfId: string;
@@ -19,17 +22,7 @@ export class GalleryComponent implements OnInit {
   @Input() citySelect: string;
   @Input() subCitySelect: string;
   @Input() priceRangeSelect: number;
-  errMessage: string;
 
-  products$ = this.productService.products$
-    .pipe(
-        map((products) => {
-          return products.map((prod) => ({
-            ...prod
-          }) as ProductsModel);
-        }),
-        catchError(err => this.errMessage = err)
-    );
   constructor(private productService: ProductService,
               private router: Router,
               private route: ActivatedRoute) { }

@@ -15,6 +15,7 @@ export class SimilarOnesComponent implements OnInit {
   @Input() toal: string;
   @Input() priceRange: number;
   @Input() restId: string;
+  @Input() restName: string;
   constructor(private productService: ProductService) { }
   SimilarRestaurants$: Observable<ProductsModel[]>;
   ngOnInit() {

@@ -1,6 +1,4 @@
-<div *ngIf="SimilarRestaurants$ | async as similarRest">
-    <div *ngFor="let rest of similarRest">
-        <h5>{{rest.name}}</h5>
-        {{rest.foodType}}
-    </div>
+<div class="gallery-container">
+    <h4>Places similar to {{restName}}</h4>
+    <app-gallery [products$]="SimilarRestaurants$" src="'similarOnes'"></app-gallery>
 </div>

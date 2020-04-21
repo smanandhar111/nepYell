@@ -4,12 +4,17 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  padding-top: $stickyAdjust;
+  .form-placeholder {
+    flex: 1;
+    display: flex;
+  }
 
   .filter-form {
     padding-top: 20px;
-    //border-right: 1px solid $main;
     padding-right: 20px;
     flex: 1;
+    position: fixed;
 
     .restaurant-type {
       padding-bottom: 10px;

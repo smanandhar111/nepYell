@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {ProductService} from './product.service';
 import {NgForm} from '@angular/forms';
 import {RestaurantFilterModel, SelectType} from '../../models/models';
 import {BehaviorSubject, combineLatest} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
+import {ProductsModel} from './products.model';
 
 
 @Component({
@@ -16,6 +17,8 @@ export class ProductComponent implements OnInit {
   subCitiesArray = [];
   newArray = [];
   citySelected = false;
+  errMessage: string;
+  letsGetSticky: boolean;
   private categorySelectedSubject = new BehaviorSubject<string>('All');
   categorySelectedAction$ = this.categorySelectedSubject.asObservable();
   foodTypes$ = this.productService.foodTypes$.pipe();
@@ -37,6 +40,15 @@ export class ProductComponent implements OnInit {
         });
       })
   ).subscribe();
+  products$ = this.productService.products$
+      .pipe(
+          map((products) => {
+            return products.map((prod) => ({
+              ...prod
+            }) as ProductsModel);
+          }),
+          catchError(err => this.errMessage = err)
+      );
   restFilter: RestaurantFilterModel = {
     restType : {
       Chinese: '',
@@ -125,4 +137,9 @@ export class ProductComponent implements OnInit {
       return this.restFilter.locationType.allSubCities;
     }
   }
+
+  // @HostListener('window:scroll', [])
+  // onWindowScroll() {
+  //   this.letsGetSticky = window.pageYOffset > 1;
+  // }
 }
