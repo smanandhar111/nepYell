@@ -62,7 +62,6 @@ export class OpenClosedComponent implements OnInit {
       return '';
     }
   }
-
   getStatus(hours: string): string {
     if (hours === 'closed') {
       return ' ';
@@ -76,12 +75,10 @@ export class OpenClosedComponent implements OnInit {
       }
     }
   }
-
   splitter(hour: string): Array<number> {
     const splitArr = hour.split('-');
     return [parseInt(splitArr[0], 10), parseInt(splitArr[1], 10)];
   }
-
   sortHours(hours: string): string {
     if (hours === 'closed') {
       return 'Closed';
@@ -108,7 +105,6 @@ export class OpenClosedComponent implements OnInit {
       return `${openString} - ${closeString}`;
     }
   }
-
   getHoursClass(status: string): string {
     if (status !== '') {
       if (status === 'open') {

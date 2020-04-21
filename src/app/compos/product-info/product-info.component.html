@@ -75,7 +75,7 @@
             </div>
             <div class="review-container">
               <textarea placeholder="{{getPlaceHolder(rest.name, reviews.length)}}"
-                        cols="35" rows="2" (click)="areaFocused(rest.name, rest.id)"></textarea>
+                        cols="35" rows="2" (click)="firstLogIn(rest.name, rest.id)"></textarea>
               <span class="review-x-info">
                 <app-rating [restRating]="4" [src]="'rating'"></app-rating>
                 <span class="posted-date">{{currentDate}}</span>

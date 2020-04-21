@@ -7,8 +7,6 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {WriteReviewComponent} from '../write-review/write-review.component';
 import {LoginModalComponent} from '../login-modal/login-modal.component';
 import {ReviewService} from '../write-review/review.service';
-import {StoreHoursModel} from '../open-closed/storeHours.model';
-import {ProductsModel} from '../product/products.model';
 import {ReviewOutputModel} from '../display-review/review.model';
 
 @Component({
@@ -69,22 +67,6 @@ export class ProductInfoComponent implements OnInit {
         restId,
       }
     });
-  }
-
-  // Todo: openclosedComp also has one
-  splitter(hour: string): Array<number> {
-    const splitArr = hour.split('-');
-    return [parseInt(splitArr[0], 10), parseInt(splitArr[1], 10)];
-  }
-  // Todo: Fix its returning st
-
-  areaFocused(restName: string, restId: string): void {
-    const sessionAuth = sessionStorage.getItem('auth');
-    if (sessionAuth === 'true') {
-      // pop up Write Review Dialog
-    } else {
-      this.firstLogIn(restName, restId);
-    }
   }
   getPlaceHolder(restName: string, reviewLength: number): string {
     if (reviewLength === 0) {
