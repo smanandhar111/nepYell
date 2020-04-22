@@ -6,6 +6,7 @@
     justify-content: center;
   }
   .rest-info-container {
+    padding-top: $stickyAdjust;
     .rest-details {
       display: flex;
       margin-top: 30px;

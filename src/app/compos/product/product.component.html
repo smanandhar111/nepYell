@@ -1,6 +1,7 @@
 <div class="ProdDisplayComp none">
   <!--Filter-->
-    <form class="filter-form" name="restFilter" #restFilterForm="ngForm"
+  <div class="form-placeholder"></div>
+  <form class="filter-form" name="restFilter" #restFilterForm="ngForm"
           (ngSubmit)="onSubmit(restFilterForm)">
       <div class="restaurant-type fx fx-cl" *ngIf="foodTypes$">
           <h5 class="filter-title">Type of Restaurant</h5>
@@ -66,6 +67,8 @@
   <!--Display-->
   <div class="gallery-container">
     <app-gallery [restFilterValArr]="restFilterValArr"
+                 [src]="'products'"
+                 [products$]="products$"
                  [subCitySelect]="getThis()"
                  [priceRangeSelect]="restFilter.priceRangeType"
                  [citySelect]="restFilter.locationType.area"></app-gallery>
