@@ -112,4 +112,7 @@ export class ProductService {
   addToCart(addToFav: AddToFavModel) {
     this.afs.collection(`userData/${this.uuid}/cart`).add(addToFav);
   }
+  scrollToTop(): void {
+      window.scroll(0, 0);
+  }
 }

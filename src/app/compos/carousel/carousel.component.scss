@@ -1,0 +1,19 @@
+@import 'src/app/styles/variables';
+.img-container.fx {
+  justify-content: center;
+  a.anchor {
+    align-self: center;
+    .material-icons {
+      font-size: 40px;
+      color: $main;
+    }
+  }
+  img {
+    width: 300px;
+    height: 250px;
+    padding-right: 15px;
+    &:first-child {
+      padding-left: 15px;
+    }
+  }
+}

@@ -1,0 +1,8 @@
+<div class="img-container fx">
+    <a class="anchor" *ngIf="!hidePrev" (click)="navImg('left')"><i class="material-icons">chevron_left</i></a>
+    <img *ngFor="let i of displayImg" src="{{i}}" alt="">
+    <a class="anchor" *ngIf="!hideNext" (click)="navImg('right')">
+        <i class="material-icons">chevron_right</i>
+    </a>
+</div>
+

@@ -158,7 +158,8 @@ export class OpenClosedComponent implements OnInit {
             const inputInTwo = this.looping$$(i + dayAfter);
             const dayNextOpen =  sortedKeys[inputInTwo];
             const dayString = `${dayNextOpen.charAt(0).toUpperCase()}${dayNextOpen.slice(1)}`;
-            const nextDayArr = storeHours[sortedKeys[i + dayAfter]].split('-');
+            const inputTwo = this.looping$$(i + dayAfter);
+            const nextDayArr = storeHours[sortedKeys[inputTwo]].split('-');
             this.nextOpenDay = `${dayString} ${this.findAmPm(parseInt(nextDayArr[0], 10))} - ${this.findAmPm(parseInt(nextDayArr[1], 10))}`;
           }
         } else { // If open today

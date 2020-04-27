@@ -28,7 +28,9 @@ export class GalleryComponent implements OnInit {
               private route: ActivatedRoute) { }
 
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.productService.scrollToTop();
+  }
 
   getProdDetails(id: string) {
     this.router.navigate(['/product-info', id]);

@@ -17,22 +17,8 @@ export interface ProductsModel {
   };
   id?: string;
   images: {
-    menu: {
-      menuOne: string;
-      menuTwo?: string;
-      menuThree?: string;
-      menuFour?: string;
-      menuFive?: string;
-      menuSix?: string;
-    },
-    outlet: {
-      outletOne: string;
-      outletTwo?: string;
-      outletThree?: string;
-      outletFour?: string;
-      outletFive?: string;
-      outletSix?: string;
-    }
+    menu: [],
+    outlet: []
   };
   services: {
     creditCards: boolean;

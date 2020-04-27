@@ -270,6 +270,11 @@ a.clear-input {
   }
 }
 
+// anchor tag with a href needs cursor
+a.anchor {
+  cursor: pointer;
+}
+
 // Modal Popup Modification Globally
 .cdk-overlay-container {
   .cdk-overlay-pane {
