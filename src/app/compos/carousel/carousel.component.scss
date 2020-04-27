@@ -1,0 +1,73 @@
+@import 'src/app/styles/variables';
+.img-container.fx {
+  justify-content: center;
+  a.anchor {
+    align-self: center;
+    .material-icons {
+      font-size: 40px;
+      color: $main;
+    }
+  }
+  img {
+    width: 300px;
+    height: 250px;
+    padding-right: 15px;
+    &:first-child {
+      padding-left: 15px;
+    }
+  }
+}
+
+/* This is the element we are applying the animation to. */
+
+.animated {
+  animation-name: move;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0.5s;
+  animation-iteration-count: 2;
+  animation-direction: alternate;
+
+  -moz-animation-name: move;
+  -moz-animation-duration: 1s;
+  -moz-animation-timing-function: ease-in-out;
+  -moz-animation-delay: 0.5s;
+  -moz-animation-iteration-count: 2;
+  -moz-animation-direction: alternate;
+
+  -webkit-animation-name: move;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-delay: 0.5s;
+  -webkit-animation-iteration-count: 2;
+  -webkit-animation-direction: alternate;
+}
+
+/* This is the animation code. */
+
+@keyframes move {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100px);
+  }
+}
+
+@-moz-keyframes move {
+  from {
+    -moz-transform: translateX(0);
+  }
+  to {
+    -moz-transform: translateX(100px);
+  }
+}
+
+@-webkit-keyframes move {
+  from {
+    -webkit-transform: translateX(0);
+  }
+  to {
+    -webkit-transform: translateX(100px);
+  }
+}

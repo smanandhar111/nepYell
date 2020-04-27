@@ -42,7 +42,9 @@ export class ProductInfoComponent implements OnInit {
               private reviewService: ReviewService,
               private dialog: MatDialog) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.productService.scrollToTop();
+  }
   getSessionAuth(): boolean {
     const sessionAuth = sessionStorage.getItem('auth');
     return sessionAuth === 'true';

@@ -5,6 +5,7 @@ import {ProductService} from '../product/product.service';
 import {SelectType} from '../../models/models';
 import {BehaviorSubject, combineLatest} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {ImageCountModel} from './imageCount.model';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -23,6 +24,10 @@ export class AddProductComponent implements OnInit {
         return y.subCity.split(',');
       })),
   );
+  imgCount: ImageCountModel = {
+    outlet: 0,
+    menu: 0,
+  };
   restItem: ProductsModel = {
     name: '',
     location: {
@@ -42,22 +47,10 @@ export class AddProductComponent implements OnInit {
     },
     id: '',
     images: {
-      menu: {
-        menuOne: '',
-        menuTwo: '',
-        menuThree: '',
-        menuFour: '',
-        menuFive: '',
-        menuSix: ''
-      },
-      outlet: {
-        outletOne: '',
-        outletTwo: '',
-        outletThree: '',
-        outletFour: '',
-        outletFive: '',
-        outletSix: ''
-      }
+      // todo
+      menu: [],
+      // todo
+      outlet: []
     },
     services: {
       creditCards: false,
@@ -79,24 +72,8 @@ export class AddProductComponent implements OnInit {
     {value: 'no', viewValue: 'No', boolean: false}
   ];
   priceRangeType: SelectType[] = this.productService.priceRangeType;
-  outletImgCount: number;
-  menuImgCount: number;
-  menuImages = [
-    {name: 'menuOne', srcModel: 'restItem.images.menu.menuOne'},
-    {name: 'menuTwo', srcModel: 'restItem.images.menu.menuTwo'},
-    {name: 'menuThree', srcModel: 'restItem.images.menu.menuThree'},
-    {name: 'menuFour', srcModel: 'restItem.images.menu.menuFour'},
-    {name: 'menuFive', srcModel: 'restItem.images.menu.menuFive'},
-    {name: 'menuSix', srcModel: 'restItem.images.menu.menuSix'},
-  ];
-  outletImages = [
-    {name: 'outletOne', srcModel: 'restItem.images.outlet.outletOne'},
-    {name: 'outletTwo', srcModel: 'restItem.images.outlet.outletTwo'},
-    {name: 'outletThree', srcModel: 'restItem.images.outlet.outletThree'},
-    {name: 'outletFour', srcModel: 'restItem.images.outlet.outletFour'},
-    {name: 'outletFive', srcModel: 'restItem.images.outlet.outletFive'},
-    {name: 'outletSix', srcModel: 'restItem.images.outlet.outletSix'},
-  ];
+  outletImageCount: number;
+  menuImageCount: number;
   citySelected = false;
   alterPhone = false;
   foodTypes$ = this.productService.foodTypes$.pipe();
@@ -108,14 +85,6 @@ export class AddProductComponent implements OnInit {
   onSubmit(addProdForm: NgForm) {
     this.productService.addItem(this.restItem);
     addProdForm.resetForm();
-    // clear preview images
-    this.restItem.images.outlet.outletOne = '';
-    this.restItem.images.outlet.outletTwo = '';
-    this.restItem.images.outlet.outletThree = '';
-
-    this.restItem.images.menu.menuOne = '';
-    this.restItem.images.menu.menuTwo = '';
-    this.restItem.images.menu.menuThree = '';
   }
   clearInput(e): void {
     const inputName = e.target.previousElementSibling.name;
@@ -152,10 +121,6 @@ export class AddProductComponent implements OnInit {
     // }
   }
 
-  changeCount(val, src) {
-    (src === 'menu') ? this.menuImgCount = val : this.outletImgCount = val;
-  }
-
   activeAltPh(): void {
     this.alterPhone = true;
   }
@@ -163,15 +128,16 @@ export class AddProductComponent implements OnInit {
   referenceImg(restName): void {
     // looping over the outlet Object to get the specific imgRef variable
     //  so it can be assigned to the right imgUrl
-    const outletObj = Object.keys(this.restItem.images.outlet);
-    const menuObj = Object.keys(this.restItem.images.menu);
     const restImgPath = '../../../assets/img/restaurants';
-
-    for (let i = 0; i < this.menuImgCount; i++) {
-      this.restItem.images.menu[menuObj[i]] = `${restImgPath}/${restName}/${restName}Menu${i + 1}.jpg`;
+    for (let i = 0; i < this.imgCount.menu; i++) {
+      const preText = `${restImgPath}/${restName}/${restName}Menu${i + 1}.jpg`;
+      // @ts-ignore
+      this.restItem.images.menu.push(preText);
     }
-    for (let i = 0; i < this.outletImgCount; i++) {
-      this.restItem.images.outlet[outletObj[i]] = `${restImgPath}/${restName}/${restName}${i + 1}.jpg`;
+    for (let i = 0; i < this.imgCount.outlet; i++) {
+      const preText = `${restImgPath}/${restName}/${restName}${i + 1}.jpg`;
+      // @ts-ignore
+      this.restItem.images.outlet.push(preText);
     }
     // Because the image name is tied to the name of the restaurant we can't capitalize and give space btw in the input
     // this below line converts the name input to proper Spacing and Capitalizes and sets it as the restaurants name
