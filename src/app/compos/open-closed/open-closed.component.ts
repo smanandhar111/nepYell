@@ -99,6 +99,8 @@ export class OpenClosedComponent implements OnInit {
       if (closeTime > 12) {
         closeTime = closeTime - 12;
         closeString = `${closeTime} pm`;
+      } else if (closeTime === 12) {
+        closeString = `${closeTime} pm`;
       } else {
         closeString = `${closeTime} am`;
       }
