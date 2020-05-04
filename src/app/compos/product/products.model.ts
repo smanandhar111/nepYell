@@ -37,3 +37,12 @@ export interface ProductsModel {
   isOpen?: boolean;
   storeHoursString?: string;
 }
+
+export interface FoodTypeModel {
+  foodType: string;
+}
+
+export interface LocationsModel {
+  city: string;
+  subCity: Array<string>;
+}

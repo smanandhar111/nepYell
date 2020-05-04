@@ -19,6 +19,7 @@ export interface  LocationModel {
 }
 
 export interface RestaurantFilterModel {
+    searchInput: string;
     restType: {
         Chinese: string;
         WesternFusion: string;

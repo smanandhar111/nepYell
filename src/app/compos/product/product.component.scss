@@ -15,7 +15,65 @@
     padding-right: 20px;
     flex: 1;
     position: fixed;
+    .fx {
+      position: relative;
+      a.anchor {
+        visibility: hidden;
+        position: absolute;
+        left: -20px;
+        top: 17px;
+        i {
+          font-size: 14px;
+        }
+        &.appear {
+          visibility: visible;
+        }
+      }
+      .search-input {
+        ::ng-deep {
+          .mat-form-field-wrapper {
+            .mat-form-field-flex {
+              .mat-form-field-infix {
+                display: flex;
+                width: 100%;
+                border: none;
 
+                .search-btn {
+                  padding-right: 0;
+                  padding-left: 0;
+                  margin-left: 5px;
+                  min-width: 36px;
+                  transition: background-color 0.8s ease, color 0.2s ease;
+                  border-radius: 99px;
+
+                  &:hover, &:active {
+                    background-color: $main;
+                    color: white;
+                  }
+                }
+
+                .mat-form-field-label-wrapper .mat-form-field-label {
+                  position: relative;
+                  top: 16px;
+                }
+              }
+            }
+
+            .mat-form-field-underline {
+              height: 2px;
+              background: #cccccc;
+            }
+
+          }
+        }
+
+        &.mat-focused {
+          .search-btn {
+            color: $main;
+          }
+        }
+      }
+    }
     .restaurant-type {
       padding-bottom: 10px;
       h5.filter-title {
@@ -80,4 +138,11 @@
   .gallery-container {
     flex: 6;
   }
+}
+
+.autocomplete-label {
+  font-size: 10px;
+  float: right;
+  padding-right: 10px;
+  color: $textLite;
 }
