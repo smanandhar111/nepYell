@@ -76,10 +76,7 @@ export class ProductComponent implements OnInit {
     const sessionTerm = sessionStorage.getItem('term');
     if (sessionTerm !== null) {
       this.options = JSON.parse(sessionStorage.term);
-    } else {
-      console.log('its bull');
     }
-
   }
   // Todo: Fix naming conventions
   configAllSubCities(subCity) {
@@ -163,6 +160,7 @@ export class ProductComponent implements OnInit {
     this.restFilter.searchInput = '';
     this.searchTerm = '';
   }
+  // after recent search options are click it automatically searches the keyword
   graduallySearch(): void {
     setTimeout(() => {
       this.search(); }, 200);
@@ -174,12 +172,7 @@ export class ProductComponent implements OnInit {
       }
     }, 200);
   }
-  keypress(): void {
-    console.log('keypress');
-  }
 }
-
-
 //  Create Wishlist
 // Show wishlist resturant on the gallery 2nd or 4th in the top of the page to
 // create a AI feel
