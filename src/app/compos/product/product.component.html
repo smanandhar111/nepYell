@@ -3,18 +3,36 @@
   <div class="form-placeholder"></div>
   <form class="filter-form" name="restFilter" #restFilterForm="ngForm"
           (ngSubmit)="onSubmit(restFilterForm)">
-      <div class="restaurant-type fx fx-cl" *ngIf="foodTypes$">
+    <div class="fx">
+      <a [ngClass]="{'appear': restFilter.searchInput}" class="anchor"
+         (click)="clearSearch()"><i class="material-icons">close</i></a>
+      <mat-form-field class="search-input">
+        <input type="text" name="searchInput" [(ngModel)]="restFilter.searchInput"
+               (keydown.backspace)="keydownSearch()"
+               placeholder="Search" matInput [matAutocomplete]="auto">
+        <button mat-button class="search-btn" (click)="search()">
+          <i class="material-icons">search</i></button>
+      </mat-form-field>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of options" (click)="graduallySearch()"
+                    [value]="option">{{option}}</mat-option>
+        <span class="autocomplete-label">Recently searched</span>
+      </mat-autocomplete>
+    </div>
+
+    <div class="restaurant-type fx fx-cl" *ngIf="foodTypes$ | async as foodTypes">
           <h5 class="filter-title">Type of Restaurant</h5>
-          <mat-checkbox value="{{food.foodType}}" name="foodTypeCheckBox" (change)="onChangeFoodType(food.foodType, $event.checked)"
-                        [(ngModel)]="restFilter.restType[food.foodType]"
-                        *ngFor="let food of foodTypes$ | async">{{food.foodType}}</mat-checkbox>
+
+          <mat-checkbox *ngFor="let food of foodTypes" value="{{food.foodType}}"
+                        name="foodTypeCheckBox" (change)="onChangeFoodType(food.foodType, $event.checked)"
+                        [(ngModel)]="restFilter.restType[food.foodType]">{{food.foodType}}</mat-checkbox>
       </div>
-      <div class="city-type">
+    <div class="city-type" *ngIf="locations$ | async as locations">
         <div class="mat-form-field-container">
           <mat-form-field>
             <mat-label class="labeler">City</mat-label>
             <mat-select (selectionChange)="onChangeSelect($event.value)" name="citySelect" [(ngModel)]="restFilter.locationType.area" >
-              <mat-option (click)="optClick(loco.city)" *ngFor="let loco of locations$ | async" [value]="loco.city">
+              <mat-option (click)="optClick(loco.city)" *ngFor="let loco of locations" [value]="loco.city">
                 {{loco.city}}
               </mat-option>
             </mat-select>
@@ -48,9 +66,7 @@
           <a class="clear-select material-icons" [ngClass]="{'appear': restFilter.locationType.allSubCities}" (click)="clearFitler($event)">close</a>
         </div>
       </div>
-
-
-      <div class="price-range-type">
+    <div class="price-range-type">
         <div class="mat-form-field-container">
           <mat-form-field>
             <mat-label class="labeler">Price Range</mat-label>
@@ -60,17 +76,18 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <a class="clear-select material-icons" [ngClass]="{'appear': restFilter.priceRangeType}" (click)="clearFitler($event)">close</a>
+          <a class="clear-select material-icons" [ngClass]="{'appear': restFilter.priceRangeType}" (click)="clearFilter($event)">close</a>
         </div>
       </div>
-    </form>
+  </form>
   <!--Display-->
   <div class="gallery-container">
     <app-gallery [restFilterValArr]="restFilterValArr"
                  [src]="'products'"
                  [products$]="products$"
                  [subCitySelect]="getThis()"
-                 [priceRangeSelect]="restFilter.priceRangeType"
+                 [searchTerm]="searchTerm"
+                 [priceRangeSelect]="convertToNumber(restFilter.priceRangeType)"
                  [citySelect]="restFilter.locationType.area"></app-gallery>
   </div>
 </div>

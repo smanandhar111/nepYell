@@ -22,7 +22,7 @@ import { ProductComponent } from './compos/product/product.component';
 import {ProductService} from './compos/product/product.service';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import { AddProductComponent } from './compos/add-product/add-product.component';
-import {FormsModule} from '@angular/forms';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { GalleryComponent } from './compos/gallery/gallery.component';
 import { ProductInfoComponent } from './compos/product-info/product-info.component';
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -39,10 +39,12 @@ import { OpenClosedComponent } from './compos/open-closed/open-closed.component'
 import {MatDialogModule} from '@angular/material/dialog';
 import { WriteReviewComponent } from './compos/write-review/write-review.component';
 import { LoginModalComponent } from './compos/login-modal/login-modal.component';
-import {ReviewService} from "./compos/write-review/review.service";
+import {ReviewService} from './compos/write-review/review.service';
 import { DisplayReviewComponent } from './compos/display-review/display-review.component';
 import { SimilarOnesComponent } from './compos/similar-ones/similar-ones.component';
 import { CarouselComponent } from './compos/carousel/carousel.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {SearchTermFilterPipe} from './compos/gallery/pipes/searchTermFilter.pipe';
 
 
 @NgModule({
@@ -58,6 +60,7 @@ import { CarouselComponent } from './compos/carousel/carousel.component';
     CitySelectFilterPipe,
     SubCityFilterPipe,
     PriceRangeFilterPipe,
+    SearchTermFilterPipe,
     WeatherComponent,
     OpenClosedComponent,
     WriteReviewComponent,
@@ -87,6 +90,8 @@ import { CarouselComponent } from './compos/carousel/carousel.component';
     AngularFirestoreModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
   ],
   entryComponents: [WriteReviewComponent, LoginModalComponent],
   providers: [AuthService, ProductService, ReviewService],

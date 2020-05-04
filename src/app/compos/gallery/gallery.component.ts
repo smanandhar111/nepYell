@@ -1,8 +1,6 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
-
 import {ProductService} from '../product/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {catchError, map} from 'rxjs/operators';
 import {ProductsModel} from '../product/products.model';
 import {Observable} from 'rxjs';
 
@@ -22,6 +20,7 @@ export class GalleryComponent implements OnInit {
   @Input() citySelect: string;
   @Input() subCitySelect: string;
   @Input() priceRangeSelect: number;
+  @Input() searchTerm: string;
 
   constructor(private productService: ProductService,
               private router: Router,

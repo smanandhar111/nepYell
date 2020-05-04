@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {ProductService} from './product.service';
 import {NgForm} from '@angular/forms';
@@ -7,49 +7,19 @@ import {BehaviorSubject, combineLatest} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {ProductsModel} from './products.model';
 
-
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
+  options: string[] = [];
   subCitiesArray = [];
   newArray = [];
   citySelected = false;
   errMessage: string;
-  letsGetSticky: boolean;
-  private categorySelectedSubject = new BehaviorSubject<string>('All');
-  categorySelectedAction$ = this.categorySelectedSubject.asObservable();
-  foodTypes$ = this.productService.foodTypes$.pipe();
-  locations$ = this.productService.locations$.pipe();
-  locationSubCity$ = combineLatest([
-      this.productService.locations$, this.categorySelectedAction$
-  ]).pipe(
-      map(([products, selectedCategoryId]) =>
-          products.filter(product => selectedCategoryId ? product.city === selectedCategoryId : true)),
-      map(x => x.map((y) => {
-        return y.subCity.split(',');
-      })),
-  );
-  // Todo: Unsubscribe
-  allSubCity = this.productService.locations$.pipe(
-      map(locations => {
-        locations.map((location) => {
-          this.configAllSubCities(location.subCity);
-        });
-      })
-  ).subscribe();
-  products$ = this.productService.products$
-      .pipe(
-          map((products) => {
-            return products.map((prod) => ({
-              ...prod
-            }) as ProductsModel);
-          }),
-          catchError(err => this.errMessage = err)
-      );
   restFilter: RestaurantFilterModel = {
+    searchInput: '',
     restType : {
       Chinese: '',
       WesternFusion: '',
@@ -67,11 +37,50 @@ export class ProductComponent implements OnInit {
   };
   restFilterValArr =  [];
   priceRangeType: SelectType[] = this.productService.priceRangeType;
-
+  searchTerm: string;
+  firstTerm: string;
+  private categorySelectedSubject = new BehaviorSubject<string>('All');
+  categorySelectedAction$ = this.categorySelectedSubject.asObservable();
+  foodTypes$ = this.productService.foodTypes$.pipe();
+  locations$ = this.productService.locations$.pipe();
+  locationSubCity$ = combineLatest([
+      this.productService.locations$, this.categorySelectedAction$
+  ]).pipe(
+      map(([products, selectedCategoryId]) =>
+          products.filter(product => selectedCategoryId ? product.city === selectedCategoryId : true)),
+      map(x => x.map((y) => {
+        return y.subCity.split(',');
+      })),
+  );
+  // Todo: Unsubscribe or see if we can call this from the template
+  allSubCity = this.productService.locations$.pipe(
+      map(locations => {
+        locations.map((location) => {
+          this.configAllSubCities(location.subCity);
+        });
+      })
+  ).subscribe();
+  products$ = this.productService.products$
+      .pipe(
+          map((products) => {
+            return products.map((prod) => ({
+              ...prod
+            }) as ProductsModel);
+          }),
+          catchError(err => this.errMessage = err)
+      );
   constructor(public router: Router,
               private productService: ProductService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    const sessionTerm = sessionStorage.getItem('term');
+    if (sessionTerm !== null) {
+      this.options = JSON.parse(sessionStorage.term);
+    } else {
+      console.log('its bull');
+    }
+
+  }
   // Todo: Fix naming conventions
   configAllSubCities(subCity) {
     this.subCitiesArray.push(subCity.split(','));
@@ -107,7 +116,7 @@ export class ProductComponent implements OnInit {
       this.citySelected = false;
     }
   }
-  clearFitler(e) {
+  clearFilter(e) {
     const elementName = e.target.previousElementSibling.lastElementChild
         .firstElementChild.firstElementChild.firstElementChild
         .getAttribute('name');
@@ -137,9 +146,40 @@ export class ProductComponent implements OnInit {
       return this.restFilter.locationType.allSubCities;
     }
   }
-
-  // @HostListener('window:scroll', [])
-  // onWindowScroll() {
-  //   this.letsGetSticky = window.pageYOffset > 1;
-  // }
+  convertToNumber(arg: string) {
+    return parseInt(arg, 10);
+  }
+  search(): void {
+    this.searchTerm = this.restFilter.searchInput;
+    // adding the term to recent searches
+    setTimeout(() => {
+      this.addToSearchHistory();
+    }, 2000);
+  }
+  addToSearchHistory(): void {
+    this.options = JSON.parse(sessionStorage.term);
+  }
+  clearSearch(): void {
+    this.restFilter.searchInput = '';
+    this.searchTerm = '';
+  }
+  graduallySearch(): void {
+    setTimeout(() => {
+      this.search(); }, 200);
+  }
+  keydownSearch(): void {
+    setTimeout(() => {
+      if (this.restFilter.searchInput.length === 0) {
+        this.searchTerm = '';
+      }
+    }, 200);
+  }
+  keypress(): void {
+    console.log('keypress');
+  }
 }
+
+
+//  Create Wishlist
+// Show wishlist resturant on the gallery 2nd or 4th in the top of the page to
+// create a AI feel
