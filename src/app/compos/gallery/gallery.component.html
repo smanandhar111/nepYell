@@ -1,42 +1,46 @@
-<div class="fx display-view" *ngIf="products$ | async as prodItems">
-  <div class="repeater" (click)="getProdDetails(rest.id)"
-       *ngFor="let rest of prodItems | citySelectFilter: citySelect | subCitySelectFilter: subCitySelect|
-                                        priceRangeFilter: priceRangeSelect | searchTermFilter: searchTerm"
-       >
-    <div class="img-rating-container">
-      <div class="circle">
-        <img src="../../../assets/img/{{rest.images.outlet[0]}}" alt="{{rest.name}}">
+<div *ngIf="products$ | async as prodItems" class="gallery-comp">
+  <div class="fx display-view" *ngIf="prodItems | citySelectFilter: citySelect | subCitySelectFilter: subCitySelect|
+                                          priceRangeFilter: priceRangeSelect | searchTermFilter: searchTerm as searchResult">
+    <div class="repeater" (click)="getProdDetails(rest.id)" *ngFor="let rest of searchResult">
+      <div class="img-rating-container">
+        <div class="circle">
+          <img src="../../../assets/img/{{rest.images.outlet[0]}}" alt="{{rest.name}}">
+        </div>
+      </div>
+      <div class="more-info">
+        <div class="name-rating-container">
+          <div class="name">{{rest.name}}</div>
+          <app-rating style="display:flex;" [restRating]="rest.rating" [src]="'rating'"></app-rating>
+        </div>
+        <div class="type">
+          <span>{{rest.foodType | titlecase}} Restaurant</span>
+          <app-rating [restRating]="rest.priceRange" [src]="'priceRange'"></app-rating>
+        </div>
+        <div class="location">
+          <i class="material-icons">home</i>
+          <span>{{rest.location.toal | titlecase}}, {{rest.location.area | titlecase}}</span>
+        </div>
+        <div class="phone-indicators-container">
+          <div class="phone">
+            <i class="material-icons">phone</i>
+            <a href="tel:{{rest.phoneNumber}}">{{rest.phoneNumber}}</a>
+          </div>
+          <div class="indicators">
+            <i class="material-icons" *ngIf="rest.services.creditCards" matTooltip="Accepts Credit Cards">credit_card</i>
+            <i class="material-icons" *ngIf="rest.services.serveAlcohol" matTooltip="Serves Alcohol">local_bar</i>
+            <i class="material-icons" *ngIf="rest.services.selfService" matTooltip="Self Service">emoji_people</i>
+          </div>
+        </div>
+  <!--      <div class="review">"I went to here for my birthday and they were nice enough to sing my birthday song and also they had the best chicken fries."</div>-->
+        <div class="open-closed-container">
+          <app-open-closed [storeHours]="rest.storeHours"
+                           [src]="'gallery'"></app-open-closed>
+        </div>
       </div>
     </div>
-    <div class="more-info">
-      <div class="name-rating-container">
-        <div class="name">{{rest.name}}</div>
-        <app-rating style="display:flex;" [restRating]="rest.rating" [src]="'rating'"></app-rating>
-      </div>
-      <div class="type">
-        <span>{{rest.foodType | titlecase}} Restaurant</span>
-        <app-rating [restRating]="rest.priceRange" [src]="'priceRange'"></app-rating>
-      </div>
-      <div class="location">
-        <i class="material-icons">home</i>
-        <span>{{rest.location.toal | titlecase}}, {{rest.location.area | titlecase}}</span>
-      </div>
-      <div class="phone-indicators-container">
-        <div class="phone">
-          <i class="material-icons">phone</i>
-          <a href="tel:{{rest.phoneNumber}}">{{rest.phoneNumber}}</a>
-        </div>
-        <div class="indicators">
-          <i class="material-icons" *ngIf="rest.services.creditCards" matTooltip="Accepts Credit Cards">credit_card</i>
-          <i class="material-icons" *ngIf="rest.services.serveAlcohol" matTooltip="Serves Alcohol">local_bar</i>
-          <i class="material-icons" *ngIf="rest.services.selfService" matTooltip="Self Service">emoji_people</i>
-        </div>
-      </div>
-<!--      <div class="review">"I went to here for my birthday and they were nice enough to sing my birthday song and also they had the best chicken fries."</div>-->
-      <div class="open-closed-container">
-        <app-open-closed [storeHours]="rest.storeHours"
-                         [src]="'gallery'"></app-open-closed>
-      </div>
+    <!--When there is no search results-->
+    <div class="no-results" *ngIf="searchResult.length === 0">
+      <h1>No results found</h1>
     </div>
   </div>
 </div>

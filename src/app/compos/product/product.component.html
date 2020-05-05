@@ -37,7 +37,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <a class="clear-select material-icons" [ngClass]="{'appear': restFilter.locationType.area}" (click)="clearFitler($event)">close</a>
+          <a class="clear-select material-icons" [ngClass]="{'appear': restFilter.locationType.area}" (click)="clearFilter($event)">close</a>
         </div>
 
         <div class="mat-form-field-container" [ngClass]="{'disappear': !citySelected}">
@@ -51,7 +51,7 @@
               </div>
             </mat-select>
           </mat-form-field>
-          <a class="clear-select material-icons" [ngClass]="{'appear': restFilter.locationType.toal}" (click)="clearFitler($event)">close</a>
+          <a class="clear-select material-icons" [ngClass]="{'appear': restFilter.locationType.toal}" (click)="clearFilter($event)">close</a>
         </div>
 
         <div class="mat-form-field-container" [ngClass]="{'disappear': citySelected}">
@@ -63,7 +63,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <a class="clear-select material-icons" [ngClass]="{'appear': restFilter.locationType.allSubCities}" (click)="clearFitler($event)">close</a>
+          <a class="clear-select material-icons" [ngClass]="{'appear': restFilter.locationType.allSubCities}" (click)="clearFilter($event)">close</a>
         </div>
       </div>
     <div class="price-range-type">
