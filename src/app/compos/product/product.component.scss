@@ -46,7 +46,7 @@
                   transition: background-color 0.8s ease, color 0.2s ease;
                   border-radius: 99px;
 
-                  &:hover, &:active {
+                  &:hover, &:active, &:focus {
                     background-color: $main;
                     color: white;
                   }

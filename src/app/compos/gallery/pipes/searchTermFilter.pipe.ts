@@ -1,4 +1,4 @@
-import {PipeTransform, Pipe} from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 import {ProductsModel} from '../../product/products.model';
 
 @Pipe({
@@ -10,28 +10,52 @@ export class SearchTermFilterPipe implements PipeTransform {
         if (!prodItems || !searchTerm) {
             return prodItems;
         } else {
-            const returner = prodItems.filter(prod => prod.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
-            if (returner.length > 0) {
-                // converting searchTerm into CapitalCase to avoid double in recentSearch
-                searchTerm = searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1);
-                // this fn saves the latest search terms
-                const arr = [];
-                const sessionTerm = sessionStorage.getItem('term');
-                if (sessionTerm === null) {
-                    arr.push(searchTerm);
-                    sessionStorage.setItem('term', JSON.stringify(arr));
-                } else {
-                    const sessionTermArr = JSON.parse(sessionStorage.term);
-                    if (!sessionTermArr.includes(searchTerm)) { // makes sure to avoid adding if already there
-                        if (sessionTermArr.length === 5) { // removes the 1st search if more than 5
-                            sessionTermArr.slice(0, 1);
+            const finalSearchResults = [];
+            const addToRecentSearch = (returner: ProductsModel[]) => {
+                if (returner.length > 0) {
+                    // converting searchTerm into CapitalCase to avoid double in recentSearch
+                    searchTerm = searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1);
+                    // this fn saves the latest search terms
+                    const arr = [];
+                    const sessionTerm = sessionStorage.getItem('term');
+                    if (sessionTerm === null) {
+                        arr.push(searchTerm);
+                        sessionStorage.setItem('term', JSON.stringify(arr));
+                    } else {
+                        const sessionTermArr = JSON.parse(sessionStorage.term);
+                        if (sessionTermArr.includes(searchTerm)) { // makes sure to avoid adding if already there
+
+                        } else {
+                            if (sessionTermArr.length === 5) { // removes the 1st search if more than 5
+                                sessionTermArr.pop();
+                            }
+                            sessionTermArr.unshift(searchTerm);
+                            sessionStorage.setItem('term', JSON.stringify(sessionTermArr));
                         }
-                        sessionTermArr.push(searchTerm);
-                        sessionStorage.setItem('term', JSON.stringify(sessionTermArr));
                     }
                 }
-                return returner;
-            }
+            };
+            const loopGather = (returnArray: ProductsModel[]) => {
+                returnArray.forEach((i) => {
+                    finalSearchResults.push(i);
+                });
+            };
+
+            const returnerName = prodItems.filter(prod => prod.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
+            addToRecentSearch(returnerName);
+            const returnerFoodType = prodItems.filter(prod => prod.foodType.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
+            addToRecentSearch(returnerFoodType);
+            const returnerSubCity = prodItems.filter(prod => prod.location.toal.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
+            addToRecentSearch(returnerSubCity);
+            const returnerCity = prodItems.filter(prod => prod.location.area.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
+            addToRecentSearch(returnerCity);
+
+            loopGather(returnerFoodType);
+            loopGather(returnerName);
+            loopGather(returnerSubCity);
+            loopGather(returnerCity);
+
+            return [...new Set(finalSearchResults)]; // avoiding duplicate search results
         }
     }
 }

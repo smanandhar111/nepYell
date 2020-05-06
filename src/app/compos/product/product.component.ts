@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {ProductService} from './product.service';
 import {NgForm} from '@angular/forms';
@@ -38,7 +38,7 @@ export class ProductComponent implements OnInit {
   restFilterValArr =  [];
   priceRangeType: SelectType[] = this.productService.priceRangeType;
   searchTerm: string;
-  firstTerm: string;
+  @ViewChild('searchInput', {static: false}) searchInputEle: ElementRef;
   private categorySelectedSubject = new BehaviorSubject<string>('All');
   categorySelectedAction$ = this.categorySelectedSubject.asObservable();
   foodTypes$ = this.productService.foodTypes$.pipe();
@@ -46,8 +46,7 @@ export class ProductComponent implements OnInit {
   locationSubCity$ = combineLatest([
       this.productService.locations$, this.categorySelectedAction$
   ]).pipe(
-      map(([products, selectedCategoryId]) =>
-          products.filter(product => selectedCategoryId ? product.city === selectedCategoryId : true)),
+      map(([products, selectedCategoryId]) => products.filter(product => selectedCategoryId ? product.city === selectedCategoryId : true)),
       map(x => x.map((y) => {
         return y.subCity.split(',');
       })),
@@ -171,6 +170,10 @@ export class ProductComponent implements OnInit {
         this.searchTerm = '';
       }
     }, 200);
+  }
+  clearSearchGalleryChild(): void {
+    this.clearSearch();
+    this.searchInputEle.nativeElement.focus();
   }
 }
 //  Create Wishlist

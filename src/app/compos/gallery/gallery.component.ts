@@ -13,7 +13,7 @@ export class GalleryComponent implements OnInit {
   @Input() src: string;
   @Input() products$: Observable<ProductsModel[]>;
   @Input() fromWishList: boolean;
-  @Output() notify: EventEmitter<string> = new EventEmitter();
+  @Output() clearSearchKeyword: EventEmitter<string> = new EventEmitter<string>();
   @Input() selfId: string;
   @Input() adminMode: boolean;
   @Input() restFilterValArr: Array<string>;
@@ -33,5 +33,8 @@ export class GalleryComponent implements OnInit {
 
   getProdDetails(id: string) {
     this.router.navigate(['/product-info', id]);
+  }
+  clearSearch(): void {
+    this.clearSearchKeyword.emit('');
   }
 }

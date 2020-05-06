@@ -112,4 +112,23 @@
       }
     }
   }
+  .no-results {
+    display: flex;
+    flex-direction: column;
+    div {
+      display: flex;
+      i {
+        font-size: 25px;
+        padding-right: 10px;
+      }
+      span {
+        font-size: 20px;
+      }
+    }
+    .mat-button {
+      margin-top: 20px;
+      background: $main;
+      color: white;
+    }
+  }
 }
