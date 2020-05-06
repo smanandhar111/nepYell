@@ -1,4 +1,4 @@
-import {PipeTransform, Pipe} from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 import {ProductsModel} from '../../product/products.model';
 
 @Pipe({
@@ -10,6 +10,7 @@ export class SearchTermFilterPipe implements PipeTransform {
         if (!prodItems || !searchTerm) {
             return prodItems;
         } else {
+            const finalSearchResults = [];
             const addToRecentSearch = (returner: ProductsModel[]) => {
                 if (returner.length > 0) {
                     // converting searchTerm into CapitalCase to avoid double in recentSearch
@@ -46,13 +47,15 @@ export class SearchTermFilterPipe implements PipeTransform {
             addToRecentSearch(returnerFoodType);
             const returnerSubCity = prodItems.filter(prod => prod.location.toal.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
             addToRecentSearch(returnerSubCity);
-            const finalSearchResults = [];
+            const returnerCity = prodItems.filter(prod => prod.location.area.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
+            addToRecentSearch(returnerCity);
 
             loopGather(returnerFoodType);
             loopGather(returnerName);
             loopGather(returnerSubCity);
-            return finalSearchResults;
+            loopGather(returnerCity);
 
+            return [...new Set(finalSearchResults)]; // avoiding duplicate search results
         }
     }
 }

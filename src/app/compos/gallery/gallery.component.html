@@ -40,7 +40,9 @@
     </div>
     <!--When there is no search results-->
     <div class="no-results" *ngIf="searchResult.length === 0">
-      <h1>No results found</h1>
+      <div><i class="material-icons">cloud_off</i><span>No results found</span></div>
+      <button mat-button (click)="clearSearch()">Back to Search</button>
+
     </div>
   </div>
 </div>

@@ -7,7 +7,7 @@
       <a [ngClass]="{'appear': restFilter.searchInput}" class="anchor"
          (click)="clearSearch()"><i class="material-icons">close</i></a>
       <mat-form-field class="search-input">
-        <input type="text" name="searchInput" [(ngModel)]="restFilter.searchInput"
+        <input type="text" name="searchInput" #searchInput [(ngModel)]="restFilter.searchInput"
                (keydown.backspace)="keydownSearch()"
                placeholder="Search" matInput [matAutocomplete]="auto">
         <button mat-button class="search-btn" (click)="search()">
@@ -21,12 +21,11 @@
     </div>
 
     <div class="restaurant-type fx fx-cl" *ngIf="foodTypes$ | async as foodTypes">
-          <h5 class="filter-title">Type of Restaurant</h5>
-
-          <mat-checkbox *ngFor="let food of foodTypes" value="{{food.foodType}}"
+      <h5 class="filter-title">Type of Restaurant</h5>
+      <mat-checkbox *ngFor="let food of foodTypes" value="{{food.foodType}}"
                         name="foodTypeCheckBox" (change)="onChangeFoodType(food.foodType, $event.checked)"
                         [(ngModel)]="restFilter.restType[food.foodType]">{{food.foodType}}</mat-checkbox>
-      </div>
+    </div>
     <div class="city-type" *ngIf="locations$ | async as locations">
         <div class="mat-form-field-container">
           <mat-form-field>
@@ -88,7 +87,8 @@
                  [subCitySelect]="getThis()"
                  [searchTerm]="searchTerm"
                  [priceRangeSelect]="convertToNumber(restFilter.priceRangeType)"
-                 [citySelect]="restFilter.locationType.area"></app-gallery>
+                 [citySelect]="restFilter.locationType.area"
+                 (clearSearchKeyword)="clearSearchGalleryChild()"></app-gallery>
   </div>
 </div>
 
