@@ -88,7 +88,7 @@
                  [searchTerm]="searchTerm"
                  [priceRangeSelect]="convertToNumber(restFilter.priceRangeType)"
                  [citySelect]="restFilter.locationType.area"
-                 (clearSearchKeyword)="clearSearchGalleryChild()"></app-gallery>
+                 (clearSearchKeyword)="clearSearchGalleryChild($event)"></app-gallery>
   </div>
 </div>
 

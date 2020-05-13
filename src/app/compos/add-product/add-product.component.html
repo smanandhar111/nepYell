@@ -75,7 +75,7 @@
 
         <!--RATING-->
         <mat-form-field class="example-full-width">
-          <input matInput required placeholder="Rating"
+          <input matInput required placeholder="Rating" type="number"
                  name="rating" [(ngModel)]="restItem.rating">
           <a *ngIf="restItem.rating" (click)="clearInput($event)"
              class="clear-input fa fa-times"></a>

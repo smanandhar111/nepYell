@@ -14,6 +14,7 @@
           <div class="name-rating-container">
             <span class="name">{{rest.name}}</span>
             <app-rating [restRating]="rest.rating" [src]="'rating'"></app-rating>
+            {{rest.rating}}
           </div>
           <div class="type-price-range-container">
             <div class="type">{{rest.foodType}}</div>
@@ -50,11 +51,12 @@
       </div>
       <div class="rating-btn-container" *ngIf="getSessionAuth() && logStatus$ | async as user">
         <button class="review-btn" mat-button
-                (click)="openRatingDialog(rest.name, rest.id, user.displayName, user.photoURL)">Write a Review</button>
+                (click)="openRatingDialog(rest.name, rest.id, user.displayName, user.photoURL, rest.rating)">Write a Review</button>
       </div>
       <app-display-review class="app-display-view" [restName]="rest.name" [restId] ="productId"></app-display-review>
       <!--No Reviews-->
       <div class="" *ngIf="reviews$ | async as reviews"><!--todo: Reviews$-->
+        <div hidden>{{getReviewLength(reviews.length)}}</div> <!-- Review length to ts-->
         <!---When no user logged in && review is zero-->
         <div class="no-review" *ngIf="!getSessionAuth()">
           <div class="new-user">
@@ -81,7 +83,7 @@
             </div>
             <div class="review-container">
               <textarea placeholder="{{getPlaceHolder(rest.name, reviews.length)}}" cols="35" rows="2"
-                        (click)="openRatingDialog(rest.name, rest.id, user.displayName, user.photoURL)"></textarea>
+                        (click)="openRatingDialog(rest.name, rest.id, user.displayName, user.photoURL, rest.rating)"></textarea>
               <span class="review-x-info">
                 <app-rating [restRating]="4" [src]="'rating'"></app-rating>
                 <span class="posted-date">{{currentDate}}</span>

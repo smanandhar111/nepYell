@@ -18,6 +18,7 @@ export class ProductInfoComponent implements OnInit {
   productId = this.activeRoute.snapshot.paramMap.get('id');
   errMessage: string;
   currentDate = this.reviewService.convertDate(new Date());
+  reviewLength: number;
   product$ = this.productService.products$.pipe(
       map(product =>
         product.filter(prod => {
@@ -49,14 +50,19 @@ export class ProductInfoComponent implements OnInit {
     const sessionAuth = sessionStorage.getItem('auth');
     return sessionAuth === 'true';
   }
-  openRatingDialog(name, restID, displayName, photoURL): void {
+  getReviewLength(reviewLength: number): void {
+    this.reviewLength = reviewLength;
+  }
+  openRatingDialog(name, restID, displayName, photoURL, oldRating): void {
       const dialogConfig = new MatDialogConfig();
       const dialogRef = this.dialog.open(WriteReviewComponent, {
         data: {
           name,
           restID,
           displayName,
-          photoURL
+          photoURL,
+          oldRating,
+          reviewLength: this.reviewLength
         }
       });
   }
