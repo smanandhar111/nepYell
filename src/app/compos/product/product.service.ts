@@ -115,4 +115,9 @@ export class ProductService {
   scrollToTop(): void {
       window.scroll(0, 0);
   }
+  updateRating(restId: string, updatedRating: number): void {
+      this.restCollection.doc(restId).update({
+          rating: updatedRating
+      });
+  }
 }

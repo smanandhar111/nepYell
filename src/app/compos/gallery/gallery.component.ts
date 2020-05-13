@@ -35,6 +35,12 @@ export class GalleryComponent implements OnInit {
     this.router.navigate(['/product-info', id]);
   }
   clearSearch(): void {
-    this.clearSearchKeyword.emit('');
+    this.clearSearchKeyword.emit('search');
+  }
+  clearSelection(): void {
+    this.clearSearchKeyword.emit('dropdown');
+  }
+  checkDropDown(): boolean { // checks if any dropdown is selected and if so true else false
+    return this.citySelect !== '' || !isNaN(this.priceRangeSelect) || this.subCitySelect !== '';
   }
 }

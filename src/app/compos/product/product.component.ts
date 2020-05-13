@@ -171,9 +171,19 @@ export class ProductComponent implements OnInit {
       }
     }, 200);
   }
-  clearSearchGalleryChild(): void {
-    this.clearSearch();
-    this.searchInputEle.nativeElement.focus();
+  clearSearchGalleryChild(e): void {
+    if (e === 'search') {
+      this.clearSearch();
+      this.searchInputEle.nativeElement.focus();
+    }
+    if (e === 'dropdown') {
+      this.restFilter.priceRangeType = '';
+      this.restFilter.locationType.allSubCities = '';
+      this.restFilter.locationType.toal = '';
+      this.restFilter.locationType.area = '';
+      this.citySelected = false;
+    }
+
   }
 }
 //  Create Wishlist

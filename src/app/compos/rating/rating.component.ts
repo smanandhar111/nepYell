@@ -20,8 +20,14 @@ export class RatingComponent implements OnInit {
   figureRating(): void {
     // converts rating data from parent to UI info
     const maxRating = 5;
-    this.stars.length = Math.round(this.restRating);
-    this.noStars.length = maxRating - this.stars.length;
+    const starsLength = Math.round(this.restRating);
+    const noStarsLength = maxRating - starsLength;
+    for (let s = 0; s < starsLength; s++) {
+      this.stars.push('test');
+    }
+    for (let o = 0; o < noStarsLength; o++) {
+      this.noStars.push('test');
+    }
     if (this.src === 'rating') {
       this.matIcon = 'star_border';
       this.starText = `${this.stars.length} Star`;

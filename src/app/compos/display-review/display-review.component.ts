@@ -18,7 +18,7 @@ export class DisplayReviewComponent implements OnInit {
       })),
       // sorting the review accord to date and time
       map(result => result.sort((a, b) => {
-          return a.rawDate.seconds - b.rawDate.seconds;
+          return b.rawDate.seconds - a.rawDate.seconds;
       }))
   );
   constructor(private reviewService: ReviewService,
