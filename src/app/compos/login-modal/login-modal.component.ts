@@ -23,10 +23,17 @@ export class LoginModalComponent implements OnInit {
   loginGoogle(): void {
     if (this.note !== undefined) {
       this.authService.googleLogin(true, this.restName, this.restId);
-      this.dialogRef.close();
     } else {
       this.authService.googleLogin(false, this.restName, this.restId);
-      this.dialogRef.close();
     }
+    this.dialogRef.close();
+  }
+  facebookLogin(): void {
+    if (this.note !== undefined) {
+      this.authService.facebookLogin(true, this.restName, this.restId);
+    } else {
+      this.authService.facebookLogin(false, this.restName, this.restId);
+    }
+    this.dialogRef.close();
   }
 }
