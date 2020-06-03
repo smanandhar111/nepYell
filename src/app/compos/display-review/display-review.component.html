@@ -8,7 +8,7 @@
       <div class="review-container">
           <span class="review">{{review.review}}</span>
           <span class="review-x-info">
-              <app-rating [restRating]="review.rating" [src]="'rating'"></app-rating>
+              <app-rating [decimal]="false" [restRating]="review.rating" [src]="'rating'"></app-rating>
               <span class="posted-date">{{review.postedDate}}</span>
           </span>
       </div>

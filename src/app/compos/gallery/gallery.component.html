@@ -10,11 +10,11 @@
       <div class="more-info">
         <div class="name-rating-container">
           <div class="name">{{rest.name}}</div>
-          <app-rating style="display:flex;" [restRating]="rest.rating" [src]="'rating'"></app-rating>
+          <app-rating style="display:flex;" [decimal]="true" [restRating]="rest.rating" [src]="'rating'"></app-rating>
         </div>
         <div class="type">
           <span>{{rest.foodType | titlecase}} Restaurant</span>
-          <app-rating [restRating]="rest.priceRange" [src]="'priceRange'"></app-rating>
+          <app-rating [decimal]="false" [restRating]="rest.priceRange" [src]="'priceRange'"></app-rating>
         </div>
         <div class="location">
           <i class="material-icons">home</i>

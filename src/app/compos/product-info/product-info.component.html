@@ -13,12 +13,12 @@
         <div class="identity">
           <div class="name-rating-container">
             <span class="name">{{rest.name}}</span>
-            <app-rating [restRating]="rest.rating" [src]="'rating'"></app-rating>
+            <app-rating [decimal]="true" [restRating]="rest.rating" [src]="'rating'"></app-rating>
             {{rest.rating}}
           </div>
           <div class="type-price-range-container">
             <div class="type">{{rest.foodType}}</div>
-            <app-rating [restRating]="rest.priceRange" [src]="'priceRange'"></app-rating>
+            <app-rating [decimal]="false" [restRating]="rest.priceRange" [src]="'priceRange'"></app-rating>
           </div>
           <div class="services">
         <span class="service-container" *ngIf="rest.services.creditCards">
@@ -68,7 +68,7 @@
               <textarea placeholder="{{getPlaceHolder(rest.name, reviews.length)}}"
                         cols="35" rows="2" (click)="firstLogIn(rest.name, rest.id)"></textarea>
               <span class="review-x-info">
-                <app-rating [restRating]="4" [src]="'rating'"></app-rating>
+                <app-rating [decimal]="false" [restRating]="4" [src]="'rating'"></app-rating>
                 <span class="posted-date">{{currentDate}}</span>
               </span>
             </div>
@@ -85,7 +85,7 @@
               <textarea placeholder="{{getPlaceHolder(rest.name, reviews.length)}}" cols="35" rows="2"
                         (click)="openRatingDialog(rest.name, rest.id, user.displayName, user.photoURL, rest.rating)"></textarea>
               <span class="review-x-info">
-                <app-rating [restRating]="4" [src]="'rating'"></app-rating>
+                <app-rating [decimal]="false" [restRating]="4" [src]="'rating'"></app-rating>
                 <span class="posted-date">{{currentDate}}</span>
               </span>
             </div>
