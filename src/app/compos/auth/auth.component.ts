@@ -47,7 +47,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     this.authService.googleLogin();
   }
   logout(): void {
-    this.authService.googleLogout();
+    this.authService.logout();
   }
   ngOnDestroy(): void {
     this.authSub.unsubscribe();

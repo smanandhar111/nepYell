@@ -70,12 +70,14 @@ export class WriteReviewComponent implements OnInit {
     this.dialogRef.close();
   }
   ratingCalculator(newRating: number): number {
-    debugger
-    const reviewLength = this.reviewLength + 1; // adding one to adjust for the base Rating given @ init
-    const t = 0.99 - (reviewLength / 100);
-    const optNewRating = newRating *  t;
-    const addRating = this.oldRating + optNewRating;
-    return addRating / (reviewLength + 1);
+    // const reviewLength = this.reviewLength + 1; // adding one to adjust for the base Rating given @ init
+    // const t = 0.99 - (reviewLength / 100);
+    // const optNewRating = newRating *  t;
+    // const addRating = this.oldRating + optNewRating;
+    // return addRating / (reviewLength + 1);
+    const sumedRating = this.oldRating + newRating;
+    return sumedRating / 2;
+
   }
   checkDisability(): boolean {
     return this.review === '' || this.rating === null;

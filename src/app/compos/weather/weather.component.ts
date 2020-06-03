@@ -13,7 +13,7 @@ import {WeatherModel} from '../../models/models';
 export class WeatherComponent implements OnInit {
   defaultCity = 'Dallas';
   unit = 'metric';
-  private readonly rootUrl: string = 'http://api.openweathermap.org/data/2.5/weather?';
+  private readonly rootUrl: string = 'https://api.openweathermap.org/data/2.5/weather?';
   private readonly appId: string = '641f2c4c590661bd176222ddd81e362f';
   url = `${this.rootUrl}q=${this.defaultCity}&APPID=${this.appId}&units=${this.unit}`;
 

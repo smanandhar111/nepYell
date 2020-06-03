@@ -29,12 +29,12 @@ export class AuthService {
     });
   }
   facebookLogin(hasNote?: boolean, restName?: string, restId?: string): void {
-    this.login = this.af.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then((xx) => {
+    this.login = this.af.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(() => {
       this.returnAuthPromise(hasNote, restName, restId);
     });
   }
 
-  googleLogout() {
+  logout() {
     this.af.auth.signOut().then(() => {
       sessionStorage.setItem('auth', 'false');
       sessionStorage.setItem('uuid', null);
