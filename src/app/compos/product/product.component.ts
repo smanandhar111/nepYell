@@ -6,6 +6,7 @@ import {RestaurantFilterModel, SelectType} from '../../models/models';
 import {BehaviorSubject, combineLatest} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {ProductsModel} from './products.model';
+import {ReviewService} from "../write-review/review.service";
 
 @Component({
   selector: 'app-product',
@@ -41,12 +42,15 @@ export class ProductComponent implements OnInit {
   @ViewChild('searchInput', {static: false}) searchInputEle: ElementRef;
   private categorySelectedSubject = new BehaviorSubject<string>('All');
   categorySelectedAction$ = this.categorySelectedSubject.asObservable();
+
+  reviews$ = this.reviewService.reviews$.pipe();
   foodTypes$ = this.productService.foodTypes$.pipe();
   locations$ = this.productService.locations$.pipe();
   locationSubCity$ = combineLatest([
       this.productService.locations$, this.categorySelectedAction$
   ]).pipe(
-      map(([products, selectedCategoryId]) => products.filter(product => selectedCategoryId ? product.city === selectedCategoryId : true)),
+      map(([products, selectedCategoryId]) =>
+          products.filter(product => selectedCategoryId ? product.city === selectedCategoryId : true)),
       map(x => x.map((y) => {
         return y.subCity.split(',');
       })),
@@ -69,6 +73,7 @@ export class ProductComponent implements OnInit {
           catchError(err => this.errMessage = err)
       );
   constructor(public router: Router,
+              private reviewService: ReviewService,
               private productService: ProductService) { }
 
   ngOnInit() {
