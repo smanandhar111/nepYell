@@ -8,6 +8,9 @@
     <app-auth></app-auth>
   </div>
 </mat-toolbar>
+<mat-spinner *ngIf="showLoadingIndicator" class="spinner"></mat-spinner>
+
+
 <router-outlet></router-outlet>
 
 
