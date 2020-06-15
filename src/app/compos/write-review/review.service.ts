@@ -1,13 +1,16 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {map} from 'rxjs/operators';
+import {map, switchMap, tap} from 'rxjs/operators';
 import {MonthsEnum} from '../../enums/date.enum';
-import {ReviewInputModel, ReviewOutputModel} from '../display-review/review.model';
+import {RawDateModel, ReviewInputModel, ReviewOutputModel} from '../display-review/review.model';
+import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ReviewService {
+    res$: Observable<ReviewOutputModel[]>;
+    allReviews$: Observable<ReviewOutputModel[]>;
     reviewCollection = this.afs.collection('reviews');
     reviews$ = this.reviewCollection.snapshotChanges().pipe(
         map(changes => {
@@ -29,18 +32,58 @@ export class ReviewService {
         const yyyy = date.getFullYear();
         return `${dd} ${mm}, ${yyyy}`;
     }
+    getAllReviews(restId: string): void {
+        this.allReviews$ = this.afs.collection('reviews', ref => ref
+            .where('restID', '==', restId)).snapshotChanges().pipe(
+            map(changes => {
+                return changes.map(a => {
+                    const review = a.payload.doc.data() as ReviewOutputModel;
+                    review.id = a.payload.doc.id;
+                    return review;
+                });
+            })
+        );
+    }
+    getReviews(restId: string, limit: number): void {
+        this.res$ = this.afs.collection('reviews', ref => ref
+            .orderBy('rawDate', 'desc')
+            .where('restID', '==', restId).limit(limit))
+            .snapshotChanges().pipe(
+            map(changes => {
+                return changes.map(a => {
+                    const review = a.payload.doc.data() as ReviewOutputModel;
+                    review.id = a.payload.doc.id;
+                    return review;
+                });
+            })
+        );
+    }
+    loadNext(startAt: number, limit: number, restId: string): void {
+        this.res$ = this.afs.collection('reviews', ref =>
+                ref.where('restID', '==', restId)
+                    .orderBy('rawDate', 'desc')
+                    .startAfter(startAt).limit(limit)).snapshotChanges().pipe(
+            map(changes => {
+                return changes.map(a => {
+                    const review = a.payload.doc.data() as ReviewOutputModel;
+                    review.id = a.payload.doc.id;
+                    return review;
+                });
+            })
+        );
+    }
+    loadPrevious(endBefore: number, limit: number, restId: string): void {
+        this.res$ = this.afs.collection('reviews', ref =>
+            ref.where('restID', '==', restId)
+                .orderBy('rawDate', 'desc')
+                .endBefore(endBefore).limitToLast(limit)).snapshotChanges().pipe(
+            map(changes => {
+                return changes.map(a => {
+                    const review = a.payload.doc.data() as ReviewOutputModel;
+                    review.id = a.payload.doc.id;
+                    return review;
+                });
+            })
+        );
+    }
 }
-
-
-// products$ = this.restCollection.snapshotChanges().pipe(
-//     map(changes => {
-//         return changes.map(a => {
-//             const resp = a.payload.doc.data() as ProductsModel;
-//             resp.id = a.payload.doc.id;
-//             return resp;
-//         });
-//     }),
-//     tap(data => console.log('restaurants', JSON.stringify(data))),
-//     shareReplay(1),
-//     catchError(this.handleError)
-// );

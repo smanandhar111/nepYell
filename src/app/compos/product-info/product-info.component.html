@@ -2,12 +2,12 @@
   <div class="fx" *ngIf="product$ | async as restaurant"><!---todo: Product$-->
 
     <div class="rest-info-container" *ngFor="let rest of restaurant">
-      <div class="images-container">
-        <img class="rest-img" src="../../../assets/img/{{rest.images.outlet.outletOne}}" alt="">
-        <img class="rest-img" src="../../../assets/img/{{rest.images.outlet.outletTwo}}" alt="">
-        <img class="rest-img" src="../../../assets/img/{{rest.images.outlet.outletThree}}" alt="">
-        <img class="rest-img" src="../../../assets/img/{{rest.images.outlet.outletFour}}" alt="">
-      </div>
+<!--      <div class="images-container">-->
+<!--        <img class="rest-img" src="../../../assets/img/{{rest.images.outlet.outletOne}}" alt="">-->
+<!--        <img class="rest-img" src="../../../assets/img/{{rest.images.outlet.outletTwo}}" alt="">-->
+<!--        <img class="rest-img" src="../../../assets/img/{{rest.images.outlet.outletThree}}" alt="">-->
+<!--        <img class="rest-img" src="../../../assets/img/{{rest.images.outlet.outletFour}}" alt="">-->
+<!--      </div>-->
       <app-carousel [images]="rest.images.outlet"></app-carousel>
       <div class="rest-details">
         <div class="identity">

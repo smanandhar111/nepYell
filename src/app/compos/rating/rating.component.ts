@@ -45,7 +45,7 @@ export class RatingComponent implements OnInit {
       this.noStars.push('test');
     }
     if (this.src === 'rating') {
-      this.matIcon = 'star_border';
+      this.matIcon = 'star';
       this.starText = this.figureStarText();
     } else {
       this.matIcon = 'attach_money';

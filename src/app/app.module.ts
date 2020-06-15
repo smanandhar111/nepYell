@@ -46,6 +46,7 @@ import { CarouselComponent } from './compos/carousel/carousel.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {SearchTermFilterPipe} from './compos/gallery/pipes/searchTermFilter.pipe';
 import {MatProgressSpinnerModule, MatSpinner} from '@angular/material/progress-spinner';
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 @NgModule({
@@ -86,6 +87,7 @@ import {MatProgressSpinnerModule, MatSpinner} from '@angular/material/progress-s
     MatCheckboxModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    MatPaginatorModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireModule,
     AngularFireAuthModule,

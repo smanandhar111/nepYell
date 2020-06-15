@@ -13,17 +13,11 @@ export class AppComponent {
   constructor(private router: Router) {
     this.router.events.subscribe((routerEvent) => {
       if (routerEvent instanceof NavigationStart) {
-        console.log('start');
         this.showLoadingIndicator = true;
       }
       if (routerEvent instanceof  NavigationEnd) {
         this.showLoadingIndicator = false;
-        console.log('end');
       }
     });
-  }
-  testFn() {
-    console.log('<<');
-    this.test = true;
   }
 }

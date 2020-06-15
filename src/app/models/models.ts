@@ -1,5 +1,5 @@
 export interface SelectType {
-  value: string;
+  value?: string;
   viewValue: string;
   valNumber?: number;
   boolean?: boolean;
