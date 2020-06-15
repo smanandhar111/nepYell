@@ -1,5 +1,5 @@
 export interface ReviewInputModel {
-    rawDate: Date;
+    rawDate: number;
     postedDate: string;
     userID: string;
     rating: number;
@@ -11,7 +11,7 @@ export interface ReviewInputModel {
 // XXX : As the rawDate when entered has a 'Date' Type but after
 // XXX : getting the date back it type changes to seconds and milliseconds
 export interface ReviewOutputModel {
-    rawDate: RawDateModel;
+    rawDate: number;
     postedDate: string;
     userID: string;
     rating: number;
@@ -19,6 +19,7 @@ export interface ReviewOutputModel {
     restID: string;
     displayName: string;
     photoURL: string;
+    id?: string;
 }
 
 export interface RawDateModel {

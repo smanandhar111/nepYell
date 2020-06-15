@@ -37,6 +37,7 @@
       padding-top: 5px;
       width: 100%;
       .name-rating-container {
+        position: relative;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -56,7 +57,14 @@
         padding-left: 5px;
         font-size: 12px;
         color: #ccc;
-        margin-bottom: 10px;
+        margin-bottom: 10px !important;
+        position: relative;
+
+        //.price-range {
+        //  display: flex;
+        //  position: absolute;
+        //  bottom: 0;
+        //}
       }
       div:not(.name-rating-container) {
         margin-bottom: 5px;
@@ -77,6 +85,9 @@
           text-decoration: none;
           font-size: 12px;
         }
+      }
+      .phone {
+        margin-bottom: 0!important;
       }
       .phone-indicators-container {
         display: flex;

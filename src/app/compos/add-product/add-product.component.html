@@ -9,8 +9,7 @@
         <mat-form-field class="example-full-width">
           <input matInput required placeholder="Restaurant's Name"
                  name="name" [(ngModel)]="restItem.name">
-          <a *ngIf="restItem.name" (click)="clearInput($event)"
-             class="clear-input fa fa-times"></a>
+          <a *ngIf="restItem.name" (click)="clearInput($event)" class="clear-input fa fa-times"></a>
         </mat-form-field>
         <!--Image Count-->
         <div class="img-process">

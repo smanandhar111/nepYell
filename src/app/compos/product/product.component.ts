@@ -4,9 +4,9 @@ import {ProductService} from './product.service';
 import {NgForm} from '@angular/forms';
 import {RestaurantFilterModel, SelectType} from '../../models/models';
 import {BehaviorSubject, combineLatest} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
+import {catchError, delay, map} from 'rxjs/operators';
 import {ProductsModel} from './products.model';
-import {ReviewService} from "../write-review/review.service";
+import {ReviewService} from '../write-review/review.service';
 
 @Component({
   selector: 'app-product',

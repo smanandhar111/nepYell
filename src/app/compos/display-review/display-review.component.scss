@@ -2,6 +2,41 @@
 :host {
   margin: 20px;
 
+  .display-review-comp {
+    .app-paginator {
+      width: 490px;
+      background: aliceblue;
+      justify-content: center;
+      .numb-items {
+        padding: 0 20px;
+        label {
+          color: $textLite;
+          font-size: 13px;
+          padding-right: 20px;
+        }
+      }
+      .page-indicator, .button-container {
+        align-self: center;
+      }
+      .page-indicator {
+        align-self: center;
+        font-size: 14px;
+        color: $textLite;
+        padding-right: 10px;
+      }
+      .mat-button {
+        border-radius: 99px;
+        line-height: 50px;
+        min-width: 54px;
+        &.left {
+          margin-right: 10px;
+        }
+      }
+      mat-form-field {
+        width: 50px;
+      }
+    }
+  }
 
 
 }
