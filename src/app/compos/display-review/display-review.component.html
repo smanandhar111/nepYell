@@ -1,44 +1,47 @@
-<div *ngIf="res$ | async as reviews" class="display-review-comp">
-    <!--Has Reviews -->
-  <div class="repeater" *ngFor="let review of reviews">
-      <div class="reviewer-info">
-          <img class="circle" src="{{review.photoURL}}" alt="">
-          <span class="display-name">{{review.displayName}}</span>
-      </div>
-      <div class="review-container">
-          <span class="review">{{review.review}}</span>
-          <span class="review-x-info">
+<div class="review-comp-container" [ngStyle]="{minHeight: reviewCompHeight}">
+    <div *ngIf="review$ | async as reviews" class="display-review-comp" #reviewComp>
+        <!--Has Reviews -->
+        <div class="repeater" *ngFor="let review of reviews">
+            <div class="reviewer-info">
+                <img class="circle" src="{{review.photoURL}}" alt="reviewCompHeight">
+                <span class="display-name">{{review.displayName}}</span>
+            </div>
+            <div class="review-container">
+                <span class="review">{{review.review}}</span>
+                <span class="review-x-info">
               <app-rating [decimal]="false" [restRating]="review.rating"
                           [src]="'rating'"></app-rating>
               <span class="posted-date">{{review.postedDate}}</span>
           </span>
-      </div>
-  </div>
-    <div class="app-paginator-container" *ngIf="allReviews$ | async as allReviews">
-        <div hidden>{{getReviewLength(allReviews.length)}}</div>
-        <div class="fx app-paginator" *ngIf="allReviews.length > 5">
-            <div class="numb-items">
-                <label for="numbItems">Items per page:</label>
-                <!--No.of Reviews-->
-                <mat-form-field class="numb-items-form-field">
-                    <mat-select (selectionChange)="onChangeSelect()" id="numbItems"
-                                name="area" [(ngModel)]="numbItems">
-                        <mat-option *ngFor="let numb of numbItemRepeater" [value]="numb.valNumber">
-                            {{numb.viewValue}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="page-indicator">
-                {{daFrom}}  -  {{daTo}} of {{allReviews.length}}
-            </div>
-            <div class="button-container">
-                <button mat-button class="left" matTooltip="Previous" [disabled]="daFrom < 2" (click)="prevPage(reviews)">
-                    <i class="material-icons">keyboard_arrow_left</i></button>
-                <button mat-button class="right" matTooltip="Next" [disabled]="disableNext" (click)="nextPage(reviews)">
-                    <i class="material-icons">keyboard_arrow_right</i></button>
             </div>
         </div>
+        <div class="app-paginator-container" *ngIf="allReviews$ | async as allReviews">
+            <div hidden>{{getReviewLength(allReviews.length)}}</div>
+            <div class="fx app-paginator" *ngIf="allReviews.length > 5">
+                <div class="numb-items">
+                    <label for="numbItems">Review per page:</label>
+                    <!--No.of Reviews-->
+                    <mat-form-field class="numb-items-form-field">
+                        <mat-select (selectionChange)="onChangeSelect()" id="numbItems"
+                                    name="area" [(ngModel)]="numbItems">
+                            <mat-option *ngFor="let numb of numbItemRepeater" [value]="numb.valNumber">
+                                {{numb.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="page-indicator">
+                    {{daFrom}}  -  {{daTo}} of {{allReviews.length}}
+                </div>
+                <div class="button-container">
+                    <button mat-button class="left" matTooltip="Previous" [disabled]="daFrom < 2" (click)="prevPage(reviews)">
+                        <i class="material-icons">keyboard_arrow_left</i></button>
+                    <button mat-button class="right" matTooltip="Next" [disabled]="disableNext" (click)="nextPage(reviews)">
+                        <i class="material-icons">keyboard_arrow_right</i></button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>

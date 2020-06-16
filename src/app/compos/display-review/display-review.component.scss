@@ -1,8 +1,12 @@
 @import 'src/app/styles/variables';
+.review-comp-container {
+  min-height: 525px;
+}
 :host {
-  margin: 20px;
+
 
   .display-review-comp {
+    margin: 20px;
     .app-paginator {
       width: 490px;
       background: aliceblue;

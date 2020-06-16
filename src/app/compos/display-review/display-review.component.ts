@@ -1,11 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {map} from 'rxjs/operators';
+import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ReviewService} from '../write-review/review.service';
 import {MatDialog} from '@angular/material/dialog';
 import {ReviewOutputModel} from './review.model';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {SelectType} from '../../models/models';
-
 
 @Component({
   selector: 'app-display-review',
@@ -13,27 +11,34 @@ import {SelectType} from '../../models/models';
   styleUrls: ['./display-review.component.scss']
 })
 export class DisplayReviewComponent implements OnInit {
-  numbItems = 5;
-  numbItemRepeater: SelectType[] = [
-        {valNumber: 5, viewValue: '5'},
-        {valNumber: 10, viewValue: '10'}
-    ];
-  totalReviews: number;
-  reviewLimit: number;
-  fromHelper = 0;
-  daFrom = this.figureDaFrom(this.fromHelper, this.numbItems);
-  toHelper = 1;
-  daTo = this.figureDaTo(this.toHelper, this.numbItems);
   constructor(private reviewService: ReviewService,
               private dialog: MatDialog) { }
   @Input() restId: string;
   @Input() restName: string;
-  res$: Observable<ReviewOutputModel[]>;
+  @ViewChild('reviewComp', {static: false}) reviewCompEle: ElementRef;
+  numbItems = 5;
+  numbItemRepeater: SelectType[] = [
+      {valNumber: 5, viewValue: '5'},
+      {valNumber: 10, viewValue: '10'}
+  ];
+  totalReviews: number;
+  fromHelper = 0;
+  toHelper = 1;
+  daFrom = this.figureDaFrom(this.fromHelper, this.numbItems);
+  daTo = this.figureDaTo(this.toHelper, this.numbItems);
+  review$: Observable<ReviewOutputModel[]>;
   allReviews$: Observable<ReviewOutputModel[]>;
   disableNext = false;
+  reviewCompTop: number;
+  reviewCompHeight: string;
   ngOnInit() {
       this.getReviews();
       this.getAllReviews();
+      setTimeout(() => {
+          const elementInfo = this.reviewCompEle.nativeElement.getBoundingClientRect();
+          this.reviewCompTop = elementInfo.y;
+          this.reviewCompHeight = `${elementInfo.height}px`;
+          }, 300);
   }
   getAllReviews(): void {
       this.reviewService.getAllReviews(this.restId);
@@ -41,8 +46,8 @@ export class DisplayReviewComponent implements OnInit {
   }
   getReviews(): void {
       this.reviewService.getReviews(this.restId, this.numbItems);
-      if (this.reviewService.res$) {
-          this.res$ = this.reviewService.res$;
+      if (this.reviewService.review$) {
+          this.review$ = this.reviewService.review$;
       }
   }
   getReviewLength(reviewLength: number): void {
@@ -65,20 +70,27 @@ export class DisplayReviewComponent implements OnInit {
   nextPage(reviews: ReviewOutputModel[]): void {
       const startAfter = reviews[reviews.length - 1].rawDate;
       this.reviewService.loadNext(startAfter, this.numbItems, this.restId);
-      this.res$ = this.reviewService.res$;
-      this.toHelper++;
-      this.fromHelper++;
-      this.daFrom = this.figureDaFrom(this.fromHelper, this.numbItems);
-      this.daTo = this.figureDaTo(this.toHelper, this.numbItems);
+      this.prevNextCommon('next');
   }
   prevPage(reviews: ReviewOutputModel[]): void {
       const endBefore = reviews[0].rawDate;
       this.reviewService.loadPrevious(endBefore, this.numbItems, this.restId);
-      this.res$ = this.reviewService.res$;
-      this.toHelper--;
-      this.fromHelper--;
+      this.prevNextCommon('previous');
+  }
+  prevNextCommon(src: string): void {
+      this.review$ = this.reviewService.review$;
+      if (src === 'next') {
+          this.toHelper++;
+          this.fromHelper++;
+      } else {
+          this.toHelper--;
+          this.fromHelper--;
+      }
       this.daFrom = this.figureDaFrom(this.fromHelper, this.numbItems);
       this.daTo = this.figureDaTo(this.toHelper, this.numbItems);
+      const headerHeightNPadding = 74; // 64px height of header 10px padding
+      const finalReviewCompTop = this.reviewCompTop - headerHeightNPadding;
+      window.scroll(0, finalReviewCompTop );
   }
   onChangeSelect() {
       this.getReviews();

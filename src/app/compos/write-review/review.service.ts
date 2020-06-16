@@ -9,7 +9,7 @@ import {Observable} from 'rxjs';
     providedIn: 'root'
 })
 export class ReviewService {
-    res$: Observable<ReviewOutputModel[]>;
+    review$: Observable<ReviewOutputModel[]>;
     allReviews$: Observable<ReviewOutputModel[]>;
     reviewCollection = this.afs.collection('reviews');
     reviews$ = this.reviewCollection.snapshotChanges().pipe(
@@ -45,7 +45,7 @@ export class ReviewService {
         );
     }
     getReviews(restId: string, limit: number): void {
-        this.res$ = this.afs.collection('reviews', ref => ref
+        this.review$ = this.afs.collection('reviews', ref => ref
             .orderBy('rawDate', 'desc')
             .where('restID', '==', restId).limit(limit))
             .snapshotChanges().pipe(
@@ -59,7 +59,7 @@ export class ReviewService {
         );
     }
     loadNext(startAt: number, limit: number, restId: string): void {
-        this.res$ = this.afs.collection('reviews', ref =>
+        this.review$ = this.afs.collection('reviews', ref =>
                 ref.where('restID', '==', restId)
                     .orderBy('rawDate', 'desc')
                     .startAfter(startAt).limit(limit)).snapshotChanges().pipe(
@@ -73,7 +73,7 @@ export class ReviewService {
         );
     }
     loadPrevious(endBefore: number, limit: number, restId: string): void {
-        this.res$ = this.afs.collection('reviews', ref =>
+        this.review$ = this.afs.collection('reviews', ref =>
             ref.where('restID', '==', restId)
                 .orderBy('rawDate', 'desc')
                 .endBefore(endBefore).limitToLast(limit)).snapshotChanges().pipe(
