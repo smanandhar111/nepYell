@@ -3,7 +3,7 @@
         <!--Has Reviews -->
         <div class="repeater" *ngFor="let review of reviews">
             <div class="reviewer-info">
-                <img class="circle" src="{{review.photoURL}}" alt="reviewCompHeight">
+                <img class="circle" src="{{review.photoURL}}" alt="">
                 <span class="display-name">{{review.displayName}}</span>
             </div>
             <div class="review-container">
@@ -19,7 +19,7 @@
             <div hidden>{{getReviewLength(allReviews.length)}}</div>
             <div class="fx app-paginator" *ngIf="allReviews.length > 5">
                 <div class="numb-items">
-                    <label for="numbItems">Review per page:</label>
+                    <label for="numbItems">Reviews per page:</label>
                     <!--No.of Reviews-->
                     <mat-form-field class="numb-items-form-field">
                         <mat-select (selectionChange)="onChangeSelect()" id="numbItems"

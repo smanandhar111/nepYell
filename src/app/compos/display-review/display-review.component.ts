@@ -31,13 +31,15 @@ export class DisplayReviewComponent implements OnInit {
   disableNext = false;
   reviewCompTop: number;
   reviewCompHeight: string;
+  reviewCompHeightVal: string;
   ngOnInit() {
       this.getReviews();
       this.getAllReviews();
       setTimeout(() => {
           const elementInfo = this.reviewCompEle.nativeElement.getBoundingClientRect();
           this.reviewCompTop = elementInfo.y;
-          this.reviewCompHeight = `${elementInfo.height}px`;
+          this.reviewCompHeightVal = `${elementInfo.height}px`;
+          this.reviewCompHeight = this.reviewCompHeightVal;
           }, 300);
   }
   getAllReviews(): void {
@@ -82,6 +84,12 @@ export class DisplayReviewComponent implements OnInit {
       if (src === 'next') {
           this.toHelper++;
           this.fromHelper++;
+          const diff = this.totalReviews - this.daTo;
+          if (diff >= 5) {
+              this.reviewCompHeight = this.reviewCompHeightVal;
+          } else {
+              this.reviewCompHeight = 'auto';
+          }
       } else {
           this.toHelper--;
           this.fromHelper--;
@@ -90,7 +98,11 @@ export class DisplayReviewComponent implements OnInit {
       this.daTo = this.figureDaTo(this.toHelper, this.numbItems);
       const headerHeightNPadding = 74; // 64px height of header 10px padding
       const finalReviewCompTop = this.reviewCompTop - headerHeightNPadding;
-      window.scroll(0, finalReviewCompTop );
+      if (this.reviewCompTop) {
+          window.scroll(0, finalReviewCompTop );
+      }
+      console.log(this.daTo, 'and', this.totalReviews);
+
   }
   onChangeSelect() {
       this.getReviews();
