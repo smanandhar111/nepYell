@@ -1,9 +1,9 @@
 @import 'src/app/styles/variables';
-:host {
+.review-comp-container {
   margin: 20px;
-
-  .display-review-comp {
-    .app-paginator {
+}
+.display-review-comp {
+  .app-paginator {
       width: 490px;
       background: aliceblue;
       justify-content: center;
@@ -37,9 +37,6 @@
       }
     }
   }
-
-
-}
 .repeater {
   display: flex;
   margin-bottom: 20px;
