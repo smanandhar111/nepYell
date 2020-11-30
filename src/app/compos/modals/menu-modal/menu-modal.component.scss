@@ -1,0 +1,20 @@
+.menu-modal-component {
+  margin: 25px;
+  border: 1px dotted #ccc;
+  padding: 10px;
+  .menu {
+    .repeater {
+      padding: 10px 0;
+    }
+    .food-type-header {
+      font-weight: bold;
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      padding-bottom: 5px;
+    }
+    .food-item {
+      font-family: 'Muli', sans-serif;
+      font-size: 12px;
+    }
+  }
+}

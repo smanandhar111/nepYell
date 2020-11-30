@@ -38,7 +38,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { OpenClosedComponent } from './compos/open-closed/open-closed.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { WriteReviewComponent } from './compos/write-review/write-review.component';
-import { LoginModalComponent } from './compos/login-modal/login-modal.component';
+import { LoginModalComponent } from './compos/modals/login-modal/login-modal.component';
 import {ReviewService} from './compos/write-review/review.service';
 import { DisplayReviewComponent } from './compos/display-review/display-review.component';
 import { SimilarOnesComponent } from './compos/similar-ones/similar-ones.component';
@@ -47,6 +47,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {SearchTermFilterPipe} from './compos/gallery/pipes/searchTermFilter.pipe';
 import {MatProgressSpinnerModule, MatSpinner} from '@angular/material/progress-spinner';
 import {MatPaginatorModule} from "@angular/material/paginator";
+import { MenuModalComponent } from './compos/modals/menu-modal/menu-modal.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     LoginModalComponent,
     DisplayReviewComponent,
     SimilarOnesComponent,
-    CarouselComponent
+    CarouselComponent,
+    MenuModalComponent
   ],
   imports: [
     BrowserModule,
@@ -97,7 +99,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     ReactiveFormsModule,
     MatAutocompleteModule,
   ],
-  entryComponents: [WriteReviewComponent, LoginModalComponent],
+  entryComponents: [WriteReviewComponent, LoginModalComponent, MenuModalComponent],
   providers: [AuthService, ProductService, ReviewService],
   bootstrap: [AppComponent]
 })
