@@ -1,0 +1,16 @@
+<div class="menu-modal-component">
+    <div class="restaurant-info d-flex justify-center">
+        <span class="rest-name">{{restName}} Menu</span>
+    </div>
+    <div class="menu">
+        <div *ngFor="let menu of menuItem" class="repeater">
+            <div class="food-type-header">
+                {{menu.header}}
+            </div>
+            <div *ngFor="let xx of menu.footer" class="food-item d-flex">
+                <span>{{xx.food}}</span>
+                <span>{{xx.price}}</span>
+            </div>
+        </div>
+    </div>
+</div>

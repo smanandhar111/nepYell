@@ -3,7 +3,7 @@ import {AuthService} from './auth.service';
 import {Subscription} from 'rxjs';
 import {ProductService} from '../product/product.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {LoginModalComponent} from '../login-modal/login-modal.component';
+import {LoginModalComponent} from '../modals/login-modal/login-modal.component';
 
 @Component({
   selector: 'app-auth',

@@ -357,3 +357,11 @@ mat-checkbox .mat-checkbox-layout .mat-checkbox-label {
     }
   }
 }
+
+.d-flex {
+  display: flex;
+
+  &.justify-center {
+    justify-content: center;
+  }
+}

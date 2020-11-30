@@ -5,9 +5,10 @@ import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {WriteReviewComponent} from '../write-review/write-review.component';
-import {LoginModalComponent} from '../login-modal/login-modal.component';
+import {LoginModalComponent} from '../modals/login-modal/login-modal.component';
 import {ReviewService} from '../write-review/review.service';
 import {ReviewOutputModel} from '../display-review/review.model';
+import {MenuModalComponent} from '../modals/menu-modal/menu-modal.component';
 
 @Component({
   selector: 'app-product-info',
@@ -82,5 +83,14 @@ export class ProductInfoComponent implements OnInit {
     } else {
       return `Please review ${restName}`;
     }
+  }
+  openMenuModal(restName: string): void {
+    const dialogConfig = new MatDialogConfig();
+    const dialogRef = this.dialog.open(MenuModalComponent, {
+      data: {
+        restName,
+        // restId,
+      }
+    });
   }
 }
