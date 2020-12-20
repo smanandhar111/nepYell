@@ -1,20 +1,77 @@
+@import 'src/app/styles/variables';
+
 .menu-modal-component {
-  margin: 25px;
-  border: 1px dotted #ccc;
-  padding: 10px;
-  .menu {
-    .repeater {
-      padding: 10px 0;
+  margin: 10px 25px 25px;
+  .restaurant-info {
+    margin-bottom: 5px;
+    justify-content: space-between;
+
+    a {
+      cursor: pointer;
+      float: right;
+      .material-icons {
+        font-size: 24px;
+        color: $main;
+        font-weight: 700;
+        align-self: center;
+      }
     }
-    .food-type-header {
-      font-weight: bold;
-      font-family: 'Roboto', sans-serif;
-      font-size: 14px;
-      padding-bottom: 5px;
-    }
-    .food-item {
-      font-family: 'Muli', sans-serif;
-      font-size: 12px;
+  }
+  .menu-container {
+    border: 1px dotted #ccc;
+    padding: 10px;
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      .repeater {
+        padding: 10px 0;
+      }
+      .food-type-header {
+        font-weight: bold;
+        font-family: 'Roboto', sans-serif;
+        font-size: 14px;
+        padding-bottom: 5px;
+      }
+      .food-item {
+        font-family: 'Muli', sans-serif;
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+
+        .food-label {
+          text-decoration: underline;
+        }
+      }
+
+      .specific-only {
+        .repeater {
+          display: flex;
+          justify-content: space-between;
+          padding: 5px 0;
+
+          span {
+            font-size: 11px;
+
+            &.label {
+              position: relative;
+              left: 10px;
+            }
+          }
+        }
+      }
+
+      .contain {
+        width: 200px;
+        margin-bottom: 20px;
+        .description {
+          margin-top: 3px;
+          font-size: 10px;
+          width: 180px;
+        }
+      }
     }
   }
 }
+
+
