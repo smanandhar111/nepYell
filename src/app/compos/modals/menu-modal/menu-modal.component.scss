@@ -20,6 +20,8 @@
   .menu-container {
     border: 1px dotted #ccc;
     padding: 10px;
+    max-height: 72vh;
+    overflow-y: auto;
     .menu {
       display: flex;
       flex-wrap: wrap;
