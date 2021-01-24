@@ -31,19 +31,30 @@
           <i class="material-icons">emoji_people</i> <span>Self Service</span>
         </span>
           </div>
+          <!--Here-->
+          <div class="contact">
+            <div class="contact-container">
+              <i class="material-icons">home</i>
+              <span>{{rest.location.toal | titlecase}}, {{rest.location.area | titlecase}}</span>
+            </div>
+            <div class="contact-container">
+              <i class="material-icons">phone</i>
+              <a href="tel:{{rest.phoneNumber}}">{{rest.phoneNumber}}</a>
+            </div>
+          </div>
         </div>
         <app-open-closed [storeHours]="rest.storeHours"
                          [src]="'prodInfo'"></app-open-closed>
-        <div class="contact">
-          <div class="contact-container">
-            <i class="material-icons">home</i>
-            <span>{{rest.location.toal | titlecase}}, {{rest.location.area | titlecase}}</span>
-          </div>
-          <div class="contact-container">
-            <i class="material-icons">phone</i>
-            <a href="tel:{{rest.phoneNumber}}">{{rest.phoneNumber}}</a>
-          </div>
-        </div>
+<!--        <div class="contact">-->
+<!--          <div class="contact-container">-->
+<!--            <i class="material-icons">home</i>-->
+<!--            <span>{{rest.location.toal | titlecase}}, {{rest.location.area | titlecase}}</span>-->
+<!--          </div>-->
+<!--          <div class="contact-container">-->
+<!--            <i class="material-icons">phone</i>-->
+<!--            <a href="tel:{{rest.phoneNumber}}">{{rest.phoneNumber}}</a>-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
 
       <div *ngIf="!getSessionAuth()">
@@ -52,8 +63,9 @@
       <div class="rating-btn-container" *ngIf="getSessionAuth() && logStatus$ | async as user">
         <button class="review-btn" mat-button
                 (click)="openRatingDialog(rest.name, rest.id, user.displayName, user.photoURL, rest.rating)">Write a Review</button>
-        <button class="menu-btn" (click)="openMenuModal(rest.name)">Menu</button>
       </div>
+      <button class="menu-btn" (click)="openMenuModal(rest.name)">Menuuu</button>
+
       <app-display-review class="app-display-view" [restName]="rest.name" [restId] ="productId"></app-display-review>
       <!--No Reviews-->
       <div class="" *ngIf="reviews$ | async as reviews"><!--todo: Reviews$-->

@@ -61,9 +61,26 @@ export class MenuModalComponent implements OnInit {
         {food: 'Goat Curry', price: 100, description: 'Chickpea boild and then fried with onions and garlic with spicy sauce'},
         {food: 'Fish Fry', price: 100, description: 'Chickpea boild and then fried with onions and garlic with spicy sauce'},
       ]},
+    {header: 'Momo', footer: [
+        {food: 'Steam Momo',
+          isSpecific: true,
+          specificList: [{foodType: 'Chicken', price: 250}, {foodType: 'Pork', price: 320}, {foodType: 'Veggie', price: 200}],
+          description: 'Traditional steamed momos, cooked to perfection. This is how momo is enjoyed in most parts of Nepal.'},
+        {food: 'Goat Curry', price: 100, description: 'Chickpea boild and then fried with onions and garlic with spicy sauce'},
+        {food: 'Fish Fry', price: 100, description: 'Chickpea boild and then fried with onions and garlic with spicy sauce'},
+      ]}
   ];
 
   ngOnInit() {
   }
 
+  closeModal(): void {
+    this.dialogRef.close();
+  }
+
+  getStyle(width): string {
+    const halfWidth = width / 2;
+    console.log(`${halfWidth}px`);
+    return `${halfWidth}px`;
+  }
 }

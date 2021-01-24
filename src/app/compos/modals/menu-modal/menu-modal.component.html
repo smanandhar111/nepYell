@@ -1,16 +1,32 @@
 <div class="menu-modal-component">
-    <div class="restaurant-info d-flex justify-center">
+    <div class="restaurant-info d-flex">
         <span class="rest-name">{{restName}} Menu</span>
+        <a class="pointer" (click)="closeModal()"><i class="material-icons">highlight_off</i></a>
     </div>
-    <div class="menu">
-        <div *ngFor="let menu of menuItem" class="repeater">
-            <div class="food-type-header">
-                {{menu.header}}
-            </div>
-            <div *ngFor="let xx of menu.footer" class="food-item d-flex">
-                <span>{{xx.food}}</span>
-                <span>{{xx.price}}</span>
+
+
+    <div class="menu-container">
+        <div #menu class="menu">
+            <div *ngFor="let menu of menuItem" class="repeater">
+                <div class="food-type-header">
+                    {{menu.header}}
+                </div>
+                <div class="contain" *ngFor="let xx of menu.footer">
+                    <div  class="food-item d-flex">
+                        <span class="food-label">{{xx.food}}</span>
+                        <span *ngIf="xx.price" class="food-price">{{xx.price}}</span>
+                    </div>
+                    <div class="description">{{xx.description}}</div>
+                    <div *ngIf="xx.isSpecific" class="specific-only">
+                        <div class="repeater" *ngFor="let specList of xx.specificList">
+                            <span class="label">{{specList.foodType}}</span>
+                            <span class="price">{{specList.price}}</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
+

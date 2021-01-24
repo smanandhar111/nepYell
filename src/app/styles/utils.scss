@@ -364,4 +364,7 @@ mat-checkbox .mat-checkbox-layout .mat-checkbox-label {
   &.justify-center {
     justify-content: center;
   }
+  &.column {
+    flex-direction: column;
+  }
 }

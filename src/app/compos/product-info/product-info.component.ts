@@ -87,6 +87,8 @@ export class ProductInfoComponent implements OnInit {
   openMenuModal(restName: string): void {
     const dialogConfig = new MatDialogConfig();
     const dialogRef = this.dialog.open(MenuModalComponent, {
+      maxWidth: '550px',
+      maxHeight: '635px',
       data: {
         restName,
         // restId,
