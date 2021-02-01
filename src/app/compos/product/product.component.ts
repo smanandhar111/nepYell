@@ -109,6 +109,17 @@ export class ProductComponent implements OnInit {
       this.restFilter.locationType.toal = '';
     }
   }
+
+  onSubCitySelect(event): void {
+    this.productService.subCitySelectSub.next(event.source.value);
+  }
+  onCitySelect(event): void {
+    this.productService.citySelectSub.next(event.source.value);
+  }
+  onPriceRangeSelect(event): void {
+    this.productService.priceRangeSelectSub.next(event.source.value);
+  }
+
   optClick(city) {
     if (city) {
       this.citySelected = true;
