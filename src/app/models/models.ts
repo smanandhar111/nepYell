@@ -33,7 +33,7 @@ export interface RestaurantFilterModel {
         toal: string;
         allSubCities: string;
     };
-    priceRangeType: string;
+    priceRangeType: number;
 }
 
 export interface RateStarModel {

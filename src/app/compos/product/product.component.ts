@@ -34,7 +34,7 @@ export class ProductComponent implements OnInit {
       toal: '',
       allSubCities: '',
     },
-    priceRangeType: ''
+    priceRangeType: 0,
   };
   restFilterValArr =  [];
   priceRangeType: SelectType[] = this.productService.priceRangeType;
@@ -145,7 +145,7 @@ export class ProductComponent implements OnInit {
       this.restFilter.locationType.allSubCities = '';
     }
     if (elementName === 'priceRange') {
-      this.restFilter.priceRangeType = '';
+      this.restFilter.priceRangeType = 0;
     }
   }
   // returns selected toal or allSubCities whichever is available
@@ -193,7 +193,7 @@ export class ProductComponent implements OnInit {
       this.searchInputEle.nativeElement.focus();
     }
     if (e === 'dropdown') {
-      this.restFilter.priceRangeType = '';
+      this.restFilter.priceRangeType = 0;
       this.restFilter.locationType.allSubCities = '';
       this.restFilter.locationType.toal = '';
       this.restFilter.locationType.area = '';
