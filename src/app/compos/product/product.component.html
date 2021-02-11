@@ -31,8 +31,8 @@
           <mat-form-field>
             <mat-label class="labeler">City</mat-label>
             <mat-select (selectionChange)="onChangeSelect($event.value)" name="citySelect" [(ngModel)]="restFilter.locationType.area" >
-              <mat-option (click)="optClick(loco.city)" *ngFor="let loco of locations" [value]="loco.city">
-                {{loco.city}}
+              <mat-option (click)="optClick(location.city)" *ngFor="let location of locations" [value]="location.city">
+                {{location.city}}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -79,15 +79,15 @@
         </div>
       </div>
   </form>
+<!-- TODO Clear All Filters  <button mat-button color="warn" (click)="clearAllFilters()">Clear all filter</button>-->
   <!--Display-->
   <div class="gallery-container">
-    <app-gallery [restFilterValArr]="restFilterValArr"
-                 [src]="'products'"
+    <app-gallery [src]="'products'"
                  [products$]="products$"
                  [reviews$]="reviews$"
-                 [subCitySelect]="getThis()"
+                 [subCitySelect]="getSubCitySelect()"
                  [searchTerm]="searchTerm"
-                 [priceRangeSelect]="convertToNumber(restFilter.priceRangeType)"
+                 [priceRangeSelect]="restFilter.priceRangeType"
                  [citySelect]="restFilter.locationType.area"
                  (clearSearchKeyword)="clearSearchGalleryChild($event)"></app-gallery>
   </div>

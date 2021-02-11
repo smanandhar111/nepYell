@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {ProductsModel} from './products.model';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {catchError, map, shareReplay, tap} from 'rxjs/operators';
 import {AddToFavModel, LocationModel, SelectType} from '../../models/models';
 import {throwError } from 'rxjs';
@@ -26,6 +26,10 @@ export class ProductService {
     {value: 'reasonable', viewValue: 'Reasonable', valNumber: 2},
     {value: 'expensive', viewValue: 'Expensive', valNumber: 3},
   ];
+  foodTypeFilSub = new BehaviorSubject<string[]>([]);
+  foodTypeFil$ = this.foodTypeFilSub.asObservable();
+  clearAllFiltersSub = new BehaviorSubject<boolean>(false);
+  clearAllFilters$ = this.clearAllFiltersSub.asObservable();
   constructor(private afs: AngularFirestore) {
       this.getUserData();
   }

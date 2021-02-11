@@ -1,8 +1,8 @@
-import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges, OnDestroy} from '@angular/core';
 import {ProductService} from '../product/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProductsModel} from '../product/products.model';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {ReviewOutputModel} from '../display-review/review.model';
 
 @Component({
@@ -10,20 +10,29 @@ import {ReviewOutputModel} from '../display-review/review.model';
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss']
 })
-export class GalleryComponent implements OnInit {
-  @Input() src: string;
-  @Input() products$: Observable<ProductsModel[]>;
-  @Input() fromWishList: boolean;
+
+export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
   @Output() clearSearchKeyword: EventEmitter<string> = new EventEmitter<string>();
-  @Input() selfId: string;
-  @Input() adminMode: boolean;
-  @Input() restFilterValArr: Array<string>;
-  @Input() citySelect: string;
-  @Input() subCitySelect: string;
-  @Input() priceRangeSelect: number;
-  @Input() searchTerm: string;
   @Input() reviews$: Observable< ReviewOutputModel[]>;
+  @Input() products$: Observable<ProductsModel[]>;
+  @Input() priceRangeSelect: number;
+  @Input() fromWishList: boolean;
+  @Input() subCitySelect: string;
+  @Input() adminMode: boolean;
+  @Input() citySelect: string;
+  @Input() searchTerm: string;
+  @Input() selfId: string;
+  @Input() src: string;
+  clearAllFiltersSubscription: Subscription;
+  restaurants: ProductsModel[];
+  filteredRestaurants: ProductsModel[] = [];
   restId: string;
+  cityFilter = '';
+  subCityFilter = '';
+  priceRangeFilter = 0;
+  foodTypeFil = [];
+  filterKeyListArray = ['citySelect', 'priceRangeSelect', 'subCitySelect'];
+  searchTermFil = undefined;
   constructor(private productService: ProductService,
               private router: Router,
               private route: ActivatedRoute) { }
@@ -31,6 +40,146 @@ export class GalleryComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.scrollToTop();
+    this.products$.subscribe(prods => {
+      this.restaurants = prods;
+      this.filteredRestaurants = this.restaurants;
+    });
+    this.productService.foodTypeFil$.subscribe(foodTypeArray => {
+      this.foodTypeFil = foodTypeArray;
+      this.chooseFilterTypeCheckbox(foodTypeArray);
+    });
+
+    this.clearAllFiltersSubscription = this.productService.clearAllFilters$.subscribe(isCleared => {
+      if (isCleared) {
+        this.clearAllFilters();
+      }
+    });
+  }
+
+  clearAllFilters(): void {
+    this.filteredRestaurants = this.restaurants;
+  }
+
+  updatingSameFilter(): void {
+    this.clearAllFilters();
+    this.updateAllDropdownFilters();
+  }
+
+  updateAllDropdownFilters(): void {
+    this.filterKeyListArray.forEach(filterKey => {
+      this.allFilters(filterKey);
+    });
+  }
+
+  chooseFilterTypeCheckbox(foodTypeArray): void {
+    const finalArray = [];
+    if (foodTypeArray.length > 0) {
+      foodTypeArray.forEach(foodType => {
+        this.restaurants.filter(item => {
+          if (item.foodType === foodType) {
+            finalArray.push(item);
+          }
+        });
+        this.filteredRestaurants = finalArray;
+      });
+      this.updateAllDropdownFilters();
+    } else {
+      if (this.cityFilter === '' && this.subCityFilter === '' && this.priceRangeFilter === 0) {
+        this.filteredRestaurants = this.restaurants;
+      } else {
+        this.updatingSameFilter();
+      }
+    }
+
+    console.log(this.filteredRestaurants);
+  }
+
+  chooseFilterType(key, changeKey): void {
+    if (key === 'priceRangeSelect') {
+      if (changeKey.currentValue !== 0 && changeKey.previousValue === 0) {
+        this.allFilters(key);
+      } else {
+        this.updatingSameFilter();
+      }
+    } else if (key === 'searchTerm') {
+      if ((changeKey.currentValue !== undefined && changeKey.previousValue === undefined) ||
+          (changeKey.currentValue !== '' && changeKey.previousValue === '')) {
+        this.allFilters(key);
+      } else if (changeKey.currentValue === '' && changeKey.previousValue !== '') {
+        this.clearAllFilters();
+      }
+    } else {
+      if (changeKey.currentValue !== '' && changeKey.previousValue === '') {
+        this.allFilters(key);
+      } else {
+        this.updatingSameFilter();
+      }
+    }
+  }
+
+  allFilters(src): void {
+    switch (src) {
+      case 'citySelect':
+        if (this.cityFilter !== '') {
+          this.filteredRestaurants = this.filteredRestaurants
+              .filter(item => item.location.area === this.cityFilter);
+        }
+        break;
+      case 'subCitySelect':
+        if (this.subCityFilter !== '') {
+          this.filteredRestaurants = this.filteredRestaurants.filter(item => {
+            return item.location.toal === this.subCityFilter;
+          });
+        }
+        break;
+
+      case 'priceRangeSelect':
+        if (this.priceRangeFilter !== 0) {
+          this.filteredRestaurants = this.filteredRestaurants.filter(item => {
+            return item.priceRange === this.priceRangeFilter;
+          });
+        }
+        break;
+
+      case 'searchTerm':
+        if (this.searchTermFil !== '') {
+          this.filteredRestaurants = this.filteredRestaurants.filter(item => {
+            return item.name === this.searchTermFil;
+          });
+        }
+        break;
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const changesLength = Object.keys(changes).length;
+    if (changesLength < 3) {
+      const keyArray = Object.keys(changes);
+      keyArray.forEach(key => {
+        switch (key) {
+          case 'citySelect':
+            this.cityFilter = changes[key].currentValue;
+            this.chooseFilterType(key, changes[key]);
+            break;
+
+          case 'subCitySelect':
+            this.subCityFilter = changes[key].currentValue;
+            this.chooseFilterType(key, changes[key]);
+            break;
+
+          case 'priceRangeSelect':
+            this.priceRangeFilter = changes[key].currentValue;
+            this.chooseFilterType(key, changes[key]);
+            break;
+
+          case 'searchTerm':
+            this.searchTermFil = changes[key].currentValue;
+            this.chooseFilterType(key, changes[key]);
+            break;
+        }
+        console.log('$$', this.filteredRestaurants);
+      });
+    }
   }
 
   getProdDetails(id: string) {
@@ -69,5 +218,9 @@ export class GalleryComponent implements OnInit {
     } else {
       return '';
     }
+  }
+
+  ngOnDestroy(): void {
+    this.clearAllFiltersSubscription.unsubscribe();
   }
 }

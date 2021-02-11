@@ -34,9 +34,9 @@ export class ProductComponent implements OnInit {
       toal: '',
       allSubCities: '',
     },
-    priceRangeType: ''
+    priceRangeType: 0,
   };
-  restFilterValArr =  [];
+  restFilterValArr = [];
   priceRangeType: SelectType[] = this.productService.priceRangeType;
   searchTerm: string;
   @ViewChild('searchInput', {static: false}) searchInputEle: ElementRef;
@@ -94,6 +94,11 @@ export class ProductComponent implements OnInit {
   showInfo() {
     this.router.navigate(['/login']);
   }
+
+  clearAllFilters(): void {
+    this.productService.clearAllFiltersSub.next(true);
+  }
+
   onChangeFoodType(foodType: any, isChecked: boolean): void {
     if (isChecked) {
       this.restFilterValArr.push(foodType);
@@ -101,6 +106,7 @@ export class ProductComponent implements OnInit {
       const index = this.restFilterValArr.findIndex(x => x === foodType);
       this.restFilterValArr.splice(index, 1);
     }
+    this.productService.foodTypeFilSub.next(this.restFilterValArr);
   }
   onSubmit(restFilterForm: NgForm) {}
   onChangeSelect(value) {
@@ -109,6 +115,7 @@ export class ProductComponent implements OnInit {
       this.restFilter.locationType.toal = '';
     }
   }
+
   optClick(city) {
     if (city) {
       this.citySelected = true;
@@ -134,13 +141,13 @@ export class ProductComponent implements OnInit {
       this.restFilter.locationType.allSubCities = '';
     }
     if (elementName === 'priceRange') {
-      this.restFilter.priceRangeType = '';
+      this.restFilter.priceRangeType = 0;
     }
   }
   // returns selected toal or allSubCities whichever is available
   // as UI wise there can only be either a toal or all city selection
   // both these select have the same data toal is specific to selected city
-  getThis(): string {
+  getSubCitySelect(): string {
     if (this.restFilter.locationType.toal) {
       return this.restFilter.locationType.toal;
     } else {
@@ -158,7 +165,7 @@ export class ProductComponent implements OnInit {
     }, 2000);
   }
   addToSearchHistory(): void {
-    this.options = JSON.parse(sessionStorage.term);
+    // this.options = JSON.parse(sessionStorage.term);
   }
   clearSearch(): void {
     this.restFilter.searchInput = '';
@@ -182,7 +189,7 @@ export class ProductComponent implements OnInit {
       this.searchInputEle.nativeElement.focus();
     }
     if (e === 'dropdown') {
-      this.restFilter.priceRangeType = '';
+      this.restFilter.priceRangeType = 0;
       this.restFilter.locationType.allSubCities = '';
       this.restFilter.locationType.toal = '';
       this.restFilter.locationType.area = '';

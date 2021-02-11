@@ -1,5 +1,6 @@
 <div *ngIf="products$ | async as prodItems" class="gallery-comp">
-  <div class="fx display-view" *ngIf="prodItems | citySelectFilter: citySelect | subCitySelectFilter: subCitySelect|
+<!--  <div class="fx display-view" *ngIf="filteredRestaurants">-->
+    <div class="fx display-view" *ngIf="prodItems | citySelectFilter: citySelect | subCitySelectFilter: subCitySelect|
                                           priceRangeFilter: priceRangeSelect | searchTermFilter: searchTerm as searchResult">
     <div class="repeater" (click)="getProdDetails(rest.id)" *ngFor="let rest of searchResult">
       <div class="img-rating-container">
