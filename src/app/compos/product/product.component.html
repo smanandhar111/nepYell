@@ -31,7 +31,7 @@
           <mat-form-field>
             <mat-label class="labeler">City</mat-label>
             <mat-select (selectionChange)="onChangeSelect($event.value)" name="citySelect" [(ngModel)]="restFilter.locationType.area" >
-              <mat-option (click)="optClick(location.city)" *ngFor="let location of locations" [value]="location.city" (onSelectionChange)="onCitySelect($event)">
+              <mat-option (click)="optClick(location.city)" *ngFor="let location of locations" [value]="location.city">
                 {{location.city}}
               </mat-option>
             </mat-select>
@@ -44,7 +44,7 @@
             <mat-label class="labeler">Sub City</mat-label>
             <mat-select [(ngModel)]="restFilter.locationType.toal" name="toalSelect">
               <div class="some" *ngFor="let subCities of locationSubCity$ | async;">
-                <mat-option *ngFor="let sub of subCities" [value]="sub" (onSelectionChange)="onSubCitySelect($event)">
+                <mat-option *ngFor="let sub of subCities" [value]="sub">
                   {{sub}}
                 </mat-option>
               </div>
@@ -70,7 +70,7 @@
           <mat-form-field>
             <mat-label class="labeler">Price Range</mat-label>
             <mat-select name="priceRange" [(ngModel)]="restFilter.priceRangeType">
-              <mat-option *ngFor="let type of priceRangeType" [value]="type.valNumber" (onSelectionChange)="onPriceRangeSelect($event)">
+              <mat-option *ngFor="let type of priceRangeType" [value]="type.valNumber">
                 {{type.viewValue}}
               </mat-option>
             </mat-select>
@@ -79,15 +79,15 @@
         </div>
       </div>
   </form>
+<!-- TODO Clear All Filters  <button mat-button color="warn" (click)="clearAllFilters()">Clear all filter</button>-->
   <!--Display-->
   <div class="gallery-container">
-    <app-gallery [restFilterValArr]="restFilterValArr"
-                 [src]="'products'"
+    <app-gallery [src]="'products'"
                  [products$]="products$"
                  [reviews$]="reviews$"
-                 [subCitySelect]="getThis()"
+                 [subCitySelect]="getSubCitySelect()"
                  [searchTerm]="searchTerm"
-                 [priceRangeSelect]="convertToNumber(restFilter.priceRangeType)"
+                 [priceRangeSelect]="restFilter.priceRangeType"
                  [citySelect]="restFilter.locationType.area"
                  (clearSearchKeyword)="clearSearchGalleryChild($event)"></app-gallery>
   </div>

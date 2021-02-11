@@ -36,7 +36,7 @@ export class ProductComponent implements OnInit {
     },
     priceRangeType: 0,
   };
-  restFilterValArr =  [];
+  restFilterValArr = [];
   priceRangeType: SelectType[] = this.productService.priceRangeType;
   searchTerm: string;
   @ViewChild('searchInput', {static: false}) searchInputEle: ElementRef;
@@ -94,6 +94,11 @@ export class ProductComponent implements OnInit {
   showInfo() {
     this.router.navigate(['/login']);
   }
+
+  clearAllFilters(): void {
+    this.productService.clearAllFiltersSub.next(true);
+  }
+
   onChangeFoodType(foodType: any, isChecked: boolean): void {
     if (isChecked) {
       this.restFilterValArr.push(foodType);
@@ -101,6 +106,7 @@ export class ProductComponent implements OnInit {
       const index = this.restFilterValArr.findIndex(x => x === foodType);
       this.restFilterValArr.splice(index, 1);
     }
+    this.productService.foodTypeFilSub.next(this.restFilterValArr);
   }
   onSubmit(restFilterForm: NgForm) {}
   onChangeSelect(value) {
@@ -108,16 +114,6 @@ export class ProductComponent implements OnInit {
     if (this.restFilter.locationType.toal) {
       this.restFilter.locationType.toal = '';
     }
-  }
-
-  onSubCitySelect(event): void {
-    this.productService.subCitySelectSub.next(event.source.value);
-  }
-  onCitySelect(event): void {
-    this.productService.citySelectSub.next(event.source.value);
-  }
-  onPriceRangeSelect(event): void {
-    this.productService.priceRangeSelectSub.next(event.source.value);
   }
 
   optClick(city) {
@@ -151,7 +147,7 @@ export class ProductComponent implements OnInit {
   // returns selected toal or allSubCities whichever is available
   // as UI wise there can only be either a toal or all city selection
   // both these select have the same data toal is specific to selected city
-  getThis(): string {
+  getSubCitySelect(): string {
     if (this.restFilter.locationType.toal) {
       return this.restFilter.locationType.toal;
     } else {
@@ -169,7 +165,7 @@ export class ProductComponent implements OnInit {
     }, 2000);
   }
   addToSearchHistory(): void {
-    this.options = JSON.parse(sessionStorage.term);
+    // this.options = JSON.parse(sessionStorage.term);
   }
   clearSearch(): void {
     this.restFilter.searchInput = '';

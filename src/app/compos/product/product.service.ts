@@ -26,12 +26,10 @@ export class ProductService {
     {value: 'reasonable', viewValue: 'Reasonable', valNumber: 2},
     {value: 'expensive', viewValue: 'Expensive', valNumber: 3},
   ];
-  subCitySelectSub = new BehaviorSubject<string>('');
-  subCitySelect$ = this.subCitySelectSub.asObservable();
-  citySelectSub = new BehaviorSubject<string>('');
-  citySelect$ = this.citySelectSub.asObservable();
-  priceRangeSelectSub = new BehaviorSubject<number>(null);
-  priceRangeSelect$ = this.priceRangeSelectSub.asObservable();
+  foodTypeFilSub = new BehaviorSubject<string[]>([]);
+  foodTypeFil$ = this.foodTypeFilSub.asObservable();
+  clearAllFiltersSub = new BehaviorSubject<boolean>(false);
+  clearAllFilters$ = this.clearAllFiltersSub.asObservable();
   constructor(private afs: AngularFirestore) {
       this.getUserData();
   }
