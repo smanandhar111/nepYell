@@ -1,8 +1,6 @@
-<div *ngIf="products$ | async as prodItems" class="gallery-comp">
-<!--  <div class="fx display-view" *ngIf="filteredRestaurants">-->
-    <div class="fx display-view" *ngIf="prodItems | citySelectFilter: citySelect | subCitySelectFilter: subCitySelect|
-                                          priceRangeFilter: priceRangeSelect | searchTermFilter: searchTerm as searchResult">
-    <div class="repeater" (click)="getProdDetails(rest.id)" *ngFor="let rest of searchResult">
+<div *ngIf="filteredRestaurants">
+    <div class="fx display-view">
+    <div class="repeater" (click)="getProdDetails(rest.id)" *ngFor="let rest of filteredRestaurants">
       <div class="img-rating-container">
         <div class="circle">
           <img src="../../../assets/img/{{rest.images.outlet[0]}}" alt="{{rest.name}}">
@@ -41,7 +39,7 @@
       </div>
     </div>
     <!--When there is no search results-->
-    <div class="no-results" *ngIf="searchResult.length === 0">
+    <div class="no-results" *ngIf="filteredRestaurants.length === 0">
       <div><i class="material-icons">cloud_off</i><span>No results found</span></div>
       <button *ngIf="searchTerm" mat-button (click)="clearSearch()">Back to Search</button>
       <button *ngIf="checkDropDown()" mat-button (click)="clearSelection()">Clear Selections</button>
