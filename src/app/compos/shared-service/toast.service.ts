@@ -10,9 +10,10 @@ export class ToastService {
 
   showToast(message: string, action?: string): void {
     this.matSnackBar.open(message, action, {
-      duration: 2000,
+      duration: 5000,
       verticalPosition: 'bottom',
-      horizontalPosition: 'right'
+      horizontalPosition: 'right',
+      panelClass: ['app-snackbar-bg']
     });
   }
 
