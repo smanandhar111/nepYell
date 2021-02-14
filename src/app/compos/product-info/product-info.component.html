@@ -38,20 +38,15 @@
           </div>
         </div>
         <div class="do-icons-container d-flex">
-<!--          <a (click)="doIconClicked(icon.action, rest.name, rest.id, user.displayName, user.photoURL, rest.rating)" *ngFor="let icon of doIconsArray"-->
-<!--             class="d-flex column justify-center m-r-70 pointer">-->
-<!--            <i class="material-icons">{{icon.iconName}}</i>-->
-<!--            <span class="icon-title">{{icon.title}}</span>-->
-<!--          </a>-->
           <div *ngIf="!getSessionAuth()" class="d-flex">
-<!--            <button class="review-btn" mat-button (click)="firstLogIn(rest.name, rest.id)">Write a Review</button>-->
             <a class="pointer d-flex column p-r-20 justify-center" (click)="firstLogIn(rest.name, rest.id)">
               <i class="material-icons">local_activity</i>
               <span class="icon-title">Write a review</span>
             </a>
           </div>
           <div class="rating-btn-container d-flex" *ngIf="getSessionAuth() && logStatus$ | async as user">
-            <a class="pointer d-flex column justify-center" (click)="openRatingDialog(rest.name, rest.id, user.displayName, user.photoURL, rest.rating)">
+            <a class="pointer d-flex column justify-center"
+               (click)="openRatingDialog(rest.name, rest.id, user.displayName, user.photoURL, rest.rating)">
               <i class="material-icons">local_activity</i>
               <span class="icon-title">Write a review</span>
             </a>
@@ -64,16 +59,6 @@
         <app-open-closed [storeHours]="rest.storeHours"
                          [src]="'prodInfo'"></app-open-closed>
       </div>
-
-<!--      <div *ngIf="!getSessionAuth()">-->
-
-<!--        <button class="review-btn" mat-button (click)="firstLogIn(rest.name, rest.id)">Write a Review</button>-->
-<!--      </div>-->
-<!--      <div class="rating-btn-container" *ngIf="getSessionAuth() && logStatus$ | async as user">-->
-<!--        <button class="review-btn" mat-button-->
-<!--                (click)="openRatingDialog(rest.name, rest.id, user.displayName, user.photoURL, rest.rating)">Write a Review</button>-->
-<!--      </div>-->
-<!--      <button class="menu-btn" (click)="openMenuModal(rest.name)">Menuuu</button>-->
 
       <app-display-review class="app-display-view" [restName]="rest.name" [restId] ="productId"></app-display-review>
       <!--No Reviews-->
