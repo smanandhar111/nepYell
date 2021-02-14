@@ -7,6 +7,7 @@ import {catchError, map, shareReplay, take, tap} from 'rxjs/operators';
 import {UserModel} from '../../models/models';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {WriteReviewComponent} from '../write-review/write-review.component';
+import {ToastService} from '../shared-service/toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +21,15 @@ export class AuthService {
   constructor(private af: AngularFireAuth,
               private afs: AngularFirestore,
               private dialog: MatDialog,
-              private productService: ProductService) {
+              private productService: ProductService,
+              private toastService: ToastService) {
   }
 
   googleLogin(hasNote?: boolean, restName?: string, restId?: string): void {
-    this.login = this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(() => {
+    this.login = this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((credentials) => {
       this.returnAuthPromise(hasNote, restName, restId);
+      const userFirstName = credentials.user.displayName.split(' ')[0];
+      this.toastService.showToast(`Hi ${userFirstName}, welcome to the YummyApp :)`);
     });
   }
   facebookLogin(hasNote?: boolean, restName?: string, restId?: string): void {
@@ -38,6 +42,7 @@ export class AuthService {
     this.af.auth.signOut().then(() => {
       sessionStorage.setItem('auth', 'false');
       sessionStorage.setItem('uuid', null);
+      this.toastService.showToast(`You have been logged out`);
     });
   }
   // both login src google and facebook go through these functions

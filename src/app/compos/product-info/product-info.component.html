@@ -2,34 +2,17 @@
   <div class="fx" *ngIf="product$ | async as restaurant"><!---todo: Product$-->
 
     <div class="rest-info-container" *ngFor="let rest of restaurant">
-<!--      <div class="images-container">-->
-<!--        <img class="rest-img" src="../../../assets/img/{{rest.images.outlet.outletOne}}" alt="">-->
-<!--        <img class="rest-img" src="../../../assets/img/{{rest.images.outlet.outletTwo}}" alt="">-->
-<!--        <img class="rest-img" src="../../../assets/img/{{rest.images.outlet.outletThree}}" alt="">-->
-<!--        <img class="rest-img" src="../../../assets/img/{{rest.images.outlet.outletFour}}" alt="">-->
-<!--      </div>-->
       <app-carousel [images]="rest.images.outlet"></app-carousel>
       <div class="rest-details">
         <div class="identity">
           <div class="name-rating-container">
             <span class="name">{{rest.name}}</span>
             <app-rating [decimal]="true" [restRating]="rest.rating" [src]="'rating'"></app-rating>
-            {{rest.rating}}
+<!--   tester         {{rest.rating}}-->
           </div>
           <div class="type-price-range-container">
             <div class="type">{{rest.foodType}}</div>
             <app-rating [decimal]="false" [restRating]="rest.priceRange" [src]="'priceRange'"></app-rating>
-          </div>
-          <div class="services">
-        <span class="service-container" *ngIf="rest.services.creditCards">
-          <i class="material-icons">credit_card</i> <span>Credit Accepted</span>
-        </span>
-            <span class="service-container" *ngIf="rest.services.serveAlcohol">
-          <i class="material-icons">local_bar</i> <span>Serves Alcohol / Beer</span>
-        </span>
-            <span class="service-container" *ngIf="rest.services.selfService">
-          <i class="material-icons">emoji_people</i> <span>Self Service</span>
-        </span>
           </div>
           <!--Here-->
           <div class="contact">
@@ -42,29 +25,40 @@
               <a href="tel:{{rest.phoneNumber}}">{{rest.phoneNumber}}</a>
             </div>
           </div>
+          <div class="services">
+            <span class="service-container" *ngIf="rest.services.creditCards">
+              <i class="material-icons">credit_card</i> <span>Credit Accepted</span>
+            </span>
+            <span class="service-container" *ngIf="rest.services.serveAlcohol">
+              <i class="material-icons">local_bar</i> <span>Serves Alcohol / Beer</span>
+            </span>
+            <span class="service-container" *ngIf="rest.services.selfService">
+              <i class="material-icons">emoji_people</i> <span>Self Service</span>
+            </span>
+          </div>
+        </div>
+        <div class="do-icons-container d-flex">
+          <div *ngIf="!getSessionAuth()" class="d-flex">
+            <a class="pointer d-flex column p-r-20 justify-center" (click)="firstLogIn(rest.name, rest.id)">
+              <i class="material-icons">local_activity</i>
+              <span class="icon-title">Write a review</span>
+            </a>
+          </div>
+          <div class="rating-btn-container d-flex" *ngIf="getSessionAuth() && logStatus$ | async as user">
+            <a class="pointer d-flex column justify-center"
+               (click)="openRatingDialog(rest.name, rest.id, user.displayName, user.photoURL, rest.rating)">
+              <i class="material-icons">local_activity</i>
+              <span class="icon-title">Write a review</span>
+            </a>
+          </div>
+          <a class="pointer d-flex column justify-center p-l-40" (click)="openMenuModal(rest.name)">
+            <i class="material-icons">menu_book</i>
+            <span class="icon-title">View Menu</span>
+          </a>
         </div>
         <app-open-closed [storeHours]="rest.storeHours"
                          [src]="'prodInfo'"></app-open-closed>
-<!--        <div class="contact">-->
-<!--          <div class="contact-container">-->
-<!--            <i class="material-icons">home</i>-->
-<!--            <span>{{rest.location.toal | titlecase}}, {{rest.location.area | titlecase}}</span>-->
-<!--          </div>-->
-<!--          <div class="contact-container">-->
-<!--            <i class="material-icons">phone</i>-->
-<!--            <a href="tel:{{rest.phoneNumber}}">{{rest.phoneNumber}}</a>-->
-<!--          </div>-->
-<!--        </div>-->
       </div>
-
-      <div *ngIf="!getSessionAuth()">
-        <button class="review-btn" mat-button (click)="firstLogIn(rest.name, rest.id)">Write a Review</button>
-      </div>
-      <div class="rating-btn-container" *ngIf="getSessionAuth() && logStatus$ | async as user">
-        <button class="review-btn" mat-button
-                (click)="openRatingDialog(rest.name, rest.id, user.displayName, user.photoURL, rest.rating)">Write a Review</button>
-      </div>
-      <button class="menu-btn" (click)="openMenuModal(rest.name)">Menuuu</button>
 
       <app-display-review class="app-display-view" [restName]="rest.name" [restId] ="productId"></app-display-review>
       <!--No Reviews-->

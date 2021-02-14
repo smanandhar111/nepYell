@@ -10,3 +10,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
   background: #EEEEE0;
   //background-image: radial-gradient( #302c8c, #48318c, #000000) ;
 }
+.mat-snack-bar-container.app-snackbar-bg {
+  background: #e94a2f;
+  .mat-simple-snackbar {
+    font-family: 'Muli', sans-serif;
+    font-weight: 500;
+    color: #fff;
+  }
+}

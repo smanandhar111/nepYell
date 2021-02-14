@@ -4,6 +4,7 @@ import {map, switchMap, tap} from 'rxjs/operators';
 import {MonthsEnum} from '../../enums/date.enum';
 import {RawDateModel, ReviewInputModel, ReviewOutputModel} from '../display-review/review.model';
 import {Observable} from 'rxjs';
+import {ToastService} from "../shared-service/toast.service";
 
 @Injectable({
     providedIn: 'root'
@@ -19,11 +20,12 @@ export class ReviewService {
             });
         })
     );
-    constructor(private afs: AngularFirestore) {
+    constructor(private afs: AngularFirestore,
+                private toastService: ToastService) {
     }
     addReview(review: ReviewInputModel): void {
        this.reviewCollection.add(review).then((i) => {
-           console.log('added');
+           this.toastService.showToast(`Thanks for reviewing "${review.restName}" :)`);
        });
     }
     convertDate(date: Date): string {
