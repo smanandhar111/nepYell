@@ -56,6 +56,7 @@ export class WriteReviewComponent implements OnInit {
       restID: this.restID,
       displayName: this.displayName,
       photoURL: this.photoURL,
+      restName: this.name
     };
     const updatedRating = this.ratingCalculator(reviewData.rating);
     setTimeout(() => {

@@ -48,6 +48,8 @@ import {SearchTermFilterPipe} from './compos/gallery/pipes/searchTermFilter.pipe
 import {MatProgressSpinnerModule, MatSpinner} from '@angular/material/progress-spinner';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { MenuModalComponent } from './compos/modals/menu-modal/menu-modal.component';
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {ToastService} from "./compos/shared-service/toast.service";
 
 
 @NgModule({
@@ -98,9 +100,10 @@ import { MenuModalComponent } from './compos/modals/menu-modal/menu-modal.compon
     HttpClientModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
+    MatSnackBarModule,
   ],
   entryComponents: [WriteReviewComponent, LoginModalComponent, MenuModalComponent],
-  providers: [AuthService, ProductService, ReviewService],
+  providers: [AuthService, ProductService, ReviewService, ToastService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
