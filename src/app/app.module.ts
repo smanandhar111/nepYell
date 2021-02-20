@@ -50,6 +50,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import { MenuModalComponent } from './compos/modals/menu-modal/menu-modal.component';
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {ToastService} from "./compos/shared-service/toast.service";
+import { ImageCarouselComponent } from './compos/image-carousel/image-carousel.component';
 
 
 @NgModule({
@@ -73,7 +74,8 @@ import {ToastService} from "./compos/shared-service/toast.service";
     DisplayReviewComponent,
     SimilarOnesComponent,
     CarouselComponent,
-    MenuModalComponent
+    MenuModalComponent,
+    ImageCarouselComponent
   ],
   imports: [
     BrowserModule,

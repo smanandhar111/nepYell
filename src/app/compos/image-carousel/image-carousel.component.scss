@@ -1,0 +1,52 @@
+.pointer {
+  position: relative;
+  z-index: 2;
+  &.prev {
+    right: 10px;
+  }
+  &.next {
+    left: 10px;
+  }
+}
+.image-carousel {
+  min-width: 1338px;
+  min-height: 240px;
+  img {
+    width: 325px;
+    height: 250px;
+    border-radius: 5px;
+    margin-right: 15px;
+
+    &:first-child {
+      margin-left: 7.5px;
+    }
+    &:last-child {
+      margin-right: 7.5px;
+    }
+  }
+  .presenting {
+    display: flex;
+    position: absolute;
+    right: 32px;
+
+    &.slide-right {
+      transition: 1.5s;
+      right: 1456px;
+    }
+
+    &.slide-left {
+      transition: 1.5s;
+      right: 32px;
+    }
+  }
+  .stand-by {
+    position: absolute;
+    right: -1398px;
+    transition: 1.5s;
+
+    &.slide-right {
+      transition: 1.5s;
+      right: 32px;
+    }
+  }
+}
