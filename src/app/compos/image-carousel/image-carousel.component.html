@@ -1,0 +1,23 @@
+<div class="row" style="margin-left: 0">
+    <a class="prev pointer align-self-center"
+       (click)="navImg('prev')">
+        <i class="material-icons">navigate_before</i>
+    </a>
+    <div class="image-carousel d-flex">
+<!--        <div class="stanb-by-left" [ngClass]="{'slide-right':this.slideRight, 'slide-left':this.slideLeft}">-->
+<!--            <img *ngFor="let i of beforeImg" src="{{i}}" alt="">-->
+<!--        </div>-->
+        <div class="presenting" [ngClass]="{'slide-right':this.slideRight, 'slide-left':this.slideLeft}">
+                <img *ngFor="let i of currentImg" src="{{i}}" alt="">
+        </div>
+<!--        <div class="stand-by" [ngClass]="{'slide-right': this.slideRight}">-->
+<!--            <img *ngFor="let i of nextImg" src="{{i}}" alt="">-->
+<!--        </div>-->
+
+    </div>
+    <a class="next pointer align-self-center"
+       (click)="navImg('next')">
+        <i class="material-icons">navigate_next</i>
+    </a>
+</div>
+

@@ -2,7 +2,8 @@
   <div class="fx" *ngIf="product$ | async as restaurant"><!---todo: Product$-->
 
     <div class="rest-info-container" *ngFor="let rest of restaurant">
-      <app-carousel [images]="rest.images.outlet"></app-carousel>
+<!--      <app-carousel [images]="rest.images.outlet"></app-carousel>-->
+      <app-image-carousel [images]="rest.images.outlet"></app-image-carousel>
       <div class="rest-details">
         <div class="identity">
           <div class="name-rating-container">
