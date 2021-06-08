@@ -101,7 +101,7 @@ export class DisplayReviewComponent implements OnInit {
       if (this.reviewCompTop) {
           window.scroll(0, finalReviewCompTop );
       }
-      console.log(this.daTo, 'and', this.totalReviews);
+      // console.log(this.daTo, 'and', this.totalReviews);
 
   }
   onChangeSelect() {

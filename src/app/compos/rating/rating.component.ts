@@ -38,6 +38,7 @@ export class RatingComponent implements OnInit {
       starsLength = this.restRating;
       noStarsLength = this.maxRating - starsLength;
     }
+
     for (let s = 0; s < starsLength; s++) {
       this.stars.push('test');
     }
@@ -72,13 +73,11 @@ export class RatingComponent implements OnInit {
       this.halfStar = true;
       noOfStars = splitRatingNumb;
       noOfNoStars = this.maxRating - noOfStars - 1;
-    }
-    if (res <= 0.24) {
+    } else if (res <= 0.24) {
       this.halfStar = false;
       noOfStars = splitRatingNumb;
       noOfNoStars = this.maxRating - noOfStars;
-    }
-    if (res >= 0.76) {
+    } else if (res >= 0.76) {
       noOfStars = Math.round(this.restRating);
       noOfNoStars = this.maxRating - noOfStars;
     }

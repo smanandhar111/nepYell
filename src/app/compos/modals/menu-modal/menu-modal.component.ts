@@ -80,7 +80,6 @@ export class MenuModalComponent implements OnInit {
 
   getStyle(width): string {
     const halfWidth = width / 2;
-    console.log(`${halfWidth}px`);
     return `${halfWidth}px`;
   }
 }

@@ -29,7 +29,6 @@ export class ImageCarouselComponent implements OnInit {
     this.loopIt(loopStart, loopEnd, this.displayImg);
     this.currentImg = this.displayImg;
     this.prevDisplayImg = this.displayImg;
-    console.log('@@@', this.images.length);
   }
 
   loopIt(loopStart: number, loopEnd: number, array): void {
@@ -40,8 +39,6 @@ export class ImageCarouselComponent implements OnInit {
       array.push(this.images[i]);
     }
     this.loopEnd = loopEnd;
-    console.log('DI', this.displayImg);
-    console.log('DI', this.nextDisplayImg);
   }
 
   navImg(direction: string): void {

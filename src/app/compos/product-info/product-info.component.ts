@@ -95,4 +95,7 @@ export class ProductInfoComponent implements OnInit {
       }
     });
   }
+  getName(name: string): void {
+    this.productService.restNameSub.next(name);
+  }
 }
