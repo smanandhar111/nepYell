@@ -1,8 +1,13 @@
 <mat-toolbar>
-  <button class="app-logo" mat-button  [routerLink]="['/products']">
-    <i class="material-icons">fastfood</i>
-    <b>Yummy</b>
-  </button>
+  <div class="d-flex">
+    <button class="app-logo" mat-button  [routerLink]="['/products']">
+      <i class="material-icons">fastfood</i>
+      <b>Yummy</b>
+    </button>
+    <div class="header-rest-name align-self-center"
+         [ngClass]="{'show': showName() && showActRestName}"> | {{activeRestName}}</div>
+  </div>
+
   <div class="weather-auth-container fx">
     <app-weather></app-weather>
     <app-auth></app-auth>

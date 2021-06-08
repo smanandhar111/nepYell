@@ -30,6 +30,8 @@ export class ProductService {
   foodTypeFil$ = this.foodTypeFilSub.asObservable();
   clearAllFiltersSub = new BehaviorSubject<boolean>(false);
   clearAllFilters$ = this.clearAllFiltersSub.asObservable();
+  restNameSub = new BehaviorSubject<string>('');
+  restName$ = this.restNameSub.asObservable();
   constructor(private afs: AngularFirestore) {
       this.getUserData();
   }

@@ -91,7 +91,7 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
       }
     }
 
-    console.log(this.filteredRestaurants);
+    // console.log(this.filteredRestaurants);
   }
 
   chooseFilterType(key, changeKey): void {
@@ -177,7 +177,6 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
             this.chooseFilterType(key, changes[key]);
             break;
         }
-        console.log('$$', this.filteredRestaurants);
       });
     }
   }

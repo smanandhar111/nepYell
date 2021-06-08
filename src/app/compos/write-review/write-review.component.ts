@@ -31,15 +31,17 @@ export class WriteReviewComponent implements OnInit {
               private reviewService: ReviewService,
               private productService: ProductService,
               @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.name = data.name;
-    this.restID = data.restID;
-    this.displayName = data.displayName;
-    this.photoURL = data.photoURL;
-    this.oldRating = data.oldRating;
-    this.reviewLength = data.reviewLength;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.name = this.data.name;
+    this.restID = this.data.restID;
+    this.displayName = this.data.displayName;
+    this.photoURL = this.data.photoURL;
+    this.oldRating = this.data.oldRating;
+    this.reviewLength = this.data.reviewLength;
+  }
+
   rated(numb: number): void {
     this.rateStars.forEach((i) => {
       i.clicked = i.numb <= numb;
@@ -71,14 +73,12 @@ export class WriteReviewComponent implements OnInit {
     this.dialogRef.close();
   }
   ratingCalculator(newRating: number): number {
-    // const reviewLength = this.reviewLength + 1; // adding one to adjust for the base Rating given @ init
-    // const t = 0.99 - (reviewLength / 100);
-    // const optNewRating = newRating *  t;
-    // const addRating = this.oldRating + optNewRating;
-    // return addRating / (reviewLength + 1);
-    const sumedRating = this.oldRating + newRating;
-    return sumedRating / 2;
-
+    const influencingVariable = 100;
+    if (newRating > this.oldRating) {
+      return (this.oldRating + (newRating / influencingVariable));
+    } else {
+      return (this.oldRating - (newRating / influencingVariable));
+    }
   }
   checkDisability(): boolean {
     return this.review === '' || this.rating === null;

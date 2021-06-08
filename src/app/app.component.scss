@@ -27,6 +27,16 @@ mat-toolbar {
       align-self: center;
     }
   }
+  .header-rest-name {
+    color: transparent;
+    transition: color 0.5s ease;
+    visibility: hidden;
+
+    &.show {
+      color: ivory;
+      visibility: visible;
+    }
+  }
 }
 .spinner {
   position: absolute;
