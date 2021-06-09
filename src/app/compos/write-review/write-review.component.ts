@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {RateStarModel} from '../../models/models';
 import {ReviewService} from './review.service';
 import {ReviewInputModel} from '../display-review/review.model';
-import {ProductService} from "../product/product.service";
+import {ProductService} from '../product/product.service';
 
 
 @Component({
@@ -74,10 +74,24 @@ export class WriteReviewComponent implements OnInit {
   }
   ratingCalculator(newRating: number): number {
     const influencingVariable = 100;
-    if (newRating > this.oldRating) {
-      return (this.oldRating + (newRating / influencingVariable));
-    } else {
-      return (this.oldRating - (newRating / influencingVariable));
+    const calculateRating = (x) => {
+      return (this.oldRating + (x / influencingVariable));
+    };
+    switch (newRating) {
+      case 1:
+        return calculateRating(-4);
+
+      case 2:
+        return calculateRating(-2);
+
+      case 3:
+        return calculateRating(1);
+
+      case 4:
+        return calculateRating(4);
+
+      case 5:
+        return calculateRating(6);
     }
   }
   checkDisability(): boolean {
